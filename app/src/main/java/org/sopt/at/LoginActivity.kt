@@ -1,10 +1,14 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package org.sopt.at
 
 import BackIcon
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -26,6 +30,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -47,6 +53,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableText
+import org.sopt.at.ui.theme.GuideText
 import org.sopt.at.ui.theme.TextFieldBg
 
 class LoginActivity : ComponentActivity() {
@@ -65,6 +72,8 @@ class LoginActivity : ComponentActivity() {
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+
     var idText by remember { mutableStateOf("") }
     var pwdText by remember { mutableStateOf("") }
     var isButtonEnable by remember { mutableStateOf(false) }
@@ -158,16 +167,21 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ButtonText(R.string.login_find_id)
+            LoginDefaultTextButton(R.string.login_find_id, clickEvent = {}) // 아이디 찾기
             ButtonDivider()
-            ButtonText(R.string.login_find_pwd)
+            LoginDefaultTextButton(R.string.login_find_pwd, clickEvent = {}) // 비밀번호 찾기
             ButtonDivider()
-            ButtonText(R.string.sign_up)
+            LoginDefaultTextButton(R.string.sign_up, clickEvent = {
+                val intent = Intent(context, SignupActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                context.startActivity(intent)
+            }) // 회원가입
         }
         Spacer(Modifier.height(30.dp))
         Text(
             stringResource(R.string.login_term_guide),
-            color = Color(0xFF7E7E7E),
+            color = GuideText,
             fontSize = 12.sp,
             textAlign = TextAlign.Center,
             lineHeight = 1.3.em,
@@ -188,12 +202,16 @@ fun ArrowBackIcon(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ButtonText(stringResId: Int) {
-    Text(
-        stringResource(stringResId),
-        color = Color(0xFFB5B5B5),
-        fontSize = 14.sp,
-    )
+fun LoginDefaultTextButton(@StringRes text: Int, clickEvent: () -> Unit) {
+    TextButton(
+        onClick = clickEvent
+    ) {
+        Text(
+            stringResource(text),
+            color = Color(0xFFB5B5B5),
+            fontSize = 14.sp,
+        )
+    }
 }
 
 @Composable
