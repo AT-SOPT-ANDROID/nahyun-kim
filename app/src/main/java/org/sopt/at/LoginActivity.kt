@@ -6,7 +6,6 @@ import BackIcon
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -30,14 +29,16 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,24 +54,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import org.sopt.at.model.LoginUser
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.GuideText
-import org.sopt.at.ui.theme.TextFieldBg
 
 
 class LoginActivity : ComponentActivity() {
+    var loginUser: LoginUser? = null
+
     private val signupResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if ( result.resultCode == RESULT_OK ) {
-            val loginUser = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            loginUser = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 result.data?.getParcelableExtra(SIGNUP_USER_INFO_KEY, LoginUser::class.java)
             } else {
                 result.data?.getParcelableExtra<LoginUser>(SIGNUP_USER_INFO_KEY)
-            }
-            Toast.makeText(this, loginUser.toString(), Toast.LENGTH_SHORT).show()
+            })
         }
     }
 
@@ -78,10 +80,39 @@ class LoginActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            var idText by remember { mutableStateOf("") }
+            var pwdText by remember { mutableStateOf("") }
+
+            val scope = rememberCoroutineScope()
+            val snackbarHostState = remember { SnackbarHostState() }
+
             ATSOPTANDROIDTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    snackbarHost = {
+                        SnackbarHost(hostState = snackbarHostState)
+                    },
+                ) { innerPadding ->
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
+                        idText = idText,
+                        onIdChange = { idText = it },
+                        pwdText = pwdText,
+                        onPwdChange = { pwdText = it },
+                        onClickLoginButton = {
+                            if (isIdenticalLoginUserInfo(idText, pwdText)) {
+                                startActivity(Intent(this, MyActivity::class.java))
+                            } else {
+                                val message = if (loginUser == null) {
+                                    "회원 정보가 없습니다."
+                                } else {
+                                    "아이디 또는 비밀번호가 일치하지 않습니다."
+                                }
+                                scope.launch {
+                                    snackbarHostState.showSnackbar(message)
+                                }
+                            }
+                        },
                         onClickSignUpButton = {
                             val intent = Intent(this, SignupActivity::class.java)
                             signupResultLauncher.launch(intent)
@@ -92,6 +123,10 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
+    fun isIdenticalLoginUserInfo(id: String, pwd: String): Boolean {
+        return loginUser?.id == id && pwd == loginUser?.password
+    }
+
     companion object {
         const val SIGNUP_USER_INFO_KEY = "signup_user_info_key"
     }
@@ -100,15 +135,21 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
+    idText: String = "",
+    onIdChange: (String) -> Unit = {},
+    pwdText: String = "",
+    onPwdChange: (String) -> Unit = {},
+    onClickLoginButton: () -> Unit = {},
     onClickSignUpButton: () -> Unit = {}
-    ) {
-
-    var idText by remember { mutableStateOf("") }
-    var pwdText by remember { mutableStateOf("") }
+) {
     var isButtonEnable by remember { mutableStateOf(false) }
     var isPwdVisible by remember { mutableStateOf(false) }
 
     val pwdIcon = if (isPwdVisible) painterResource(R.drawable.ic_password_show) else painterResource(R.drawable.ic_password_hide)
+
+    fun updateButtonState() {
+        isButtonEnable = idText.isNotEmpty() && pwdText.isNotEmpty()
+    }
 
     Column(
         modifier = modifier
@@ -137,8 +178,8 @@ fun LoginScreen(
             OutlinedTextField(
                 value = idText,
                 onValueChange = {
-                    idText = it
-                    isButtonEnable = idText.isNotEmpty()
+                    onIdChange(it)
+                    updateButtonState()
                 },
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -148,7 +189,10 @@ fun LoginScreen(
             Spacer(Modifier.height(10.dp))
             OutlinedTextField(
                 value = pwdText,
-                onValueChange = { pwdText = it },
+                onValueChange = {
+                    onPwdChange(it)
+                    updateButtonState()
+                },
                 modifier = Modifier
                     .fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.password_hint)) },
@@ -164,10 +208,7 @@ fun LoginScreen(
                             modifier = Modifier.size(20.dp)
                         )
                     }
-                },
-                colors = OutlinedTextFieldDefaults.colors(
-                    TextFieldBg
-                )
+                }
             )
         }
         Spacer(Modifier.height(18.dp))
@@ -175,7 +216,9 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 12.dp),
-            onClick = { },
+            onClick = {
+                onClickLoginButton()
+            },
             enabled = isButtonEnable,
             shape = RoundedCornerShape(8.dp),
             contentPadding = PaddingValues(vertical = 12.dp)
@@ -200,9 +243,7 @@ fun LoginScreen(
             ButtonDivider()
             LoginDefaultTextButton(R.string.login_find_pwd, clickEvent = {}) // 비밀번호 찾기
             ButtonDivider()
-            LoginDefaultTextButton(R.string.sign_up, clickEvent = {
-                onClickSignUpButton()
-            }) // 회원가입
+            LoginDefaultTextButton(R.string.sign_up, clickEvent = onClickSignUpButton)
         }
         Spacer(Modifier.height(30.dp))
         Text(
