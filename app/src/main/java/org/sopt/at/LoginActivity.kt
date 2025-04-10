@@ -4,6 +4,7 @@ package org.sopt.at
 
 import BackIcon
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -52,6 +53,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import org.sopt.at.model.LoginUser
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.GuideText
@@ -63,13 +65,12 @@ class LoginActivity : ComponentActivity() {
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if ( result.resultCode == RESULT_OK ) {
-            val receiveData = result.data?.getBundleExtra(SIGNUP_USER_INFO_BUNDLE_KEY)
-            receiveData?.let {
-                var userId = it.getString(SIGNUP_USER_INFO_ID_KEY)
-                var userPwd = it.getString(SIGNUP_USER_INFO_PWD_KEY)
-                // 받아온 데이터로 토스트 메시지 띄우기
-                Toast.makeText(this, "$userId, $userPwd", Toast.LENGTH_SHORT).show()
+            val loginUser = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                result.data?.getParcelableExtra(SIGNUP_USER_INFO_KEY, LoginUser::class.java)
+            } else {
+                result.data?.getParcelableExtra<LoginUser>(SIGNUP_USER_INFO_KEY)
             }
+            Toast.makeText(this, loginUser.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -92,9 +93,7 @@ class LoginActivity : ComponentActivity() {
     }
 
     companion object {
-        const val SIGNUP_USER_INFO_BUNDLE_KEY = "signup_user_info_bundle_key"
-        const val SIGNUP_USER_INFO_ID_KEY = "signup_user_info_id_key"
-        const val SIGNUP_USER_INFO_PWD_KEY = "signup_user_info_pwd_key"
+        const val SIGNUP_USER_INFO_KEY = "signup_user_info_key"
     }
 }
 

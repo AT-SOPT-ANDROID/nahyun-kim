@@ -1,6 +1,5 @@
 package org.sopt.at
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -45,11 +44,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_BUNDLE_KEY
-import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_ID_KEY
-import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_PWD_KEY
+import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_KEY
 import org.sopt.at.SignupActivity.Companion.isValidId
 import org.sopt.at.SignupActivity.Companion.isValidPassword
+import org.sopt.at.model.LoginUser
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.GuideText
@@ -120,11 +118,7 @@ class SignupActivity : ComponentActivity() {
 
     private fun sendUserInfo(id: String, pwd: String) {
         val intent = Intent(this, LoginActivity::class.java)
-        val bundle = Bundle().apply {
-            putString(SIGNUP_USER_INFO_ID_KEY, id)
-            putString(SIGNUP_USER_INFO_PWD_KEY, pwd)
-        }
-        intent.putExtra(SIGNUP_USER_INFO_BUNDLE_KEY, bundle)
+            .putExtra(SIGNUP_USER_INFO_KEY, LoginUser(id, pwd))
         setResult(RESULT_OK, intent)
     }
 
