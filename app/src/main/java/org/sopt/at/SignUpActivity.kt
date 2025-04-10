@@ -43,9 +43,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.at.SignupActivity.Companion.idRange
-import org.sopt.at.SignupActivity.Companion.idRegex
-import org.sopt.at.SignupActivity.Companion.passwordRegex
+import org.sopt.at.SignupActivity.Companion.isValidId
+import org.sopt.at.SignupActivity.Companion.isValidPassword
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.GuideText
@@ -107,19 +106,18 @@ class SignupActivity : ComponentActivity() {
     }
 
     companion object {
-        const val idRegex = "^[a-zA-Z0-9]*$" // 아이디 유효성
-        val idRange = 6..12
+        // 정규식 패턴
+        const val ID_PATTERN = "^(?=.*[a-z]+)(?=.*\\d*)[a-z\\d]{6,12}$"
+        const val PWD_PATTERN = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*]).*$"
 
-        const val passwordRegex = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*]).*$" // 회원가입 유효성
+        fun isValidId(id: String): Boolean {
+            return Pattern.matches(ID_PATTERN, id)
+        }
+
+        fun isValidPassword(pwd: String): Boolean {
+            return Pattern.matches(PWD_PATTERN, pwd)
+        }
     }
-}
-
-fun isValidId(id: String): Boolean {
-    return Pattern.matches(idRegex, id) && id.length in idRange
-}
-
-fun isValidPassword(pwd: String): Boolean {
-    return Pattern.matches(passwordRegex, pwd)
 }
 
 @Composable
