@@ -1,5 +1,7 @@
 package org.sopt.at
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -43,6 +45,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_BUNDLE_KEY
+import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_ID_KEY
+import org.sopt.at.LoginActivity.Companion.SIGNUP_USER_INFO_PWD_KEY
 import org.sopt.at.SignupActivity.Companion.isValidId
 import org.sopt.at.SignupActivity.Companion.isValidPassword
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
@@ -62,6 +67,9 @@ class SignupActivity : ComponentActivity() {
 
         setContent {
             var step by remember { mutableStateOf(SignUpStep.ID) }
+
+            var idText by remember { mutableStateOf("") }
+            var pwdText by remember { mutableStateOf("") }
 
             ATSOPTANDROIDTheme {
                 Scaffold(
@@ -87,15 +95,20 @@ class SignupActivity : ComponentActivity() {
                         SignUpStep.ID -> {
                             SignUpIdScreen(
                                 modifier = Modifier.padding(innerPadding),
+                                idText = idText,
+                                onIdChange = { idText = it },
                                 onClickNextButton = { step = SignUpStep.PASSWORD }
                             )
                         }
                         SignUpStep.PASSWORD -> {
                             SignUpPwdScreen(
                                 modifier = Modifier.padding(innerPadding),
+                                pwdText = pwdText,
+                                onPwdChange = { pwdText = it },
                                 onClickNextButton = {
-                                    //TODO: 로그인 화면으로 이동
                                     Toast.makeText(this, "회원가입 완료!", Toast.LENGTH_SHORT).show()
+                                    sendUserInfo(idText, pwdText)
+                                    finish()
                                 }
                             )
                         }
@@ -103,6 +116,16 @@ class SignupActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun sendUserInfo(id: String, pwd: String) {
+        val intent = Intent(this, LoginActivity::class.java)
+        val bundle = Bundle().apply {
+            putString(SIGNUP_USER_INFO_ID_KEY, id)
+            putString(SIGNUP_USER_INFO_PWD_KEY, pwd)
+        }
+        intent.putExtra(SIGNUP_USER_INFO_BUNDLE_KEY, bundle)
+        setResult(RESULT_OK, intent)
     }
 
     companion object {
@@ -123,11 +146,11 @@ class SignupActivity : ComponentActivity() {
 @Composable
 fun SignUpIdScreen(
     modifier: Modifier = Modifier,
-    onClickNextButton: () -> Unit
+    idText: String = "",
+    onIdChange: (String) -> Unit = {},
+    onClickNextButton: () -> Unit = {}
     ) {
     val context = LocalContext.current
-
-    var idText by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -153,9 +176,7 @@ fun SignUpIdScreen(
             Spacer(Modifier.height(24.dp))
             OutlinedTextField(
                 value = idText,
-                onValueChange = {
-                    idText = it
-                },
+                onIdChange,
                 modifier = Modifier
                     .fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.id_hint)) },
@@ -204,11 +225,12 @@ fun SignUpIdScreen(
 @Composable
 fun SignUpPwdScreen(
     modifier: Modifier = Modifier,
-    onClickNextButton: () -> Unit
+    pwdText: String = "",
+    onPwdChange: (String) -> Unit = {},
+    onClickNextButton: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
-    var passwordText by remember { mutableStateOf("") }
     var isPwdVisible by remember { mutableStateOf(false) }
 
     val pwdIcon = if (isPwdVisible) painterResource(R.drawable.ic_password_show) else painterResource(R.drawable.ic_password_hide)
@@ -236,10 +258,8 @@ fun SignUpPwdScreen(
             )
             Spacer(Modifier.height(24.dp))
             OutlinedTextField(
-                value = passwordText,
-                onValueChange = {
-                    passwordText = it
-                },
+                value = pwdText,
+                onPwdChange,
                 modifier = Modifier
                     .fillMaxWidth(),
                 placeholder = { Text(stringResource(R.string.password_hint)) },
@@ -277,7 +297,7 @@ fun SignUpPwdScreen(
                     shape = RoundedCornerShape(4.dp)
                 ),
             onClick = {
-                if (isValidPassword(passwordText)) {
+                if (isValidPassword(pwdText)) {
                     onClickNextButton()
                 } else {
                     Toast.makeText(context, context.getText(R.string.signup_pwd_error_form), Toast.LENGTH_SHORT).show()
@@ -301,7 +321,7 @@ fun SignUpPwdScreen(
 @Composable
 fun SignupIdPreview() {
     ATSOPTANDROIDTheme {
-        SignUpIdScreen(onClickNextButton = {})
+        SignUpIdScreen()
     }
 }
 
@@ -309,6 +329,6 @@ fun SignupIdPreview() {
 @Composable
 fun SignupPwdPreview() {
     ATSOPTANDROIDTheme {
-        SignUpPwdScreen(onClickNextButton = {})
+        SignUpPwdScreen()
     }
 }

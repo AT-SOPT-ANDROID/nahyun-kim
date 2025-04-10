@@ -5,9 +5,11 @@ package org.sopt.at
 import BackIcon
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -40,7 +42,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -56,23 +57,52 @@ import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.GuideText
 import org.sopt.at.ui.theme.TextFieldBg
 
+
 class LoginActivity : ComponentActivity() {
+    private val signupResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if ( result.resultCode == RESULT_OK ) {
+            val receiveData = result.data?.getBundleExtra(SIGNUP_USER_INFO_BUNDLE_KEY)
+            receiveData?.let {
+                var userId = it.getString(SIGNUP_USER_INFO_ID_KEY)
+                var userPwd = it.getString(SIGNUP_USER_INFO_PWD_KEY)
+                // 받아온 데이터로 토스트 메시지 띄우기
+                Toast.makeText(this, "$userId, $userPwd", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ATSOPTANDROIDTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(modifier = Modifier.padding(innerPadding))
+                    LoginScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        onClickSignUpButton = {
+                            val intent = Intent(this, SignupActivity::class.java)
+                            signupResultLauncher.launch(intent)
+                        }
+                    )
                 }
             }
         }
     }
+
+    companion object {
+        const val SIGNUP_USER_INFO_BUNDLE_KEY = "signup_user_info_bundle_key"
+        const val SIGNUP_USER_INFO_ID_KEY = "signup_user_info_id_key"
+        const val SIGNUP_USER_INFO_PWD_KEY = "signup_user_info_pwd_key"
+    }
 }
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier) {
-    val context = LocalContext.current
+fun LoginScreen(
+    modifier: Modifier = Modifier,
+    onClickSignUpButton: () -> Unit = {}
+    ) {
 
     var idText by remember { mutableStateOf("") }
     var pwdText by remember { mutableStateOf("") }
@@ -172,10 +202,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             LoginDefaultTextButton(R.string.login_find_pwd, clickEvent = {}) // 비밀번호 찾기
             ButtonDivider()
             LoginDefaultTextButton(R.string.sign_up, clickEvent = {
-                val intent = Intent(context, SignupActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                }
-                context.startActivity(intent)
+                onClickSignUpButton()
             }) // 회원가입
         }
         Spacer(Modifier.height(30.dp))
@@ -195,7 +222,9 @@ fun ArrowBackIcon(modifier: Modifier = Modifier) {
     Image(
         imageVector = BackIcon,
         contentDescription = null,
-        modifier = modifier.size(24.dp).padding(1.dp),
+        modifier = modifier
+            .size(24.dp)
+            .padding(1.dp),
         contentScale = ContentScale.FillBounds,
         alignment = Alignment.Center
     )
