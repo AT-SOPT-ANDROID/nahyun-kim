@@ -53,7 +53,6 @@ fun SignUpIdScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(Modifier.height(16.dp))
             Text(
                 text = stringResource(R.string.signup_id_title),
                 style = MaterialTheme.typography.titleLarge,
@@ -62,6 +61,7 @@ fun SignUpIdScreen(
             Spacer(Modifier.height(24.dp))
             CommonTextField(
                 modifier = Modifier.fillMaxWidth(),
+                height = 60.dp,
                 type = TextFieldType.DEFAULT,
                 value = idText,
                 onValueChange = onIdChange,

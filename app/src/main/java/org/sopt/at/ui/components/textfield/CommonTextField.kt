@@ -34,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
@@ -53,6 +54,7 @@ fun CommonTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     placeholder: String = "",
     value: String = "",
+    height: Dp = 48.dp,
     onValueChange: (String) -> Unit = { },
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
@@ -67,15 +69,15 @@ fun CommonTextField(
     }
 
     BasicTextField(
-        modifier = modifier.fillMaxWidth().height(50.dp),
+        modifier = modifier.fillMaxWidth().height(height),
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
         visualTransformation = if (!isPwdVisible && isPwdTextField) PasswordVisualTransformation() else VisualTransformation.None,
         interactionSource = interactionSource,
         singleLine = true,
-        textStyle = MaterialTheme.typography.labelMedium.copy(
-            color = Color.White
+        textStyle = MaterialTheme.typography.bodyMedium.copy(
+            color = White
         ),
         cursorBrush = SolidColor(White),
         decorationBox = { innerTextField ->
@@ -92,7 +94,7 @@ fun CommonTextField(
                         shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius))
                     )
                     .fillMaxSize()
-                    .padding(horizontal = 12.dp, vertical = 8.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
             ) {
                 Box(
                     modifier = Modifier.weight(1f)
@@ -100,7 +102,7 @@ fun CommonTextField(
                     if (value.isEmpty()) {
                         Text(
                             text = placeholder,
-                            style = MaterialTheme.typography.labelMedium.copy(
+                            style = MaterialTheme.typography.bodyMedium.copy(
                                 color = HintText
                             )
                         )

@@ -4,7 +4,6 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,7 +30,7 @@ fun LargeOutlinedButton(
     @StringRes buttonTextRes: Int = R.string.next,
     onClick: () -> Unit = {}
 ) {
-    DisableRippleEffect {
+    DisableRippleEffect  {
         OutlinedButton(
             modifier = modifier
                 .fillMaxWidth()

@@ -9,13 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,11 +21,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
@@ -68,13 +61,13 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Top
     ) {
         ArrowBackIcon()
-        Spacer(Modifier.height(40.dp))
+        Spacer(Modifier.height(50.dp))
         Text(
             text = stringResource(R.string.login_using_tving_id),
             style = MaterialTheme.typography.titleLarge,
             modifier = Modifier
         )
-        Spacer(Modifier.height(18.dp))
+        Spacer(Modifier.height(22.dp))
         Column (
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
@@ -103,13 +96,13 @@ fun LoginScreen(
                 placeholder = stringResource(R.string.password_hint),
             )
         }
-        Spacer(Modifier.height(18.dp))
+        Spacer(Modifier.height(20.dp))
         LargeFilledButton( // 로그인 버튼
             buttonTextRes = R.string.do_login,
             isButtonEnable = isButtonEnable,
             onClick = onClickLoginButton
         )
-        Spacer(Modifier.height(22.dp))
+        Spacer(Modifier.height(20.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -124,7 +117,7 @@ fun LoginScreen(
             ButtonDivider()
             CommonTextButton(R.string.sign_up, onClick = onClickSignUpButton) // 회원가입
         }
-        Spacer(Modifier.height(30.dp))
+        Spacer(Modifier.height(20.dp))
         Text(
             stringResource(R.string.login_term_guide),
             style = MaterialTheme.typography.labelSmall,

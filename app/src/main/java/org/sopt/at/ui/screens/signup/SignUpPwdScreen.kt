@@ -52,7 +52,6 @@ fun SignUpPwdScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(Modifier.height(16.dp))
             Text(
                 text = stringResource(R.string.signup_pwd_title),
                 style = MaterialTheme.typography.titleLarge,
@@ -62,6 +61,7 @@ fun SignUpPwdScreen(
             CommonTextField(
                 modifier = Modifier.fillMaxWidth(),
                 type = TextFieldType.PASSWORD,
+                height = 60.dp,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 value = pwdText,
                 onValueChange = onPwdChange,

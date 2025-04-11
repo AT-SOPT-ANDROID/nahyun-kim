@@ -28,6 +28,11 @@ val Typography = Typography(
         fontWeight = FontWeight.ExtraBold,
         fontSize = 20.sp,
     ),
+    bodyMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        color = LabelButtonText,
+        fontSize = 15.sp,
+    ),
     labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontSize = 16.sp,

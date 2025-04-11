@@ -3,7 +3,6 @@ package org.sopt.at.ui.components.button
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,12 +29,11 @@ fun LargeFilledButton(
 ) {
     Button( // 로그인 버튼
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp),
+            .fillMaxWidth(),
         onClick = onClick,
         enabled = isButtonEnable,
         shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
-        contentPadding = PaddingValues(vertical = 12.dp),
+        contentPadding = PaddingValues(vertical = 14.dp),
         colors = ButtonDefaults.buttonColors(
             disabledContainerColor = ButtonDisableBg,
             disabledContentColor = HintText,
