@@ -43,6 +43,6 @@ val Typography = Typography(
         color = GuideText,
         fontSize = 12.sp,
         textAlign = TextAlign.Center,
-        lineHeight = 1.3.em,
+        lineHeight = 1.4.em,
     )
 )

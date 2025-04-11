@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -39,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.ui.theme.ButtonDisableBg
 import org.sopt.at.ui.theme.ButtonDisableText
 
 @Composable
@@ -64,8 +66,8 @@ fun LoginScreen(
     Column(
         modifier = modifier
             .padding(
-                vertical = 12.dp,
-                horizontal = 16.dp
+                vertical = dimensionResource(R.dimen.screen_padding_vertical),
+                horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
             )
             .fillMaxSize(),
         horizontalAlignment = Alignment.Start,
@@ -128,9 +130,8 @@ fun LoginScreen(
                 onClickLoginButton()
             },
             enabled = isButtonEnable,
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
             contentPadding = PaddingValues(vertical = 12.dp)
-
         ) {
             Text(
                 text = stringResource(R.string.do_login),
@@ -189,9 +190,9 @@ fun LoginDefaultTextButton(@StringRes text: Int, clickEvent: () -> Unit) {
 @Composable
 fun ButtonDivider() {
     Spacer(modifier = Modifier
-        .width(0.8.dp)
+        .width(dimensionResource(R.dimen.divider_width))
         .height(16.dp)
-        .background(ButtonDisableText)
+        .background(ButtonDisableBg)
     )
 }
 

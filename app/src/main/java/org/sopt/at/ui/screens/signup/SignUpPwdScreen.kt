@@ -1,7 +1,7 @@
 package org.sopt.at.ui.screens.signup
 
 import android.widget.Toast
-import androidx.compose.foundation.border
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -54,8 +55,8 @@ fun SignUpPwdScreen(
     Column(
         modifier = modifier
             .padding(
-                vertical = 12.dp,
-                horizontal = 16.dp
+                vertical = dimensionResource(R.dimen.screen_padding_vertical),
+                horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
             )
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -102,12 +103,7 @@ fun SignUpPwdScreen(
         OutlinedButton( // 다음 버튼
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 12.dp)
-                .border(
-                    width = 0.5.dp,
-                    color = ButtonDisableText,
-                    shape = RoundedCornerShape(4.dp)
-                ),
+                .padding(vertical = 12.dp),
             onClick = {
                 if (isValidPassword(pwdText)) {
                     onClickNextButton()
@@ -115,7 +111,8 @@ fun SignUpPwdScreen(
                     Toast.makeText(context, context.getText(R.string.signup_pwd_error_form), Toast.LENGTH_SHORT).show()
                 }
             },
-            shape = RoundedCornerShape(8.dp),
+            border = BorderStroke(dimensionResource(R.dimen.outline_button_stroke_width), ButtonDisableText),
+            shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
             contentPadding = PaddingValues(vertical = 12.dp)
 
         ) {
