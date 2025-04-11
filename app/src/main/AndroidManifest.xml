@@ -21,7 +21,8 @@
             android:name=".ui.screens.signup.SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
-            android:theme="@style/Theme.ATSOPTANDROID" />
+            android:theme="@style/Theme.ATSOPTANDROID"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".ui.screens.login.LoginActivity"
             android:exported="true"
