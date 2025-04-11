@@ -1,4 +1,4 @@
-package org.sopt.at
+package org.sopt.at.ui.screens.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

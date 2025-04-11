@@ -13,17 +13,17 @@
         android:theme="@style/Theme.ATSOPTANDROID"
         tools:targetApi="31">
         <activity
-            android:name=".MyActivity"
+            android:name=".ui.screens.main.MyActivity"
             android:exported="false"
             android:label="@string/title_activity_my"
             android:theme="@style/Theme.ATSOPTANDROID" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".ui.screens.signup.SignupActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.ATSOPTANDROID" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.screens.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ATSOPTANDROID">
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.screens.main.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ATSOPTANDROID">
             <intent-filter>

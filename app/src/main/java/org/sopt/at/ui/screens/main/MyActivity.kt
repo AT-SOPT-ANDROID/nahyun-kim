@@ -1,4 +1,4 @@
-package org.sopt.at
+package org.sopt.at.ui.screens.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -41,12 +41,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.at.LoginActivity.Companion.USER_ID_KEY
+import org.sopt.at.ui.screens.login.ArrowBackIcon
+import org.sopt.at.ui.screens.login.LoginActivity
+import org.sopt.at.ui.screens.login.LoginActivity.Companion.USER_ID_KEY
+import org.sopt.at.R
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.ButtonTint
 import org.sopt.at.ui.theme.White
 
+//TODO: 바텀네비 구현 후 Screen으로 바꾸기
 class MyActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
