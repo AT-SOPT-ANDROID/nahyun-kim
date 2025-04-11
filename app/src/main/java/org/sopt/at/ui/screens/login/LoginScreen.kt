@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,6 +36,8 @@ import org.sopt.at.R
 import org.sopt.at.ui.components.button.ArrowBackIcon
 import org.sopt.at.ui.components.button.CommonTextButton
 import org.sopt.at.ui.components.button.LargeFilledButton
+import org.sopt.at.ui.components.textfield.CommonTextField
+import org.sopt.at.ui.components.textfield.TextFieldType
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonDisableBg
 
@@ -48,10 +52,6 @@ fun LoginScreen(
     onClickSignUpButton: () -> Unit = {}
 ) {
     var isButtonEnable by remember { mutableStateOf(false) }
-    var isPwdVisible by remember { mutableStateOf(false) }
-
-    val pwdIcon = if (isPwdVisible) painterResource(R.drawable.ic_password_show) else painterResource(
-        R.drawable.ic_password_hide)
 
     fun updateButtonState() {
         isButtonEnable = idText.isNotEmpty() && pwdText.isNotEmpty()
@@ -79,40 +79,28 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Top,
             modifier = Modifier
         ) {
-            OutlinedTextField(
+            CommonTextField(
+                modifier = Modifier.fillMaxWidth(),
+                type = TextFieldType.DEFAULT,
                 value = idText,
                 onValueChange = {
                     onIdChange(it)
                     updateButtonState()
                 },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.id_hint)) },
-                singleLine = true
+                placeholder = stringResource(R.string.id_hint),
             )
             Spacer(Modifier.height(10.dp))
-            OutlinedTextField(
+            CommonTextField(
+                modifier = Modifier.fillMaxWidth(),
+                type = TextFieldType.PASSWORD,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 value = pwdText,
                 onValueChange = {
                     onPwdChange(it)
+                    println(it)
                     updateButtonState()
                 },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.password_hint)) },
-                singleLine = true,
-                visualTransformation = if (isPwdVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                trailingIcon = {
-                    IconButton(
-                        onClick = { isPwdVisible = !isPwdVisible },
-                    ) {
-                        Icon(
-                            painter = pwdIcon,
-                            contentDescription = "Visibility Icon",
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                }
+                placeholder = stringResource(R.string.password_hint),
             )
         }
         Spacer(Modifier.height(18.dp))
@@ -134,7 +122,7 @@ fun LoginScreen(
             ButtonDivider()
             CommonTextButton(R.string.login_find_pwd, onClick = {}) // 비밀번호 찾기
             ButtonDivider()
-            CommonTextButton(R.string.sign_up, onClick = onClickSignUpButton)
+            CommonTextButton(R.string.sign_up, onClick = onClickSignUpButton) // 회원가입
         }
         Spacer(Modifier.height(30.dp))
         Text(

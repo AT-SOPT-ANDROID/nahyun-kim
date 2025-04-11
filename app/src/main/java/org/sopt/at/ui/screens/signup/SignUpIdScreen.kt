@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.ui.components.button.LargeOutlinedButton
+import org.sopt.at.ui.components.textfield.CommonTextField
+import org.sopt.at.ui.components.textfield.TextFieldType
 import org.sopt.at.ui.screens.signup.SignupActivity.Companion.isValidId
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.GuideText
@@ -59,13 +60,12 @@ fun SignUpIdScreen(
                 modifier = Modifier
             )
             Spacer(Modifier.height(24.dp))
-            OutlinedTextField(
+            CommonTextField(
+                modifier = Modifier.fillMaxWidth(),
+                type = TextFieldType.DEFAULT,
                 value = idText,
-                onIdChange,
-                modifier = Modifier
-                    .fillMaxWidth(),
-                placeholder = { Text(stringResource(R.string.id_hint)) },
-                singleLine = true
+                onValueChange = onIdChange,
+                placeholder = stringResource(R.string.id_hint),
             )
             Spacer(Modifier.height(12.dp))
             Text(
