@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -80,13 +81,20 @@ fun LoginScreen(
                     onIdChange(it)
                     updateButtonState()
                 },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
                 placeholder = stringResource(R.string.id_hint),
             )
             Spacer(Modifier.height(10.dp))
             CommonTextField(
                 modifier = Modifier.fillMaxWidth(),
                 type = TextFieldType.PASSWORD,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done
+                ),
                 value = pwdText,
                 onValueChange = {
                     onPwdChange(it)
