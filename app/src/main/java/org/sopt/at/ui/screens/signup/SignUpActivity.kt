@@ -20,7 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.sopt.at.model.LoginUser
-import org.sopt.at.ui.screens.login.ArrowBackIcon
+import org.sopt.at.ui.components.button.ArrowBackIcon
 import org.sopt.at.ui.screens.login.LoginActivity
 import org.sopt.at.ui.screens.login.LoginActivity.Companion.SIGNUP_USER_INFO_KEY
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme

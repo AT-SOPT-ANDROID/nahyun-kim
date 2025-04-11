@@ -5,11 +5,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +16,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Notifications
@@ -27,7 +24,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -40,15 +36,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.at.ui.screens.login.ArrowBackIcon
+import org.sopt.at.R
+import org.sopt.at.ui.components.button.ArrowBackIcon
+import org.sopt.at.ui.components.button.LargeOutlinedButton
+import org.sopt.at.ui.components.button.SmallOutlinedButton
 import org.sopt.at.ui.screens.login.LoginActivity
 import org.sopt.at.ui.screens.login.LoginActivity.Companion.USER_ID_KEY
-import org.sopt.at.R
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.ButtonTint
 import org.sopt.at.ui.theme.White
 
@@ -148,42 +144,23 @@ fun MyScreen(
                     )
                 }
             }
-
-            OutlinedButton( // 프로필 전환
-                onClick = {},
-                contentPadding = PaddingValues(horizontal = 14.dp),
-                shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
-                border = BorderStroke(dimensionResource(R.dimen.outline_button_stroke_width), ButtonDisableText),
-                modifier = Modifier.height(30.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.my_profile_switch),
-                    style = MaterialTheme.typography.labelSmall,
-                    fontWeight = FontWeight.ExtraBold,
-                )
-            }
+            SmallOutlinedButton(
+                modifier = Modifier.height(30.dp),
+                buttonTextRes = R.string.my_profile_switch,
+                onClick = {}
+            )
         }
 
-        OutlinedButton( // 다음 버튼
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 12.dp),
+        LargeOutlinedButton(
+            modifier = Modifier,
+            buttonTextRes = R.string.my_logout,
             onClick = {
                 val intent = Intent(context, LoginActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 }
                 context.startActivity(intent)
-            },
-            border = BorderStroke(dimensionResource(R.dimen.outline_button_stroke_width), ButtonDisableText),
-            shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
-            contentPadding = PaddingValues(vertical = 12.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.my_logout),
-                style = MaterialTheme.typography.labelLarge,
-                color = ButtonDisableText
-            )
-        }
+            }
+        )
     }
 }
 
