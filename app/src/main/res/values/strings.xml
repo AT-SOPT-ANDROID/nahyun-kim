@@ -23,5 +23,9 @@
     <string name="signup_pwd_title">비밀번호를 입력해주세요.</string>
     <string name="signup_pwd_guide">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
     <string name="signup_pwd_error_form">비밀번호 형식에 맞지 않습니다.</string>
+
+    <!-- My -->
     <string name="title_activity_my">MyActivity</string>
+    <string name="my_profile_switch">프로필 전환</string>
+    <string name="my_logout">로그아웃</string>
 </resources>

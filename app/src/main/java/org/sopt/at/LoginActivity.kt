@@ -101,7 +101,9 @@ class LoginActivity : ComponentActivity() {
                         onPwdChange = { pwdText = it },
                         onClickLoginButton = {
                             if (isIdenticalLoginUserInfo(idText, pwdText)) {
-                                startActivity(Intent(this, MyActivity::class.java))
+                                startActivity(Intent(this, MyActivity::class.java)
+                                    .putExtra(USER_ID_KEY, loginUser!!.id)
+                                )
                             } else {
                                 val message = if (loginUser == null) {
                                     "회원 정보가 없습니다."
@@ -129,6 +131,7 @@ class LoginActivity : ComponentActivity() {
 
     companion object {
         const val SIGNUP_USER_INFO_KEY = "signup_user_info_key"
+        const val USER_ID_KEY = "user_id_key"
     }
 }
 
