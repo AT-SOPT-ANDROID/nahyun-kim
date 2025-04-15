@@ -9,22 +9,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import org.sopt.at.R
 import org.sopt.at.model.LoginUser
-import org.sopt.at.ui.components.button.ArrowBackIcon
+import org.sopt.at.ui.components.appbar.CommonTopAppBar
 import org.sopt.at.ui.screens.login.LoginActivity
 import org.sopt.at.ui.screens.login.LoginActivity.Companion.SIGNUP_USER_INFO_KEY
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import java.util.regex.Pattern
 
 enum class SignUpStep {
     ID, PASSWORD
@@ -44,23 +40,17 @@ class SignupActivity : ComponentActivity() {
 
             ATSOPTANDROIDTheme {
                 Scaffold(
+                    modifier = Modifier.fillMaxSize(),
                     topBar = {
-                        TopAppBar(
-                            title = { },
-                            navigationIcon = {
-                                IconButton(onClick = {
-                                    when (step) {
-                                        SignUpStep.ID -> finish()
-                                        SignUpStep.PASSWORD -> step = SignUpStep.ID
-                                    }
-                                }) {
-                                    ArrowBackIcon()
+                        CommonTopAppBar(
+                            onBackClick = {
+                                when (step) {
+                                    SignUpStep.ID -> finish()
+                                    SignUpStep.PASSWORD -> step = SignUpStep.ID
                                 }
-                            },
-                            colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent)
-                        )
-                    },
-                    modifier = Modifier.fillMaxSize()
+                            }
+                        ) { }
+                    }
                 ) { innerPadding ->
                     when (step) {
                         SignUpStep.ID -> {
@@ -68,7 +58,13 @@ class SignupActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding),
                                 idText = idText,
                                 onIdChange = { idText = it },
-                                onClickNextButton = { step = SignUpStep.PASSWORD }
+                                onNextClick = {
+                                    if (isValidId(idText)) {
+                                        step = SignUpStep.PASSWORD
+                                    } else {
+                                        Toast.makeText(this, getText(R.string.signup_id_error_form), Toast.LENGTH_SHORT).show()
+                                    }
+                                }
                             )
                         }
                         SignUpStep.PASSWORD -> {
@@ -76,10 +72,14 @@ class SignupActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding),
                                 pwdText = pwdText,
                                 onPwdChange = { pwdText = it },
-                                onClickNextButton = {
-                                    Toast.makeText(this, "회원가입 완료!", Toast.LENGTH_SHORT).show()
-                                    sendUserInfo(idText, pwdText)
-                                    finish()
+                                onNextClick = {
+                                    if (isValidPassword(pwdText)) {
+                                        Toast.makeText(this, "회원가입 완료!", Toast.LENGTH_SHORT).show()
+                                        sendUserInfo(idText, pwdText)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, getText(R.string.signup_pwd_error_form), Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                             )
                         }
@@ -101,11 +101,11 @@ class SignupActivity : ComponentActivity() {
         const val PWD_PATTERN = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*]).*$"
 
         fun isValidId(id: String): Boolean {
-            return Pattern.matches(ID_PATTERN, id)
+            return id.matches(ID_PATTERN.toRegex())
         }
 
         fun isValidPassword(pwd: String): Boolean {
-            return Pattern.matches(PWD_PATTERN, pwd)
+            return pwd.matches(PWD_PATTERN.toRegex())
         }
     }
 }

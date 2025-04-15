@@ -48,9 +48,14 @@ class LoginActivity : ComponentActivity() {
         setContent {
             var idText by remember { mutableStateOf("") }
             var pwdText by remember { mutableStateOf("") }
+            var isLoginEnable by remember { mutableStateOf(false) }
 
             val scope = rememberCoroutineScope()
             val snackbarHostState = remember { SnackbarHostState() }
+
+            fun updateButtonState() {
+                isLoginEnable = idText.isNotEmpty() && pwdText.isNotEmpty()
+            }
 
             ATSOPTANDROIDTheme {
                 Scaffold(
@@ -62,26 +67,29 @@ class LoginActivity : ComponentActivity() {
                     LoginScreen(
                         modifier = Modifier.padding(innerPadding),
                         idText = idText,
-                        onIdChange = { idText = it },
+                        onIdChange = {
+                            idText = it
+                            updateButtonState()
+                        },
                         pwdText = pwdText,
-                        onPwdChange = { pwdText = it },
-                        onClickLoginButton = {
-                            if (isIdenticalLoginUserInfo(idText, pwdText)) {
-                                startActivity(Intent(this, MyActivity::class.java)
-                                    .putExtra(USER_ID_KEY, loginUser!!.id)
-                                )
-                            } else {
-                                val message = if (loginUser == null) {
-                                    "회원 정보가 없습니다."
-                                } else {
-                                    "아이디 또는 비밀번호가 일치하지 않습니다."
+                        onPwdChange = {
+                            pwdText = it
+                            updateButtonState()
+                        },
+                        onLoginClick = {
+                            when (isIdenticalLoginUserInfo(idText, pwdText)) {
+                                true -> {
+                                    startActivity(Intent(this, MyActivity::class.java).apply {
+                                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        putExtra(USER_ID_KEY, loginUser!!.id)
+                                    })
                                 }
-                                scope.launch {
-                                    snackbarHostState.showSnackbar(message)
-                                }
+                                false -> scope.launch { snackbarHostState.showSnackbar("아이디 또는 비밀번호가 일치하지 않습니다.") }
+                                null -> scope.launch { snackbarHostState.showSnackbar("회원 정보가 없습니다.") }
                             }
                         },
-                        onClickSignUpButton = {
+                        isLoginEnable = isLoginEnable,
+                        onSignUpClick = {
                             val intent = Intent(this, SignupActivity::class.java)
                             signupResultLauncher.launch(intent)
                         }
@@ -91,7 +99,8 @@ class LoginActivity : ComponentActivity() {
         }
     }
 
-    fun isIdenticalLoginUserInfo(id: String, pwd: String): Boolean {
+    fun isIdenticalLoginUserInfo(id: String, pwd: String): Boolean? {
+        if (loginUser == null) return null
         return loginUser?.id == id && pwd == loginUser?.password
     }
 

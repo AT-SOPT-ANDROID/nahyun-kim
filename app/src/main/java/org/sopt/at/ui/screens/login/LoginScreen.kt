@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.components.button.ArrowBackIcon
+import org.sopt.at.ui.components.appbar.CommonTopAppBar
 import org.sopt.at.ui.components.button.CommonTextButton
 import org.sopt.at.ui.components.button.LargeFilledButton
 import org.sopt.at.ui.components.textfield.CommonTextField
@@ -38,19 +38,14 @@ import org.sopt.at.ui.theme.ButtonDisableBg
 @Composable
 fun LoginScreen(
     modifier: Modifier = Modifier,
-    idText: String = "",
-    onIdChange: (String) -> Unit = {},
-    pwdText: String = "",
-    onPwdChange: (String) -> Unit = {},
-    onClickLoginButton: () -> Unit = {},
-    onClickSignUpButton: () -> Unit = {}
+    idText: String,
+    onIdChange: (String) -> Unit,
+    pwdText: String,
+    onPwdChange: (String) -> Unit,
+    isLoginEnable: Boolean,
+    onLoginClick: () -> Unit,
+    onSignUpClick: () -> Unit
 ) {
-    var isButtonEnable by remember { mutableStateOf(false) }
-
-    fun updateButtonState() {
-        isButtonEnable = idText.isNotEmpty() && pwdText.isNotEmpty()
-    }
-
     Column(
         modifier = modifier
             .padding(
@@ -61,7 +56,11 @@ fun LoginScreen(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {
-        ArrowBackIcon()
+        CommonTopAppBar(
+            onBackClick = {
+                //TODO: 로그인 뒤로가기 이벤트 지원
+            }
+        ) { }
         Spacer(Modifier.height(50.dp))
         Text(
             text = stringResource(R.string.login_using_tving_id),
@@ -77,10 +76,7 @@ fun LoginScreen(
                 modifier = Modifier.fillMaxWidth(),
                 type = TextFieldType.DEFAULT,
                 value = idText,
-                onValueChange = {
-                    onIdChange(it)
-                    updateButtonState()
-                },
+                onValueChange = onIdChange,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
@@ -96,19 +92,16 @@ fun LoginScreen(
                     imeAction = ImeAction.Done
                 ),
                 value = pwdText,
-                onValueChange = {
-                    onPwdChange(it)
-                    println(it)
-                    updateButtonState()
-                },
+                onValueChange = onPwdChange,
                 placeholder = stringResource(R.string.password_hint),
             )
         }
         Spacer(Modifier.height(20.dp))
         LargeFilledButton( // 로그인 버튼
+            modifier = Modifier.fillMaxWidth(),
             buttonTextRes = R.string.do_login,
-            isButtonEnable = isButtonEnable,
-            onClick = onClickLoginButton
+            isButtonEnable = isLoginEnable,
+            onClick = onLoginClick
         )
         Spacer(Modifier.height(20.dp))
         Row(
@@ -119,15 +112,15 @@ fun LoginScreen(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CommonTextButton(R.string.login_find_id, onClick = {}) // 아이디 찾기
+            CommonTextButton(buttonTextRes = R.string.login_find_id, onClick = {}) // 아이디 찾기
             ButtonDivider()
-            CommonTextButton(R.string.login_find_pwd, onClick = {}) // 비밀번호 찾기
+            CommonTextButton(buttonTextRes = R.string.login_find_pwd, onClick = {}) // 비밀번호 찾기
             ButtonDivider()
-            CommonTextButton(R.string.sign_up, onClick = onClickSignUpButton) // 회원가입
+            CommonTextButton(buttonTextRes = R.string.sign_up, onClick = onSignUpClick) // 회원가입
         }
         Spacer(Modifier.height(20.dp))
         Text(
-            stringResource(R.string.login_term_guide),
+            text = stringResource(R.string.login_term_guide),
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.fillMaxSize()
         )
@@ -145,8 +138,19 @@ fun ButtonDivider() {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
+private fun LoginPreview() {
     ATSOPTANDROIDTheme {
-        LoginScreen()
+        var idText by remember { mutableStateOf("") }
+        var pwdText by remember { mutableStateOf("") }
+        var isLoginEnable by remember { mutableStateOf(false) }
+        LoginScreen(
+            idText = idText,
+            onIdChange = {idText = it},
+            pwdText = pwdText,
+            onPwdChange = {pwdText = it},
+            onLoginClick = { },
+            onSignUpClick = { },
+            isLoginEnable = isLoginEnable
+        )
     }
 }

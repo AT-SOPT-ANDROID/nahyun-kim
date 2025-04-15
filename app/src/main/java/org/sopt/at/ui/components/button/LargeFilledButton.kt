@@ -21,15 +21,16 @@ import org.sopt.at.ui.theme.HintText
 import org.sopt.at.ui.theme.Primary
 import org.sopt.at.ui.theme.White
 
+
 @Composable
 fun LargeFilledButton(
+    modifier: Modifier = Modifier,
     @StringRes buttonTextRes: Int,
     isButtonEnable: Boolean = false,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit
 ) {
     Button( // 로그인 버튼
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         onClick = onClick,
         enabled = isButtonEnable,
         shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
@@ -50,8 +51,11 @@ fun LargeFilledButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun Preview() {
+private fun FilledButtonPreview() {
     ATSOPTANDROIDTheme {
-        LargeFilledButton(buttonTextRes = R.string.do_login)
+        LargeFilledButton(
+            buttonTextRes = R.string.do_login,
+            onClick = {}
+        )
     }
 }

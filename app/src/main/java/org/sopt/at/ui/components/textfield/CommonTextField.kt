@@ -27,10 +27,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,15 +54,16 @@ fun CommonTextField(
     modifier: Modifier = Modifier,
     type: TextFieldType = TextFieldType.DEFAULT,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    placeholder: String = "",
-    value: String = "",
+    placeholder: String,
+    value: String,
     height: Dp = 48.dp,
-    onValueChange: (String) -> Unit = { },
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+    onValueChange: (String) -> Unit,
 ) {
+
+    val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     var isPwdVisible by remember { mutableStateOf(false) }
-    val pwdIcon = if (isPwdVisible) painterResource(R.drawable.ic_password_show) else painterResource(R.drawable.ic_password_hide)
+    val pwdIconId = if (isPwdVisible) R.drawable.ic_password_show else R.drawable.ic_password_hide
     val isPwdTextField = (type == TextFieldType.PASSWORD)
 
     val borderLineColor = when {
@@ -82,19 +85,14 @@ fun CommonTextField(
         cursorBrush = SolidColor(White),
         decorationBox = { innerTextField ->
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
-                    .background(
-                        color = TextFieldBg,
-                        shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius))
-                    )
-                    .border(
-                        border = BorderStroke(dimensionResource(R.dimen.outline_button_stroke_width), borderLineColor),
-                        shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius))
-                    )
+                    .clip(RoundedCornerShape(dimensionResource(R.dimen.button_radius)))
+                    .background(color = TextFieldBg)
+                    .border(border = BorderStroke(dimensionResource(R.dimen.outline_button_stroke_width), borderLineColor), shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)))
                     .fillMaxSize()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Box(
                     modifier = Modifier.weight(1f)
@@ -112,10 +110,10 @@ fun CommonTextField(
                 if (isPwdTextField) {
                     IconButton(onClick = { isPwdVisible = !isPwdVisible }) {
                         Icon(
-                            painter = pwdIcon,
+                            modifier = Modifier.size(20.dp),
+                            imageVector = ImageVector.vectorResource(pwdIconId),
                             tint = ButtonDisableText,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
+                            contentDescription = "password",
                         )
                     }
                 }
@@ -126,8 +124,15 @@ fun CommonTextField(
 
 @Preview(showBackground = true)
 @Composable
-private fun Preview() {
+private fun CommonTextFieldPreview() {
     ATSOPTANDROIDTheme {
-        CommonTextField(modifier = Modifier.fillMaxWidth())
+        var text by remember { mutableStateOf("") }
+
+        CommonTextField(
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = "placeHolder",
+            value = text,
+            onValueChange = {text = it},
+        )
     }
 }

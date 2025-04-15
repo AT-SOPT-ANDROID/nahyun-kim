@@ -1,6 +1,5 @@
 package org.sopt.at.ui.screens.signup
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -12,9 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,22 +25,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.components.button.LargeOutlinedButton
+import org.sopt.at.ui.components.button.ButtonSizeType
+import org.sopt.at.ui.components.button.CommonOutlinedButton
 import org.sopt.at.ui.components.textfield.CommonTextField
 import org.sopt.at.ui.components.textfield.TextFieldType
-import org.sopt.at.ui.screens.signup.SignupActivity.Companion.isValidId
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.GuideText
 
 @Composable
 fun SignUpIdScreen(
     modifier: Modifier = Modifier,
-    idText: String = "",
-    onIdChange: (String) -> Unit = {},
-    onClickNextButton: () -> Unit = {}
+    idText: String,
+    onIdChange: (String) -> Unit,
+    onNextClick: () -> Unit
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier
             .padding(
@@ -77,23 +77,24 @@ fun SignUpIdScreen(
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        LargeOutlinedButton(
+        CommonOutlinedButton(
             modifier = Modifier,
-            onClick = {
-                if (isValidId(idText)) {
-                    onClickNextButton()
-                } else {
-                    Toast.makeText(context, context.getText(R.string.signup_id_error_form), Toast.LENGTH_SHORT).show()
-                }
-            }
+            sizeType = ButtonSizeType.LARGE,
+            textResId = R.string.next,
+            onClick = onNextClick
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun SignupIdPreview() {
+private fun SignupIdPreview() {
     ATSOPTANDROIDTheme {
-        SignUpIdScreen()
+        var text by remember { mutableStateOf("") }
+        SignUpIdScreen(
+            idText = text,
+            onIdChange = { text = it },
+            onNextClick = {}
+        )
     }
 }

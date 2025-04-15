@@ -20,28 +20,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.components.button.ArrowBackIcon
-import org.sopt.at.ui.components.button.LargeOutlinedButton
-import org.sopt.at.ui.components.button.SmallOutlinedButton
+import org.sopt.at.ui.components.appbar.CommonTopAppBar
+import org.sopt.at.ui.components.button.ButtonSizeType
+import org.sopt.at.ui.components.button.CommonOutlinedButton
 import org.sopt.at.ui.screens.login.LoginActivity
 import org.sopt.at.ui.screens.login.LoginActivity.Companion.USER_ID_KEY
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
@@ -50,23 +44,19 @@ import org.sopt.at.ui.theme.White
 
 //TODO: 바텀네비 구현 후 Screen으로 바꾸기
 class MyActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             ATSOPTANDROIDTheme {
                 Scaffold(
+                    modifier = Modifier.fillMaxSize(),
                     topBar = {
-                        TopAppBar(
-                            title = { },
-                            navigationIcon = {
-                                IconButton(onClick = {}) {
-                                    ArrowBackIcon()
-                                }
+                        CommonTopAppBar(
+                            onBackClick = {
+                                finish()
                             },
-                            colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Transparent),
-                            actions = {
+                            trailingIcon = {
                                 IconButton(onClick = {}) {
                                     Icon(
                                         imageVector = Icons.Outlined.Notifications,
@@ -81,14 +71,19 @@ class MyActivity : ComponentActivity() {
                                         contentDescription = null
                                     )
                                 }
-                            }
+                            },
                         )
-                    },
-                    modifier = Modifier.fillMaxSize()
+                    }
                 ) { innerPadding ->
                     MyScreen(
                         modifier = Modifier.padding(innerPadding),
-                        userName = intent.getStringExtra(USER_ID_KEY).toString()
+                        userName = intent.getStringExtra(USER_ID_KEY).toString(),
+                        onNextClick = {
+                            val intent = Intent(this, LoginActivity::class.java).apply {
+                                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            }
+                            startActivity(intent)
+                        }
                     )
                 }
             }
@@ -99,10 +94,9 @@ class MyActivity : ComponentActivity() {
 @Composable
 fun MyScreen(
     modifier: Modifier = Modifier,
-    userName: String = ""
+    userName: String,
+    onNextClick: () -> Unit
 ) {
-    val context = LocalContext.current
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -110,7 +104,7 @@ fun MyScreen(
                 vertical = dimensionResource(R.dimen.screen_padding_vertical),
                 horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
             ),
-        verticalArrangement = Arrangement.SpaceBetween,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start
     ) {
         Row(
@@ -135,7 +129,9 @@ fun MyScreen(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    //TODO: 상위에서 onProfileEditClick 정의하기
+                }) {
                     Icon(
                         imageVector = Icons.Default.Edit,
                         tint = ButtonTint,
@@ -144,30 +140,29 @@ fun MyScreen(
                     )
                 }
             }
-            SmallOutlinedButton(
+            CommonOutlinedButton(
                 modifier = Modifier.height(30.dp),
-                buttonTextRes = R.string.my_profile_switch,
-                onClick = {}
+                sizeType = ButtonSizeType.SMALL,
+                textResId = R.string.my_profile_switch,
+                onClick = {
+                    //TODO: 상위에서 onProfileSwitchClick 정의하기
+                }
             )
         }
-
-        LargeOutlinedButton(
+        Spacer(modifier = Modifier.weight(1f))
+        CommonOutlinedButton(
             modifier = Modifier,
-            buttonTextRes = R.string.my_logout,
-            onClick = {
-                val intent = Intent(context, LoginActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                }
-                context.startActivity(intent)
-            }
+            sizeType = ButtonSizeType.LARGE,
+            textResId = R.string.my_logout,
+            onClick = onNextClick
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun MyPreview() {
+private fun MyPreview() {
     ATSOPTANDROIDTheme {
-        MyScreen()
+        MyScreen(userName = "김나현", onNextClick = {})
     }
 }
