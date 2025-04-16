@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.launch
 import org.sopt.at.model.LoginUser
-import org.sopt.at.ui.screens.main.MyActivity
+import org.sopt.at.ui.screens.main.MainActivity
 import org.sopt.at.ui.screens.signup.SignupActivity
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
@@ -79,7 +79,7 @@ class LoginActivity : ComponentActivity() {
                         onLoginClick = {
                             when (isIdenticalLoginUserInfo(idText, pwdText)) {
                                 true -> {
-                                    startActivity(Intent(this, MyActivity::class.java).apply {
+                                    startActivity(Intent(this, MainActivity::class.java).apply {
                                         flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                         putExtra(USER_ID_KEY, loginUser!!.id)
                                     })
