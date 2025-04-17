@@ -19,7 +19,10 @@ import androidx.compose.ui.unit.dp
 import org.sopt.at.R
 
 @Composable
-fun HomeTopBar(modifier: Modifier = Modifier) {
+fun HomeTopBar(
+    modifier: Modifier = Modifier,
+    onProfileClick: () -> Unit,
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -48,9 +51,7 @@ fun HomeTopBar(modifier: Modifier = Modifier) {
                 .size(24.dp)
                 .clickable(
                     enabled = true,
-                    onClick = {
-                        //TODO: My 화면으로 이동
-                    }
+                    onClick = onProfileClick
                 )
         )
     }

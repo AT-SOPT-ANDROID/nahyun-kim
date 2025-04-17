@@ -31,7 +31,9 @@ data object Home
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = viewModel(),
+    userId: String,
+    navigationToMy: (id: String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -40,7 +42,10 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HomeTopBar()
+        HomeTopBar(
+            modifier = Modifier,
+            onProfileClick = { navigationToMy(userId) }
+        )
         HomeTabLayout() //TODO: 실제 TabLayout으로 변경
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(20.dp),
@@ -110,6 +115,10 @@ fun TabTextItem(
 @Composable
 private fun Preview() {
     ATSOPTANDROIDTheme {
-        HomeScreen(PaddingValues())
+        HomeScreen(
+            paddingValues = PaddingValues(),
+            userId = "",
+            navigationToMy = { },
+        )
     }
 }
