@@ -18,7 +18,7 @@
             android:label="@string/title_activity_my"
             android:theme="@style/Theme.ATSOPTANDROID" />
         <activity
-            android:name=".ui.screens.signup.SignupActivity"
+            android:name=".ui.screens.signup.SignUpActivity"
             android:exported="false"
             android:label="@string/title_activity_signup"
             android:theme="@style/Theme.ATSOPTANDROID"
