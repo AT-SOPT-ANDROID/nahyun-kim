@@ -3,7 +3,7 @@ package org.sopt.at.ui.screens.main.navigation
 import androidx.annotation.DrawableRes
 import org.sopt.at.R
 import org.sopt.at.ui.screens.main.History
-import org.sopt.at.ui.screens.main.Home
+import org.sopt.at.ui.screens.home.Home
 import org.sopt.at.ui.screens.main.Live
 import org.sopt.at.ui.screens.main.Search
 import org.sopt.at.ui.screens.main.Shorts

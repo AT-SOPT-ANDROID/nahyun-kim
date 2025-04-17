@@ -6,6 +6,7 @@
     <string name="id_hint">아이디</string>
     <string name="password_hint">비밀번호</string>
     <string name="next">다음</string>
+    <string name="more">더보기</string>
 
     <!-- 로그인 -->
     <string name="login_using_tving_id">TVING ID 로그인</string>
@@ -23,6 +24,18 @@
     <string name="signup_pwd_title">비밀번호를 입력해주세요.</string>
     <string name="signup_pwd_guide">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
     <string name="signup_pwd_error_form">비밀번호 형식에 맞지 않습니다.</string>
+
+    <!-- 홈 -->
+    <string-array name="home_tab_array">
+        <item name="drama">드라마</item>
+        <item name="variety">예능</item>
+        <item name="movie">영화</item>
+        <item name="sports">스포츠</item>
+        <item name="animation">애니</item>
+        <item name="news">뉴스</item>
+    </string-array>
+    <string name="home_recommend_top20">오늘의 티빙 TOP 20</string>
+    <string name="home_recommend_current_broadcast">지금 방영 중인 콘텐츠</string>
 
     <!-- My -->
     <string name="title_activity_my">MyActivity</string>

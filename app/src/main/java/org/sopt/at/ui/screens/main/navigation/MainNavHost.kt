@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.sopt.at.ui.screens.main.History
 import org.sopt.at.ui.screens.main.HistoryScreen
-import org.sopt.at.ui.screens.main.Home
-import org.sopt.at.ui.screens.main.HomeScreen
+import org.sopt.at.ui.screens.home.Home
+import org.sopt.at.ui.screens.home.HomeScreen
 import org.sopt.at.ui.screens.main.Live
 import org.sopt.at.ui.screens.main.LiveScreen
 import org.sopt.at.ui.screens.main.Search
