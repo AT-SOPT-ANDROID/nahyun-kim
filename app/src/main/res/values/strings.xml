@@ -1,44 +1,57 @@
 <resources>
     <string name="app_name">AT SOPT ANDROID</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
 
     <!-- 공통 -->
-    <string name="id_hint">아이디</string>
-    <string name="password_hint">비밀번호</string>
-    <string name="next">다음</string>
-    <string name="more">더보기</string>
+    <string name="id_hint" translatable="false">아이디</string>
+    <string name="password_hint" translatable="false">비밀번호</string>
+    <string name="next" translatable="false">다음</string>
+    <string name="more" translatable="false">더보기</string>
 
     <!-- 로그인 -->
-    <string name="login_using_tving_id">TVING ID 로그인</string>
-    <string name="do_login">로그인하기</string>
-    <string name="login_find_id">아이디 찾기</string>
-    <string name="login_find_pwd">비밀번호 찾기</string>
-    <string name="sign_up">회원가입</string>
-    <string name="login_term_guide">이 사이트는 Google reCAPTCHA로 보호되며,\n<u>Google 개인정보 처리방침</u>과 <u>서비스 약관</u>이 적용됩니다.</string>
+    <string name="login_using_tving_id" translatable="false">TVING ID 로그인</string>
+    <string name="do_login" translatable="false">로그인하기</string>
+    <string name="login_find_id" translatable="false">아이디 찾기</string>
+    <string name="login_find_pwd" translatable="false">비밀번호 찾기</string>
+    <string name="sign_up" translatable="false">회원가입</string>
+    <string name="login_term_guide" translatable="false">이 사이트는 Google reCAPTCHA로 보호되며,\n<u>Google 개인정보 처리방침</u>과 <u>서비스 약관</u>이 적용됩니다.</string>
 
     <!-- 회원가입-->
-    <string name="title_activity_signup">SignupActivity</string>
-    <string name="signup_id_title">아이디를 입력해주세요.</string>
-    <string name="signup_id_guide">영문 소문자 또는 영문 소문자, 숫자 조합 6~12자리</string>
-    <string name="signup_id_error_form">아이디 형식에 맞지 않습니다.</string>
-    <string name="signup_pwd_title">비밀번호를 입력해주세요.</string>
-    <string name="signup_pwd_guide">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
-    <string name="signup_pwd_error_form">비밀번호 형식에 맞지 않습니다.</string>
+    <string name="title_activity_signup" translatable="false">SignupActivity</string>
+    <string name="signup_id_title" translatable="false">아이디를 입력해주세요.</string>
+    <string name="signup_id_guide" translatable="false">영문 소문자 또는 영문 소문자, 숫자 조합 6~12자리</string>
+    <string name="signup_id_error_form" translatable="false">아이디 형식에 맞지 않습니다.</string>
+    <string name="signup_pwd_title" translatable="false">비밀번호를 입력해주세요.</string>
+    <string name="signup_pwd_guide" translatable="false">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
+    <string name="signup_pwd_error_form" translatable="false">비밀번호 형식에 맞지 않습니다.</string>
+
+    <!-- 메인 -->
+    <string name="nav_home">HOME</string>
+    <string name="nav_shorts">Shorts</string>
+    <string name="nav_live">LIVE</string>
+    <string name="nav_search">SEARCH</string>
+    <string name="nav_history">HISTORY</string>
 
     <!-- 홈 -->
+    <string name="tab_drama">DRAMA</string>
+    <string name="tab_variety">VARIETY</string>
+    <string name="tab_movie">MOVIE</string>
+    <string name="tab_sports">SPORTS</string>
+    <string name="tab_animation">ANIMATION</string>
+    <string name="tab_news">NEWS</string>
     <string-array name="home_tab_array">
-        <item name="drama">드라마</item>
-        <item name="variety">예능</item>
-        <item name="movie">영화</item>
-        <item name="sports">스포츠</item>
-        <item name="animation">애니</item>
-        <item name="news">뉴스</item>
+        <item name="drama">@string/tab_drama</item>
+        <item name="variety">@string/tab_variety</item>
+        <item name="movie">@string/tab_movie</item>
+        <item name="sports">@string/tab_sports</item>
+        <item name="animation">@string/tab_animation</item>
+        <item name="news">@string/tab_news</item>
     </string-array>
-    <string name="home_recommend_top20">오늘의 티빙 TOP 20</string>
-    <string name="home_recommend_current_broadcast">지금 방영 중인 콘텐츠</string>
+    <string name="home_recommend_top20" translatable="false">오늘의 티빙 TOP 20</string>
+    <string name="home_recommend_current_broadcast" translatable="false">지금 방영 중인 콘텐츠</string>
 
     <!-- My -->
-    <string name="title_activity_my">MyActivity</string>
-    <string name="my_profile_switch">프로필 전환</string>
-    <string name="my_logout">로그아웃</string>
+    <string name="title_activity_my" translatable="false">MyActivity</string>
+    <string name="my_profile_switch" translatable="false">프로필 전환</string>
+    <string name="my_logout" translatable="false">로그아웃</string>
 </resources>

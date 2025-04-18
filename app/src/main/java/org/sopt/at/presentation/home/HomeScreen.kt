@@ -3,11 +3,12 @@ package org.sopt.at.presentation.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -80,18 +81,19 @@ fun HomeScreen(
 
 @Composable
 fun HomeTabLayout(modifier: Modifier = Modifier) {
-    Row(
+    val stringArr = stringArrayResource(R.array.home_tab_array)
+
+    LazyRow(
         modifier = modifier
             .fillMaxWidth()
             .padding(vertical = 12.dp),
         horizontalArrangement = Arrangement
             .spacedBy(
-                space = 16.dp,
+                space = 20.dp,
                 alignment = Alignment.CenterHorizontally
             ),
     ) {
-        val stringArr = stringArrayResource(R.array.home_tab_array)
-        stringArr.forEach { text ->
+        items(stringArr) { text ->
             TabTextItem(Modifier, text)
         }
     }

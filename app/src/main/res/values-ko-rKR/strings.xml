@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AT SOPT ANDROID</string>
+    <string name="tab_drama">드라마</string>
+    <string name="tab_variety">예능</string>
+    <string name="tab_movie">영화</string>
+    <string name="tab_sports">스포츠</string>
+    <string name="tab_animation">애니</string>
+    <string name="tab_news">뉴스</string>
+    <string name="nav_home">홈</string>
+    <string name="nav_shorts">쇼츠</string>
+    <string name="nav_live">라이브</string>
+    <string name="nav_search">검색</string>
+    <string name="nav_history">기록</string>
+</resources>

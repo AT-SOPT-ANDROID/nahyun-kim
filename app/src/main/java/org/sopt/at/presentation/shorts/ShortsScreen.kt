@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import kotlinx.serialization.Serializable
 import org.sopt.at.presentation.main.navigation.BottomNavItem
 
@@ -27,7 +28,7 @@ fun ShortsScreen(paddingValues: PaddingValues,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = BottomNavItem.SHORTS.label,
+            text = stringResource(BottomNavItem.SHORTS.labelRes),
             style = MaterialTheme.typography.titleMedium
         )
     }

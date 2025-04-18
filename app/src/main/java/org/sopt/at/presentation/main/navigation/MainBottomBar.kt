@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -92,13 +93,13 @@ fun RowScope.TabItem(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Icon(
-                    imageVector = ImageVector.vectorResource(id = if (selected) item.selectedIconResource else item.unselectedIconResource),
+                    imageVector = ImageVector.vectorResource(id = if (selected) item.selectedIconRes else item.unselectedIconRes),
                     contentDescription = "icon",
                     tint = contentColor,
                     modifier = Modifier.size(30.dp)
                 )
                 Text(
-                    text = item.label,
+                    text = stringResource(item.labelRes),
                     color = contentColor,
                     fontSize = 10.sp,
                     style = TextStyle(
