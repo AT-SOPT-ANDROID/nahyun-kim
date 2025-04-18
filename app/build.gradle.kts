@@ -60,7 +60,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     // Compose
-    implementation(libs.androidx.material)
     implementation(libs.androidx.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
 }
