@@ -34,7 +34,7 @@ import org.sopt.at.ui.theme.White
 @Composable
 fun RecommendContent(
     modifier: Modifier = Modifier,
-    @StringRes textRes: Int,
+    title: String,
     isSupportRanking: Boolean,
     isShowMoreButton: Boolean,
     contentList: List<Content>
@@ -46,7 +46,7 @@ fun RecommendContent(
             .padding(horizontal = dimensionResource(R.dimen.screen_padding_horizontal)),
     ) {
         Text( // 타이틀
-            text = stringResource(textRes),
+            text = title,
             style = MaterialTheme.typography.titleSmall,
         )
         Spacer(Modifier.weight(1f))

@@ -1,5 +1,6 @@
 package org.sopt.at.presentation.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,14 +8,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -24,11 +28,14 @@ import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTopBar
 import org.sopt.at.presentation.home.component.RecommendContent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.ui.theme.Background
+import org.sopt.at.ui.theme.ButtonDisableText
 import org.sopt.at.ui.theme.White
 
 @Serializable
 data object Home
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
@@ -36,6 +43,8 @@ fun HomeScreen(
     userId: String,
     navigationToMy: (id: String) -> Unit
 ) {
+    val tabTitles = stringArrayResource(R.array.home_tab_array)
+    var selectedTabIndex = viewModel.selectedTabIndex.collectAsState()
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -47,20 +56,27 @@ fun HomeScreen(
             modifier = Modifier,
             onProfileClick = { navigationToMy(userId) }
         )
-        HomeTabLayout() //TODO: 실제 TabLayout으로 변경
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(20.dp),
-            contentPadding = PaddingValues(vertical = 12.dp),
+            contentPadding = PaddingValues(vertical = 8.dp),
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            stickyHeader {
+                HomeScrollableTabRow(
+                    tabTitles = tabTitles.toList(),
+                    selectedTabIndex = selectedTabIndex.value,
+                ) { tabIndex ->
+                    viewModel.selectTab(tabIndex)
+                }
+            }
             item {
                 BannerCarousel()
             }
             item {
                 RecommendContent(
                     modifier = Modifier,
-                    textRes = R.string.home_recommend_top20,
+                    title = stringResource(R.string.home_recommend_live_popular, tabTitles[selectedTabIndex.value]),
                     isSupportRanking = true,
                     isShowMoreButton = false,
                     contentList = viewModel.top20Contents
@@ -69,7 +85,7 @@ fun HomeScreen(
             item {
                 RecommendContent(
                     modifier = Modifier,
-                    textRes = R.string.home_recommend_current_broadcast,
+                    title = stringResource(R.string.home_recommend_current_broadcast),
                     isSupportRanking = false,
                     isShowMoreButton = true,
                     contentList = viewModel.currentBroadCastContents
@@ -80,38 +96,37 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeTabLayout(modifier: Modifier = Modifier) {
-    val stringArr = stringArrayResource(R.array.home_tab_array)
-
-    LazyRow(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(vertical = 12.dp),
-        horizontalArrangement = Arrangement
-            .spacedBy(
-                space = 20.dp,
-                alignment = Alignment.CenterHorizontally
-            ),
+fun HomeScrollableTabRow(
+    modifier: Modifier = Modifier,
+    tabTitles: List<String>,
+    selectedTabIndex: Int,
+    onTabClick: (Int) -> Unit
+) {
+    ScrollableTabRow(
+        modifier = modifier.fillMaxWidth(),
+        selectedTabIndex = selectedTabIndex,
+        containerColor = Background,
+        edgePadding = 0.dp,
+        indicator = {}, // 인디케이터 제거
+        divider = {}, // 경계선 제거
     ) {
-        items(stringArr) { text ->
-            TabTextItem(Modifier, text)
+        tabTitles.forEachIndexed { tabIndex, tab ->
+            Tab(
+                selected = selectedTabIndex == tabIndex,
+                onClick = { onTabClick(tabIndex) },
+                selectedContentColor = White,
+                unselectedContentColor = ButtonDisableText,
+                text = {
+                    Text(
+                        text = tab,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = LocalContentColor.current,
+                    )
+                },
+            )
         }
     }
 }
-
-@Composable
-fun TabTextItem(
-    modifier: Modifier = Modifier,
-    text: String
-) {
-    Text(
-        text = text,
-        color = White,
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = modifier
-    )
-}
-
 
 @Preview(showBackground = true, backgroundColor = 0x0000000)
 @Composable

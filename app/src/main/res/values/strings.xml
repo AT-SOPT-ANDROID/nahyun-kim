@@ -49,6 +49,7 @@
     </string-array>
     <string name="home_recommend_top20" translatable="false">오늘의 티빙 TOP 20</string>
     <string name="home_recommend_current_broadcast" translatable="false">지금 방영 중인 콘텐츠</string>
+    <string name="home_recommend_live_popular" translatable="false">실시간 인기 %s</string>
 
     <!-- My -->
     <string name="title_activity_my" translatable="false">MyActivity</string>
