@@ -27,6 +27,7 @@ import org.sopt.at.R
 import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTopBar
 import org.sopt.at.presentation.home.component.RecommendContent
+import org.sopt.at.presentation.home.model.TabGenreResource
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.Background
 import org.sopt.at.ui.theme.ButtonDisableText
@@ -71,15 +72,17 @@ fun HomeScreen(
                 }
             }
             item {
-                BannerCarousel()
+                BannerCarousel(
+                    bannerImageUrls = TabGenreResource.getDataById(selectedTabIndex.value)!!.bannerImages,
+                )
             }
             item {
                 RecommendContent(
                     modifier = Modifier,
                     title = stringResource(R.string.home_recommend_live_popular, tabTitles[selectedTabIndex.value]),
                     isSupportRanking = true,
-                    isShowMoreButton = false,
-                    contentList = viewModel.top20Contents
+                    imageUrls = TabGenreResource.getDataById(selectedTabIndex.value)!!.posterImages,
+                    isShowMoreButton = false
                 )
             }
             item {
@@ -88,7 +91,7 @@ fun HomeScreen(
                     title = stringResource(R.string.home_recommend_current_broadcast),
                     isSupportRanking = false,
                     isShowMoreButton = true,
-                    contentList = viewModel.currentBroadCastContents
+                    imageUrls = TabGenreResource.getDataById(selectedTabIndex.value)!!.posterImages.reversed()
                 )
             }
         }
@@ -128,7 +131,7 @@ fun HomeScrollableTabRow(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0x0000000)
+@Preview(showBackground = true, backgroundColor = 0x00000)
 @Composable
 private fun Preview() {
     ATSOPTANDROIDTheme {

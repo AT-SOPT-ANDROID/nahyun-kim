@@ -1,7 +1,5 @@
 package org.sopt.at.presentation.home.component
 
-import androidx.annotation.StringRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,14 +19,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.skydoves.landscapist.ShimmerParams
+import com.skydoves.landscapist.glide.GlideImage
 import org.sopt.at.R
 import org.sopt.at.model.Content
+import org.sopt.at.ui.theme.ButtonTint
+import org.sopt.at.ui.theme.TextFieldBg
 import org.sopt.at.ui.theme.White
 
 @Composable
@@ -37,7 +38,7 @@ fun RecommendContent(
     title: String,
     isSupportRanking: Boolean,
     isShowMoreButton: Boolean,
-    contentList: List<Content>
+    imageUrls: List<String>
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -51,7 +52,6 @@ fun RecommendContent(
         )
         Spacer(Modifier.weight(1f))
         if (isShowMoreButton) { // 더보기
-            //TODO: 더보기 클릭 이벤트 정의
             Text(
                 text = stringResource(R.string.more),
                 style = MaterialTheme.typography.labelMedium,
@@ -63,10 +63,10 @@ fun RecommendContent(
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(horizontal = dimensionResource(R.dimen.screen_padding_horizontal))
     ) {
-        itemsIndexed(contentList) { index, content ->
+        itemsIndexed(imageUrls) { index, content ->
             ContentItem(
                 ranking = if (isSupportRanking) index + 1 else null,
-                content = content
+                imageUrl = content
             )
         }
     }
@@ -74,9 +74,9 @@ fun RecommendContent(
 
 @Composable
 fun ContentItem(
+    modifier: Modifier = Modifier,
     ranking: Int?,
-    content: Content,
-    modifier: Modifier = Modifier
+    imageUrl: String,
 ) {
     Row(
         modifier = modifier,
@@ -93,10 +93,20 @@ fun ContentItem(
                 modifier = modifier.height(80.dp)
             )
         }
-        Image( // 포스터
-            painter = painterResource(content.image),
-            contentDescription = null,
-            contentScale = ContentScale.FillBounds,
+        GlideImage(
+            imageModel = imageUrl,
+            shimmerParams = ShimmerParams(
+                baseColor = TextFieldBg,
+                highlightColor = ButtonTint,
+                durationMillis = 350,
+                dropOff = 0.65f,
+                tilt = 20f
+            ),
+            contentDescription = "content poster",
+            contentScale = ContentScale.Crop,
+            failure = {
+                Text(text = "image request failed.")
+            },
             modifier = Modifier
                 .width(100.dp)
                 .height(150.dp)
