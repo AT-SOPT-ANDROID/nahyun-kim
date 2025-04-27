@@ -21,6 +21,7 @@ import org.sopt.at.R
 @Composable
 fun HomeTopBar(
     modifier: Modifier = Modifier,
+    onLogoClick: () -> Unit,
     onProfileClick: () -> Unit,
 ) {
     Row(
@@ -35,7 +36,11 @@ fun HomeTopBar(
         Image(
             painter = painterResource(R.drawable.ic_tving_text_logo),
             contentDescription = null,
-            modifier = Modifier.width(80.dp)
+            modifier = Modifier
+                .width(80.dp)
+                .clickable(
+                    onClick = onLogoClick
+                )
         )
         Spacer(Modifier.weight(1f))
         Image(

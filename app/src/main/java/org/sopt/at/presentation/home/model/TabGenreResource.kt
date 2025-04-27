@@ -1,10 +1,26 @@
 package org.sopt.at.presentation.home.model
 
 enum class TabGenreResource(
-    val genreId: Int,
+    val genreId: Int?,
     val bannerImages: List<String>,
     val posterImages: List<String>
 ) {
+    DEFAULT(
+        genreId = null,
+        bannerImages = listOf(
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250326/0511/P001769546.jpg/dims/resize/F_webp,400",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0636/P001768976.jpg/dims/resize/F_webp,400",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250212/0755/P001767988.jpg/dims/resize/F_webp,480",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP1110/ko/20250408/0916/P001769110.jpg/dims/resize/F_webp,400"
+        ),
+        posterImages = listOf(
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250410/0706/P001770178.jpg/dims/resize/F_webp,480",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0110/P001769310.jpg/dims/resize/F_webp,480",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20240814/1707/P001760343.jpg/dims/resize/F_webp,480",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP1130/ko/20250414/0643/P001768976.jpg/dims/resize/F_webp,400",
+            "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20231030/0505/P000643144.jpg/dims/resize/F_webp,480"
+        )
+    ),
     DRAMA(
         genreId = 0,
         bannerImages = listOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0645/P001768759.jpg/dims/resize/F_webp,480"),
@@ -73,7 +89,7 @@ enum class TabGenreResource(
     );
 
     companion object {
-        fun getDataById(index: Int): TabGenreResource? {
+        fun getDataById(index: Int?): TabGenreResource? {
             return entries.find {
                 it.genreId == index
             }

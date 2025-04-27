@@ -24,7 +24,7 @@ import org.sopt.at.util.DisableRippleEffect
 fun HomeTabLayout(
     modifier: Modifier = Modifier,
     onTabClick: (Int) -> Unit,
-    selectedTabIndex: Int,
+    selectedTabIndex: Int?,
 ) {
     val stringArr = stringArrayResource(R.array.home_tab_array)
 
@@ -58,7 +58,10 @@ fun TabTextItem(
     onTabClick: () -> Unit,
     selectedTabIndex: Int?,
 ) {
-    val textColor = if (index == selectedTabIndex) White else ButtonDisableText
+    val textColor = when (selectedTabIndex) {
+        null, index -> White
+        else -> ButtonDisableText
+    }
 
     DisableRippleEffect {
         Text(

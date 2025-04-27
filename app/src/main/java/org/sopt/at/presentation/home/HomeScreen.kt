@@ -47,6 +47,9 @@ fun HomeScreen(
     ) {
         HomeTopBar(
             modifier = Modifier,
+            onLogoClick = {
+                viewModel.selectTab(TabGenreResource.DEFAULT.genreId)
+            },
             onProfileClick = { navigationToMy(userId) }
         )
         LazyColumn(
@@ -71,7 +74,7 @@ fun HomeScreen(
             item {
                 RecommendContent(
                     modifier = Modifier,
-                    title = stringResource(R.string.home_recommend_live_popular, tabTitles[selectedTabIndex]),
+                    title = if (selectedTabIndex == null) stringResource(R.string.home_recommend_top20) else stringResource(R.string.home_recommend_live_popular, tabTitles[selectedTabIndex]),
                     isSupportRanking = true,
                     imageUrls = TabGenreResource.getDataById(selectedTabIndex)!!.posterImages,
                     isShowMoreButton = false
