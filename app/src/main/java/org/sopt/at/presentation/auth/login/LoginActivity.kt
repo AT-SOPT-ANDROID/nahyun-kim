@@ -33,11 +33,11 @@ class LoginActivity : ComponentActivity() {
     ) { result ->
         if ( result.resultCode == RESULT_OK ) {
             viewModel.setRegisterUserInfo(
-                (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    result.data?.getParcelableExtra(SIGNUP_USER_INFO_KEY, LoginUser::class.java)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    result.data?.getSerializableExtra(SIGNUP_USER_INFO_KEY, LoginUser::class.java)
                 } else {
-                    result.data?.getParcelableExtra<LoginUser>(SIGNUP_USER_INFO_KEY)
-                })
+                    result.data?.getSerializableExtra(SIGNUP_USER_INFO_KEY) as LoginUser?
+                }
             )
         }
     }
