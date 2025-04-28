@@ -32,10 +32,10 @@ fun HomeTabLayout(
         modifier = modifier
             .fillMaxWidth()
             .background(Background)
-            .padding(vertical = 8.dp),
+            .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement
             .spacedBy(
-                space = 20.dp,
+                space = 12.dp,
                 alignment = Alignment.CenterHorizontally
             ),
     ) {
@@ -44,7 +44,7 @@ fun HomeTabLayout(
                 index = index,
                 text = text,
                 onTabClick = { onTabClick(index) },
-                selectedTabIndex = selectedTabIndex
+                selectedTabIndex = selectedTabIndex,
             )
         }
     }
@@ -69,10 +69,11 @@ fun TabTextItem(
             color = textColor,
             style = MaterialTheme.typography.bodyMedium,
             modifier = modifier
-                .fillMaxWidth()
                 .clickable(
                     onClick = onTabClick
                 )
+                .padding(4.dp)
+                .fillMaxWidth()
         )
     }
 }

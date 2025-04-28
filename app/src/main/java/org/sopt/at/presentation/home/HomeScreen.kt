@@ -22,7 +22,7 @@ import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTabLayout
 import org.sopt.at.presentation.home.component.HomeTopBar
 import org.sopt.at.presentation.home.component.RecommendContent
-import org.sopt.at.presentation.home.model.TabGenreResource
+import org.sopt.at.model.TabGenreContent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 @Serializable
@@ -48,7 +48,7 @@ fun HomeScreen(
         HomeTopBar(
             modifier = Modifier,
             onLogoClick = {
-                viewModel.selectTab(TabGenreResource.DEFAULT.genreId)
+                viewModel.selectTab(null)
             },
             onProfileClick = { navigationToMy(userId) }
         )
@@ -68,7 +68,7 @@ fun HomeScreen(
             }
             item {
                 BannerCarousel(
-                    bannerImageUrls = TabGenreResource.getDataById(selectedTabIndex)!!.bannerImages,
+                    bannerImageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.bannerImages,
                 )
             }
             item {
@@ -76,7 +76,7 @@ fun HomeScreen(
                     modifier = Modifier,
                     title = if (selectedTabIndex == null) stringResource(R.string.home_recommend_top20) else stringResource(R.string.home_recommend_live_popular, tabTitles[selectedTabIndex]),
                     isSupportRanking = true,
-                    imageUrls = TabGenreResource.getDataById(selectedTabIndex)!!.posterImages,
+                    imageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.posterImages,
                     isShowMoreButton = false
                 )
             }
@@ -86,7 +86,7 @@ fun HomeScreen(
                     title = stringResource(R.string.home_recommend_current_broadcast),
                     isSupportRanking = false,
                     isShowMoreButton = true,
-                    imageUrls = TabGenreResource.getDataById(selectedTabIndex)!!.posterImages.reversed()
+                    imageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.posterImages.reversed()
                 )
             }
         }
