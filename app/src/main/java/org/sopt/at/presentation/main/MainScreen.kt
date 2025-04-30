@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import org.sopt.at.core.navigation.Route
 import org.sopt.at.presentation.auth.login.navigation.loginNavGraph
 import org.sopt.at.presentation.auth.signup.navigation.signUpNavGraph
 import org.sopt.at.presentation.history.historyNavGraph
@@ -22,9 +23,12 @@ import org.sopt.at.presentation.shorts.shortsNavGraph
 
 @Composable
 fun MainScreen(
+    startDestination: Route,
     navigator: MainNavigator = rememberMainNavigator()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
+
+    navigator.initStartDestination(startDestination)
 
     Scaffold(
         snackbarHost = { SnackbarHost(snackbarHostState) },

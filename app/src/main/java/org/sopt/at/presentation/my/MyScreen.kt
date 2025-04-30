@@ -130,7 +130,10 @@ fun MyScreen(
             modifier = Modifier,
             sizeType = ButtonSizeType.LARGE,
             textResId = R.string.my_logout,
-            onClick = onLogoutClick
+            onClick = {
+                viewModel.clearUserInfo() // 유저 정보 삭제
+                onLogoutClick()
+            }
         )
         Spacer(modifier = Modifier.width(12.dp))
     }
