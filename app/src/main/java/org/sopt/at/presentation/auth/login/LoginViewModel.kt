@@ -31,6 +31,8 @@ class LoginViewModel @Inject constructor(
 
     val registerUserInfo = savedStateHandle.toRoute<Login>()
 
+    private val _autoLoinEnable = MutableStateFlow(false)
+
     fun updateId(id: String) {
         _loginUserInfo.update {
             it.copy(id = id)

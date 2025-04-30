@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.landscapist.glide)
     implementation(libs.datastore.preferences)
+    implementation(libs.core.splashscreen)
 
     // Hilt
     implementation(libs.hilt.android)
