@@ -28,7 +28,6 @@ fun HomeTopBar(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                vertical = 10.dp,
                 horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
             ),
         verticalAlignment = Alignment.CenterVertically

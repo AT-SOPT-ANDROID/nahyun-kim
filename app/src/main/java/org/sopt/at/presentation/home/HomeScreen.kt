@@ -54,7 +54,7 @@ fun HomeScreen(
 
     fun scrollToTop() {
         scope.launch {
-            scrollState.animateScrollToItem(index = 1)
+            scrollState.animateScrollToItem(index = 0)
         }
     }
 
@@ -65,14 +65,6 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        HomeTopBar(
-            modifier = Modifier,
-            onLogoClick = {
-                viewModel.selectTab(null)
-                scrollToTop()
-            },
-            onProfileClick = { onProfileClick(viewModel.profile.id.toString()) }
-        )
         LazyColumn(
             state = scrollState,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -80,6 +72,16 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            item {
+                HomeTopBar(
+                    modifier = Modifier,
+                    onLogoClick = {
+                        viewModel.selectTab(null)
+                        scrollToTop()
+                    },
+                    onProfileClick = { onProfileClick(viewModel.profile.id.toString()) }
+                )
+            }
             stickyHeader {
                 HomeTabLayout(
                     selectedTabIndex = selectedTabIndex,
