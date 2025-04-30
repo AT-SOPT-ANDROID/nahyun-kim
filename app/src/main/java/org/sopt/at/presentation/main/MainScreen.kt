@@ -8,7 +8,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import org.sopt.at.presentation.auth.login.navigation.loginNavGraph
 import org.sopt.at.presentation.auth.signup.navigation.signUpNavGraph
@@ -25,7 +24,6 @@ import org.sopt.at.presentation.shorts.shortsNavGraph
 fun MainScreen(
     navigator: MainNavigator = rememberMainNavigator()
 ) {
-    val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(

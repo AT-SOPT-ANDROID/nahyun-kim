@@ -23,8 +23,8 @@ import org.sopt.at.ui.theme.TextFieldBg
 
 @Composable
 fun BannerCarousel(
-    modifier: Modifier = Modifier,
-    bannerImageUrls: List<String>
+    bannerImageUrls: List<String>,
+    modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState(
         initialPage = 0,

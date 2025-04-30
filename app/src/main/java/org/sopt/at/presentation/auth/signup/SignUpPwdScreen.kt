@@ -33,10 +33,10 @@ import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 @Composable
 fun SignUpPwdScreen(
-    modifier: Modifier = Modifier,
     pwdText: String,
     onPwdChange: (String) -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier

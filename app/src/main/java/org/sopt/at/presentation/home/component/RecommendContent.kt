@@ -27,18 +27,17 @@ import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import org.sopt.at.R
-import org.sopt.at.model.Content
 import org.sopt.at.ui.theme.ButtonTint
 import org.sopt.at.ui.theme.TextFieldBg
 import org.sopt.at.ui.theme.White
 
 @Composable
 fun RecommendContent(
-    modifier: Modifier = Modifier,
     title: String,
     isSupportRanking: Boolean,
     isShowMoreButton: Boolean,
-    imageUrls: List<String>
+    imageUrls: List<String>,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,

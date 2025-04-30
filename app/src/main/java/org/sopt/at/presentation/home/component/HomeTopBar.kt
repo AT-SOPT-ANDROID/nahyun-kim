@@ -20,9 +20,9 @@ import org.sopt.at.R
 
 @Composable
 fun HomeTopBar(
-    modifier: Modifier = Modifier,
     onLogoClick: () -> Unit,
     onProfileClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier

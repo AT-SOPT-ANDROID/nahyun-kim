@@ -22,9 +22,9 @@ import org.sopt.at.util.DisableRippleEffect
 
 @Composable
 fun HomeTabLayout(
-    modifier: Modifier = Modifier,
     onTabClick: (Int) -> Unit,
     selectedTabIndex: Int?,
+    modifier: Modifier = Modifier,
 ) {
     val stringArr = stringArrayResource(R.array.home_tab_array)
 

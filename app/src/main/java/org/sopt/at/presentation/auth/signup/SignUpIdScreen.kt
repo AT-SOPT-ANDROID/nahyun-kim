@@ -34,10 +34,10 @@ import org.sopt.at.ui.theme.GuideText
 
 @Composable
 fun SignUpIdScreen(
-    modifier: Modifier = Modifier,
     idText: String,
     onIdChange: (String) -> Unit,
-    onNextClick: () -> Unit
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
