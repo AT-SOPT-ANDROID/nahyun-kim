@@ -1,0 +1,183 @@
+package org.sopt.at.presentation.auth.login
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
+import org.sopt.at.R
+import org.sopt.at.ui.common.appbar.CommonTopAppBar
+import org.sopt.at.ui.common.button.CommonTextButton
+import org.sopt.at.ui.common.button.LargeFilledButton
+import org.sopt.at.ui.common.textfield.CommonTextField
+import org.sopt.at.ui.common.textfield.TextFieldType
+import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.ui.theme.ButtonDisableBg
+
+@Composable
+fun LoginRoute(
+    paddingValues: PaddingValues,
+    onBackClick: () -> Unit,
+    onLoginClick: (String) -> Unit,
+    onSignUpClick: () -> Unit,
+    snackbarHostState: SnackbarHostState
+) {
+    LoginScreen(
+        paddingValues = paddingValues,
+        onBackClick = onBackClick,
+        onLoginClick = onLoginClick,
+        onSignUpClick = onSignUpClick,
+        snackbarHostState = snackbarHostState
+    )
+}
+
+@Composable
+fun LoginScreen(
+    paddingValues: PaddingValues,
+    viewModel: LoginViewModel = viewModel(),
+    onBackClick: () -> Unit,
+    onLoginClick: (String) -> Unit,
+    onSignUpClick: () -> Unit,
+    snackbarHostState: SnackbarHostState
+) {
+    val scope = rememberCoroutineScope()
+
+    val loginInfo by viewModel.loginUserInfo.collectAsState()
+    val isLoginEnable by viewModel.isButtonEnable.collectAsState()
+
+    Column(
+        modifier = Modifier
+            .padding(paddingValues)
+            .padding(
+                vertical = dimensionResource(R.dimen.screen_padding_vertical),
+                horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
+            )
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Top
+    ) {
+        CommonTopAppBar(
+            onBackClick = onBackClick
+        ) { }
+        Spacer(Modifier.height(50.dp))
+        Text(
+            text = stringResource(R.string.login_using_tving_id),
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier
+        )
+        Spacer(Modifier.height(22.dp))
+        Column (
+            verticalArrangement = Arrangement.Top,
+            modifier = Modifier
+        ) {
+            CommonTextField(
+                modifier = Modifier.fillMaxWidth(),
+                type = TextFieldType.DEFAULT,
+                value = loginInfo.id,
+                onValueChange = viewModel::updateId,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text,
+                    imeAction = ImeAction.Next
+                ),
+                placeholder = stringResource(R.string.id_hint),
+            )
+            Spacer(Modifier.height(10.dp))
+            CommonTextField(
+                modifier = Modifier.fillMaxWidth(),
+                type = TextFieldType.PASSWORD,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done
+                ),
+                value = loginInfo.password,
+                onValueChange = viewModel::updatePassword,
+                placeholder = stringResource(R.string.password_hint),
+            )
+        }
+        Spacer(Modifier.height(20.dp))
+        LargeFilledButton( // 로그인 버튼
+            modifier = Modifier.fillMaxWidth(),
+            buttonTextRes = R.string.do_login,
+            isButtonEnable = isLoginEnable,
+            onClick = {
+                when (viewModel.isIdenticalUser()) {
+                    true -> onLoginClick(loginInfo.id)
+                    false -> scope.launch {
+                        snackbarHostState.showSnackbar("아이디 또는 비밀번호가 일치하지 않습니다.")
+                    }
+                    null  -> scope.launch {
+                        snackbarHostState.showSnackbar("회원 정보가 없습니다.")
+                    }
+                }
+            }
+        )
+        Spacer(Modifier.height(20.dp))
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp)
+            ,
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CommonTextButton(buttonTextRes = R.string.login_find_id, onClick = {}) // 아이디 찾기
+            ButtonDivider()
+            CommonTextButton(buttonTextRes = R.string.login_find_pwd, onClick = {}) // 비밀번호 찾기
+            ButtonDivider()
+            CommonTextButton(buttonTextRes = R.string.sign_up, onClick = onSignUpClick) // 회원가입
+        }
+        Spacer(Modifier.height(20.dp))
+        Text(
+            text = stringResource(R.string.login_term_guide),
+            style = MaterialTheme.typography.labelSmall,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
+fun ButtonDivider() {
+    Spacer(modifier = Modifier
+        .width(dimensionResource(R.dimen.divider_width))
+        .height(16.dp)
+        .background(ButtonDisableBg)
+    )
+}
+
+@Preview(showBackground = true, backgroundColor = 0x000000)
+@Composable
+private fun LoginPreview() {
+    ATSOPTANDROIDTheme {
+        LoginScreen(
+            paddingValues = PaddingValues(),
+            onBackClick = { },
+            onLoginClick = { },
+            onSignUpClick = { },
+            snackbarHostState = SnackbarHostState()
+        )
+    }
+}

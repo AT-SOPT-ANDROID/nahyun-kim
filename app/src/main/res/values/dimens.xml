@@ -8,4 +8,8 @@
     <dimen name="divider_width">0.8dp</dimen>
 
     <dimen name="signup_top_margin">8dp</dimen>
+
+    <!-- 홈 -->
+    <dimen name="recommend_spacing_between_title_and_contents">8dp</dimen>
+    <dimen name="content_default_spacing">10dp</dimen>
 </resources>
