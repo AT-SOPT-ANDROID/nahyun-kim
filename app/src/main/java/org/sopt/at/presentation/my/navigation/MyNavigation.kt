@@ -10,10 +10,9 @@ import org.sopt.at.core.navigation.Route
 import org.sopt.at.presentation.my.MyRoute
 
 fun NavController.navigateToMy(
-    id: String,
     navOptions: NavOptions? = null
 ) {
-    navigate(My(id), navOptions)
+    navigate(My, navOptions)
 }
 
 fun NavGraphBuilder.myNavGraph(
@@ -31,6 +30,4 @@ fun NavGraphBuilder.myNavGraph(
 }
 
 @Serializable
-data class My(
-    val id: String
-): Route
+data object My: Route

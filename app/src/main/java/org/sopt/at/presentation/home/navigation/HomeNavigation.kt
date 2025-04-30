@@ -10,15 +10,14 @@ import org.sopt.at.core.navigation.MainTabRoute
 import org.sopt.at.presentation.home.HomeRoute
 
 fun NavController.navigateToHome(
-    id: String,
     navOptions: NavOptions? = null
 ) {
-    navigate(Home(id), navOptions)
+    navigate(Home, navOptions)
 }
 
 fun NavGraphBuilder.homeNavGraph(
     paddingValues: PaddingValues,
-    navigateToMy: (String) -> Unit
+    navigateToMy: () -> Unit
 ) {
     composable<Home> {
         HomeRoute(
@@ -28,8 +27,5 @@ fun NavGraphBuilder.homeNavGraph(
     }
 }
 
-//TODO: 로그인 정보 로컬 저장 후 로직 변경
 @Serializable
-data class Home(
-    val id: String? = null
-): MainTabRoute
+data object Home: MainTabRoute

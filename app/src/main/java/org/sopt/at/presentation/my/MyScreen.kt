@@ -21,13 +21,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.component.button.ButtonSizeType
@@ -52,12 +52,10 @@ fun MyRoute(
 @Composable
 fun MyScreen(
     paddingValues: PaddingValues,
-    viewModel: MyViewModel = viewModel(),
+    viewModel: MyViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
-    val profile = remember { viewModel.profile }
-
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -103,7 +101,7 @@ fun MyScreen(
                 Spacer(modifier = Modifier.width(10.dp))
 
                 Text(
-                    text = profile.id.toString(),
+                    text = viewModel.userName.collectAsState().value.toString(),
                     style = MaterialTheme.typography.titleMedium
                 )
 

@@ -21,7 +21,7 @@ enum class MainNavTab(
         selectedIconRes = R.drawable.ic_nav_home_selected,
         unselectedIconRes = R.drawable.ic_nav_home_unselected,
         labelRes = R.string.nav_home,
-        route = Home()
+        route = Home
     ),
     SHORTS(
         selectedIconRes = R.drawable.ic_nav_shorts_selected,
