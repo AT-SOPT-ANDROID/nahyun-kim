@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
@@ -16,12 +18,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
 import org.sopt.at.R
+import org.sopt.at.model.TabGenreContent
 import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTabLayout
 import org.sopt.at.presentation.home.component.HomeTopBar
 import org.sopt.at.presentation.home.component.RecommendContent
-import org.sopt.at.model.TabGenreContent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
 
@@ -45,6 +48,16 @@ fun HomeScreen(
 ) {
     val tabTitles = stringArrayResource(R.array.home_tab_array)
     var selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
+
+    val scrollState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
+    fun scrollToTop() {
+        scope.launch {
+            scrollState.animateScrollToItem(index = 1)
+        }
+    }
+
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -56,10 +69,12 @@ fun HomeScreen(
             modifier = Modifier,
             onLogoClick = {
                 viewModel.selectTab(null)
+                scrollToTop()
             },
             onProfileClick = { onProfileClick(viewModel.profile.id.toString()) }
         )
         LazyColumn(
+            state = scrollState,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(vertical = 8.dp),
             modifier = Modifier
@@ -70,6 +85,7 @@ fun HomeScreen(
                     selectedTabIndex = selectedTabIndex,
                     onTabClick = { tabIndex ->
                         viewModel.selectTab(tabIndex)
+                        scrollToTop()
                     }
                 )
             }
