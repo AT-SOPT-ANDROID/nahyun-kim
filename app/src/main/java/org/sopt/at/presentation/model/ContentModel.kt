@@ -1,6 +1,6 @@
-package org.sopt.at.model
+package org.sopt.at.presentation.model
 
-data class Content(
+data class ContentModel(
     val id: Long = 0L,
     val title: String,
     val imageUrl: String

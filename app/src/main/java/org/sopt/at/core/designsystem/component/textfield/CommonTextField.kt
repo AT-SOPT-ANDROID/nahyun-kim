@@ -1,4 +1,4 @@
-package org.sopt.at.ui.common.textfield
+package org.sopt.at.core.designsystem.component.textfield
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -39,11 +39,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonDisableText
-import org.sopt.at.ui.theme.HintText
-import org.sopt.at.ui.theme.TextFieldBg
-import org.sopt.at.ui.theme.White
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ButtonDisableText
+import org.sopt.at.core.designsystem.theme.HintText
+import org.sopt.at.core.designsystem.theme.TextFieldBg
+import org.sopt.at.core.designsystem.theme.White
 
 enum class TextFieldType() {
     DEFAULT, PASSWORD

@@ -1,4 +1,4 @@
-package org.sopt.at.ui.common.button
+package org.sopt.at.core.designsystem.component.button
 
 import androidx.annotation.StringRes
 import androidx.compose.material3.MaterialTheme

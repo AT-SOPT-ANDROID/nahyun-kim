@@ -29,12 +29,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.at.R
-import org.sopt.at.ui.common.appbar.CommonTopAppBar
-import org.sopt.at.ui.common.button.ButtonSizeType
-import org.sopt.at.ui.common.button.CommonOutlinedButton
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonTint
-import org.sopt.at.ui.theme.White
+import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
+import org.sopt.at.core.designsystem.component.button.ButtonSizeType
+import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ButtonTint
+import org.sopt.at.core.designsystem.theme.White
 
 @Composable
 fun MyRoute(

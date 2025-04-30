@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.Background
-import org.sopt.at.ui.theme.ButtonDisableText
-import org.sopt.at.ui.theme.White
-import org.sopt.at.util.DisableRippleEffect
+import org.sopt.at.core.designsystem.theme.Background
+import org.sopt.at.core.designsystem.theme.ButtonDisableText
+import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.util.DisableRippleEffect
 
 @Composable
 fun HomeTabLayout(

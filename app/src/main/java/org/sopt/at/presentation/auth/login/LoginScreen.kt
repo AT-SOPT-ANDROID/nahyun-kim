@@ -30,13 +30,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import org.sopt.at.R
-import org.sopt.at.ui.common.appbar.CommonTopAppBar
-import org.sopt.at.ui.common.button.CommonTextButton
-import org.sopt.at.ui.common.button.LargeFilledButton
-import org.sopt.at.ui.common.textfield.CommonTextField
-import org.sopt.at.ui.common.textfield.TextFieldType
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonDisableBg
+import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
+import org.sopt.at.core.designsystem.component.button.CommonTextButton
+import org.sopt.at.core.designsystem.component.button.LargeFilledButton
+import org.sopt.at.core.designsystem.component.textfield.CommonTextField
+import org.sopt.at.core.designsystem.component.textfield.TextFieldType
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ButtonDisableBg
 
 @Composable
 fun LoginRoute(

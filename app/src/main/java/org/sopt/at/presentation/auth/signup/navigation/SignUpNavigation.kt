@@ -6,9 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
+import org.sopt.at.core.navigation.Route
 import org.sopt.at.presentation.auth.login.navigation.Login
 import org.sopt.at.presentation.auth.signup.SignUpRoute
-import org.sopt.at.util.Route
 
 fun NavController.navigateToSignUp(
     navOptions: NavOptions? = null

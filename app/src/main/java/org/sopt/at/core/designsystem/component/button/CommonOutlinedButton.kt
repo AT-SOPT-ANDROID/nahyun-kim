@@ -1,4 +1,4 @@
-package org.sopt.at.ui.common.button
+package org.sopt.at.core.designsystem.component.button
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.BorderStroke
@@ -16,10 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonDisableText
-import org.sopt.at.ui.theme.LabelButtonText
-import org.sopt.at.util.DisableRippleEffect
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ButtonDisableText
+import org.sopt.at.core.designsystem.theme.LabelButtonText
+import org.sopt.at.core.util.DisableRippleEffect
 
 enum class ButtonSizeType() {
     LARGE, SMALL
