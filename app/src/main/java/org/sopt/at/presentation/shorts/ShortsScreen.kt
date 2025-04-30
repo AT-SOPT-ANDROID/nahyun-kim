@@ -11,14 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import kotlinx.serialization.Serializable
-import org.sopt.at.presentation.main.navigation.BottomNavItem
-
-@Serializable
-data object Shorts
+import org.sopt.at.presentation.main.MainNavTab
 
 @Composable
-fun ShortsScreen(paddingValues: PaddingValues,
+fun ShortsRoute(
+    paddingValues: PaddingValues
+) {
+    ShortsScreen(
+        paddingValues = paddingValues
+    )
+}
+
+@Composable
+fun ShortsScreen(paddingValues: PaddingValues
 ) {
     Column(
         modifier = Modifier
@@ -28,7 +33,7 @@ fun ShortsScreen(paddingValues: PaddingValues,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(BottomNavItem.SHORTS.labelRes),
+            text = stringResource(MainNavTab.SHORTS.labelRes),
             style = MaterialTheme.typography.titleMedium
         )
     }

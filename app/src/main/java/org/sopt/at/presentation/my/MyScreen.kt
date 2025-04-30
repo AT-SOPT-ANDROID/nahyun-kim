@@ -1,4 +1,4 @@
-package org.sopt.at.presentation.home.my
+package org.sopt.at.presentation.my
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +28,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.serialization.Serializable
 import org.sopt.at.R
 import org.sopt.at.ui.common.appbar.CommonTopAppBar
 import org.sopt.at.ui.common.button.ButtonSizeType
@@ -37,10 +36,18 @@ import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 import org.sopt.at.ui.theme.ButtonTint
 import org.sopt.at.ui.theme.White
 
-@Serializable
-data class My(
-    val id: String
-)
+@Composable
+fun MyRoute(
+    paddingValues: PaddingValues,
+    onBackClick: () -> Unit,
+    onLogoutClick: () -> Unit,
+) {
+    MyScreen(
+        paddingValues = paddingValues,
+        onBackClick = onBackClick,
+        onLogoutClick = onLogoutClick
+    )
+}
 
 @Composable
 fun MyScreen(

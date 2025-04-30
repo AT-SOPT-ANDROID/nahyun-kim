@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.sopt.at.model.LoginUser
+import org.sopt.at.presentation.auth.login.navigation.Login
 
 class SignUpViewModel: ViewModel() {
 
@@ -13,8 +13,8 @@ class SignUpViewModel: ViewModel() {
     val currentStep: StateFlow<SignUpStep>
         get() = _currentStep.asStateFlow()
 
-    private val _userInfo = MutableStateFlow<LoginUser>(LoginUser(id = "", password = ""))
-    val userInfo: StateFlow<LoginUser>
+    private val _userInfo = MutableStateFlow<Login>(Login())
+    val userInfo: StateFlow<Login>
         get() = _userInfo.asStateFlow()
 
     fun updateStep(step: SignUpStep) {
@@ -43,15 +43,15 @@ class SignUpViewModel: ViewModel() {
 
     companion object {
         // 정규식 패턴
-        const val ID_PATTERN = "^(?=.*[a-z]+)(?=.*\\d*)[a-z\\d]{6,12}$"
-        const val PWD_PATTERN = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*]).*$"
+        val ID_PATTERN = "^(?=.*[a-z]+)(?=.*\\d*)[a-z\\d]{6,12}$".toRegex()
+        val PWD_PATTERN = "^.*(?=^.{8,15}$)(?=.*\\d)(?=.*[a-zA-Z])(?=.*[~!@#$%^&*]).*$".toRegex()
 
         fun checkIdValidation(id: String): Boolean {
-            return id.matches(ID_PATTERN.toRegex())
+            return id.matches(ID_PATTERN)
         }
 
         fun checkPasswordValidation(pwd: String): Boolean {
-            return pwd.matches(PWD_PATTERN.toRegex())
+            return pwd.matches(PWD_PATTERN)
         }
     }
 }

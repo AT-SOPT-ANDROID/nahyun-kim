@@ -11,12 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import kotlinx.serialization.Serializable
-import org.sopt.at.presentation.main.navigation.BottomNavItem
+import org.sopt.at.presentation.main.MainNavTab
 
-@Serializable
-data object Live
-
+@Composable
+fun LiveRoute(
+    paddingValues: PaddingValues
+) {
+    LiveScreen(
+        paddingValues = paddingValues
+    )
+}
 @Composable
 fun LiveScreen(paddingValues: PaddingValues,
 ) {
@@ -28,7 +32,7 @@ fun LiveScreen(paddingValues: PaddingValues,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(BottomNavItem.LIVE.labelRes),
+            text = stringResource(MainNavTab.LIVE.labelRes),
             style = MaterialTheme.typography.titleMedium
         )
     }

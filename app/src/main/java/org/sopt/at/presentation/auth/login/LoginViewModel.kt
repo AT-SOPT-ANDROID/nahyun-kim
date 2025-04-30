@@ -1,25 +1,26 @@
 package org.sopt.at.presentation.auth.login
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.sopt.at.model.LoginUser
+import org.sopt.at.presentation.auth.login.navigation.Login
 
-class LoginViewModel: ViewModel() {
-    private val _loginUserInfo = MutableStateFlow<LoginUser>(LoginUser())
-    val loginUserInfo: StateFlow<LoginUser>
+class LoginViewModel(
+    savedStateHandle: SavedStateHandle
+): ViewModel() {
+    private val _loginUserInfo = MutableStateFlow<Login>(Login())
+    val loginUserInfo: StateFlow<Login>
         get() = _loginUserInfo.asStateFlow()
 
     private val _isButtonEnable = MutableStateFlow(false)
     val isButtonEnable: StateFlow<Boolean>
         get() = _isButtonEnable.asStateFlow()
 
-    // 회원가입 시 받아온 유저 정보
-    private val _registerUserInfo = MutableStateFlow<LoginUser?>(null)
-    val registerUserInfo: StateFlow<LoginUser?>
-        get() = _registerUserInfo.asStateFlow()
+    val registerUserInfo = savedStateHandle.toRoute<Login>()
 
     fun updateId(id: String) {
         _loginUserInfo.update {
@@ -35,18 +36,14 @@ class LoginViewModel: ViewModel() {
         updateButtonState()
     }
 
-    fun setRegisterUserInfo(user: LoginUser?) {
-        _registerUserInfo.value = user
-    }
-
     private fun updateButtonState() {
         val (id, password) = _loginUserInfo.value
-        _isButtonEnable.value = id.isNotEmpty() && password.isNotEmpty()
+        _isButtonEnable.value = !id.isNullOrEmpty() && !password.isNullOrEmpty()
     }
 
     // 로그인 한 유저 정보가 회원가입 한 유저 정보와 동일한지 판단
     fun isIdenticalUser(): Boolean? {
-        if (_registerUserInfo.value == null) return null
-        return _registerUserInfo.value == _loginUserInfo.value
+        if (registerUserInfo.id.isEmpty()) return null
+        return registerUserInfo == _loginUserInfo.value
     }
 }

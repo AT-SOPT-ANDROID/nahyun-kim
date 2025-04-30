@@ -1,78 +1,76 @@
 package org.sopt.at.presentation.main
 
-import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import org.sopt.at.presentation.history.History
-import org.sopt.at.presentation.history.HistoryScreen
-import org.sopt.at.presentation.home.Home
-import org.sopt.at.presentation.home.HomeScreen
-import org.sopt.at.presentation.home.my.My
-import org.sopt.at.presentation.home.my.MyScreen
-import org.sopt.at.presentation.live.Live
-import org.sopt.at.presentation.live.LiveScreen
-import org.sopt.at.presentation.main.navigation.MainBottomBar
-import org.sopt.at.presentation.search.Search
-import org.sopt.at.presentation.search.SearchScreen
-import org.sopt.at.presentation.shorts.Shorts
-import org.sopt.at.presentation.shorts.ShortsScreen
+import org.sopt.at.presentation.auth.login.navigation.loginNavGraph
+import org.sopt.at.presentation.auth.signup.navigation.signUpNavGraph
+import org.sopt.at.presentation.history.historyNavGraph
+import org.sopt.at.presentation.home.navigation.homeNavGraph
+import org.sopt.at.presentation.live.liveNavGraph
+import org.sopt.at.presentation.main.component.MainBottomBar
+import org.sopt.at.presentation.my.navigation.myNavGraph
+import org.sopt.at.presentation.search.searchNavGraph
+import org.sopt.at.presentation.shorts.shortsNavGraph
 
 
 @Composable
 fun MainScreen(
-    userId: String,
-    moveToLogin: () -> Unit
+    navigator: MainNavigator = rememberMainNavigator()
 ) {
-    val navController = rememberNavController()
+    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+
     Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         modifier = Modifier
             .fillMaxSize()
             .navigationBarsPadding(),
         bottomBar = {
-            MainBottomBar(navController)
+            MainBottomBar(
+                visible = navigator.setBottomBarVisibility(),
+                currentTab = navigator.currentTab,
+                onTabSelected = navigator::navigate,
+            )
         },
     ) { innerPadding ->
-        val context = LocalContext.current
         NavHost(
-            navController = navController,
-            startDestination = Home
+            navController = navigator.navController,
+            startDestination = navigator.startDestination
         ) {
-            composable<Home>{ backStackEntry ->
-                HomeScreen(
-                    paddingValues = innerPadding,
-                    userId = userId,
-                    navigationToMy = { id ->
-                        navController.navigate(My(id))
-                    }
-                )
-            }
-            composable<Shorts>{
-                ShortsScreen(paddingValues = innerPadding)
-            }
-            composable<Live>{
-                LiveScreen(paddingValues = innerPadding)
-            }
-            composable<Search>{
-                SearchScreen(paddingValues = innerPadding)
-            }
-            composable<History> {
-                HistoryScreen(paddingValues = innerPadding)
-            }
+            loginNavGraph(
+                paddingValues = innerPadding,
+                navigateBack = navigator::navigateBack,
+                navigateToHome = navigator::navigateToHome,
+                navigateToSignUp = navigator::navigateToSignUp,
+                snackbarHostState = snackbarHostState
+            )
+            signUpNavGraph(
+                paddingValues = innerPadding,
+                navigateBack = navigator::navigateBack,
+                navigateToLogin = navigator::navigateToLogin
+            )
+            homeNavGraph(
+                paddingValues = innerPadding,
+                navigateToMy = navigator::navigateToMy
+            )
+            shortsNavGraph(innerPadding)
+            liveNavGraph(innerPadding)
+            searchNavGraph(innerPadding)
+            historyNavGraph(innerPadding)
 
-            composable<My> {
-                MyScreen(
-                    paddingValues = innerPadding,
-                    onBackClick = { (context as? Activity)?.onBackPressed() },
-                    onLogoutClick = moveToLogin
-                )
-            }
+            myNavGraph(
+                paddingValues = innerPadding,
+                onBackClick = navigator::navigateBack,
+                navigateToLogIn = navigator::navigateToLogin
+            )
         }
     }
 }

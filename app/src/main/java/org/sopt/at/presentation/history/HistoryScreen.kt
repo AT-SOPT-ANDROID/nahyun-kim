@@ -11,14 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import kotlinx.serialization.Serializable
-import org.sopt.at.presentation.main.navigation.BottomNavItem
-
-@Serializable
-data object History
+import org.sopt.at.presentation.main.MainNavTab
 
 @Composable
-fun HistoryScreen(paddingValues: PaddingValues,
+fun HistoryRoute(
+    paddingValues: PaddingValues
+) {
+    HistoryScreen(paddingValues)
+}
+
+@Composable
+fun HistoryScreen(
+    paddingValues: PaddingValues
 ) {
     Column(
         modifier = Modifier
@@ -28,7 +32,7 @@ fun HistoryScreen(paddingValues: PaddingValues,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = stringResource(BottomNavItem.HISTORY.labelRes),
+            text = stringResource(MainNavTab.HISTORY.labelRes),
             style = MaterialTheme.typography.titleMedium
         )
     }

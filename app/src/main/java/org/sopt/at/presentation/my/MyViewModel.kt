@@ -1,8 +1,9 @@
-package org.sopt.at.presentation.home.my
+package org.sopt.at.presentation.my
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
+import org.sopt.at.presentation.my.navigation.My
 
 class MyViewModel(
     savedStateHandle: SavedStateHandle,

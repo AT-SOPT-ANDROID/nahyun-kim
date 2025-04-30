@@ -16,7 +16,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import kotlinx.serialization.Serializable
 import org.sopt.at.R
 import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTabLayout
@@ -25,16 +24,24 @@ import org.sopt.at.presentation.home.component.RecommendContent
 import org.sopt.at.model.TabGenreContent
 import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
 
-@Serializable
-data object Home
+
+@Composable
+fun HomeRoute(
+    paddingValues: PaddingValues,
+    onProfileClick: (String) -> Unit
+) {
+    HomeScreen(
+        paddingValues = paddingValues,
+        onProfileClick = onProfileClick
+    )
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
     viewModel: HomeViewModel = viewModel(),
-    userId: String,
-    navigationToMy: (id: String) -> Unit
+    onProfileClick: (String) -> Unit
 ) {
     val tabTitles = stringArrayResource(R.array.home_tab_array)
     var selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
@@ -50,7 +57,7 @@ fun HomeScreen(
             onLogoClick = {
                 viewModel.selectTab(null)
             },
-            onProfileClick = { navigationToMy(userId) }
+            onProfileClick = { onProfileClick(viewModel.profile.id.toString()) }
         )
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -99,8 +106,7 @@ private fun Preview() {
     ATSOPTANDROIDTheme {
         HomeScreen(
             paddingValues = PaddingValues(),
-            userId = "",
-            navigationToMy = { },
+            onProfileClick = { },
         )
     }
 }
