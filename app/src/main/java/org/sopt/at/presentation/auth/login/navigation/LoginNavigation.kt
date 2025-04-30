@@ -20,7 +20,7 @@ fun NavController.navigateToLogin(
 fun NavGraphBuilder.loginNavGraph(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
-    navigateToHome: (String) -> Unit,
+    navigateToHome: () -> Unit,
     navigateToSignUp: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {

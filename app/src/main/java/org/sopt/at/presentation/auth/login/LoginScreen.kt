@@ -27,7 +27,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
@@ -42,7 +42,7 @@ import org.sopt.at.core.designsystem.theme.ButtonDisableBg
 fun LoginRoute(
     paddingValues: PaddingValues,
     onBackClick: () -> Unit,
-    onLoginClick: (String) -> Unit,
+    onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
@@ -58,9 +58,9 @@ fun LoginRoute(
 @Composable
 fun LoginScreen(
     paddingValues: PaddingValues,
-    viewModel: LoginViewModel = viewModel(),
+    viewModel: LoginViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
-    onLoginClick: (String) -> Unit,
+    onLoginClick: () -> Unit,
     onSignUpClick: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
@@ -125,7 +125,10 @@ fun LoginScreen(
             isButtonEnable = isLoginEnable,
             onClick = {
                 when (viewModel.isIdenticalUser()) {
-                    true -> onLoginClick(loginInfo.id)
+                    true -> {
+                        onLoginClick()
+                        viewModel.saveUser()
+                    }
                     false -> scope.launch {
                         snackbarHostState.showSnackbar("아이디 또는 비밀번호가 일치하지 않습니다.")
                     }

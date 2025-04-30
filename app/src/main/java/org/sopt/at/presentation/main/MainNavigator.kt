@@ -13,6 +13,7 @@ import org.sopt.at.presentation.auth.login.navigation.Login
 import org.sopt.at.presentation.auth.login.navigation.navigateToLogin
 import org.sopt.at.presentation.auth.signup.navigation.navigateToSignUp
 import org.sopt.at.presentation.history.navigateToHistory
+import org.sopt.at.presentation.home.navigation.Home
 import org.sopt.at.presentation.home.navigation.navigateToHome
 import org.sopt.at.presentation.live.navigateToLive
 import org.sopt.at.presentation.my.navigation.navigateToMy
@@ -26,7 +27,7 @@ class MainNavigator(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Login()
+    val startDestination = Home
 
     val currentTab: MainNavTab?
         @Composable get() = MainNavTab.find { tab ->
@@ -79,9 +80,8 @@ class MainNavigator(
         navController.navigateToSignUp()
     }
 
-    fun navigateToHome(id: String) {
+    fun navigateToHome() {
         navController.navigateToHome(
-            id,
             navOptions {
                 popUpTo(navController.graph.id) {
                     inclusive = true
@@ -90,8 +90,8 @@ class MainNavigator(
         )
     }
 
-    fun navigateToMy(id: String) {
-        navController.navigateToMy(id)
+    fun navigateToMy() {
+        navController.navigateToMy()
     }
 }
 

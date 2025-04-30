@@ -31,7 +31,7 @@ import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 @Composable
 fun HomeRoute(
     paddingValues: PaddingValues,
-    onProfileClick: (String) -> Unit
+    onProfileClick: () -> Unit
 ) {
     HomeScreen(
         paddingValues = paddingValues,
@@ -44,7 +44,7 @@ fun HomeRoute(
 fun HomeScreen(
     paddingValues: PaddingValues,
     viewModel: HomeViewModel = viewModel(),
-    onProfileClick: (String) -> Unit
+    onProfileClick: () -> Unit
 ) {
     val tabTitles = stringArrayResource(R.array.home_tab_array)
     var selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
@@ -79,7 +79,7 @@ fun HomeScreen(
                         viewModel.selectTab(null)
                         scrollToTop()
                     },
-                    onProfileClick = { onProfileClick(viewModel.profile.id.toString()) }
+                    onProfileClick = onProfileClick
                 )
             }
             stickyHeader {
