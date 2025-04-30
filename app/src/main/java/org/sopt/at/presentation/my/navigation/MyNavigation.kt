@@ -6,8 +6,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
+import org.sopt.at.core.navigation.Route
 import org.sopt.at.presentation.my.MyRoute
-import org.sopt.at.util.MainTabRoute
 
 fun NavController.navigateToMy(
     id: String,
@@ -33,4 +33,4 @@ fun NavGraphBuilder.myNavGraph(
 @Serializable
 data class My(
     val id: String
-): MainTabRoute
+): Route

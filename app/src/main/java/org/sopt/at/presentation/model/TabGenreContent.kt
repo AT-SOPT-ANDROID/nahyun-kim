@@ -1,4 +1,4 @@
-package org.sopt.at.model
+package org.sopt.at.presentation.model
 
 enum class TabGenreContent(
     val bannerImages: List<String>,

@@ -25,12 +25,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
-import org.sopt.at.ui.common.button.ButtonSizeType
-import org.sopt.at.ui.common.button.CommonOutlinedButton
-import org.sopt.at.ui.common.textfield.CommonTextField
-import org.sopt.at.ui.common.textfield.TextFieldType
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.GuideText
+import org.sopt.at.core.designsystem.component.button.ButtonSizeType
+import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
+import org.sopt.at.core.designsystem.component.textfield.CommonTextField
+import org.sopt.at.core.designsystem.component.textfield.TextFieldType
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.GuideText
 
 @Composable
 fun SignUpIdScreen(

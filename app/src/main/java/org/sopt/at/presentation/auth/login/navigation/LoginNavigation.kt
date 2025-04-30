@@ -7,8 +7,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
+import org.sopt.at.core.navigation.Route
 import org.sopt.at.presentation.auth.login.LoginRoute
-import org.sopt.at.util.Route
 
 fun NavController.navigateToLogin(
     userInfo: Login?,

@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ButtonTint
-import org.sopt.at.ui.theme.TextFieldBg
-import org.sopt.at.ui.theme.White
+import org.sopt.at.core.designsystem.theme.ButtonTint
+import org.sopt.at.core.designsystem.theme.TextFieldBg
+import org.sopt.at.core.designsystem.theme.White
 
 @Composable
 fun RecommendContent(

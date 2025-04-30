@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import org.sopt.at.R
-import org.sopt.at.model.TabGenreContent
+import org.sopt.at.presentation.model.TabGenreContent
 import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTabLayout
 import org.sopt.at.presentation.home.component.HomeTopBar
 import org.sopt.at.presentation.home.component.RecommendContent
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 
 
 @Composable

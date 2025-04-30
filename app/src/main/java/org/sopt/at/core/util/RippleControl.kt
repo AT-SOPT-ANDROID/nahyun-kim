@@ -1,4 +1,4 @@
-package org.sopt.at.util
+package org.sopt.at.core.util
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalRippleConfiguration

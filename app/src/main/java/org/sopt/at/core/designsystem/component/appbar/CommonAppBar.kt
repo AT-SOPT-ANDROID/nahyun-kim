@@ -1,4 +1,4 @@
-package org.sopt.at.ui.common.appbar
+package org.sopt.at.core.designsystem.component.appbar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

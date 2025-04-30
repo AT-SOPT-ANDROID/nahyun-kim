@@ -4,12 +4,12 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
 import org.sopt.at.R
+import org.sopt.at.core.navigation.MainTabRoute
 import org.sopt.at.presentation.history.History
 import org.sopt.at.presentation.home.navigation.Home
 import org.sopt.at.presentation.live.Live
 import org.sopt.at.presentation.search.Search
 import org.sopt.at.presentation.shorts.Shorts
-import org.sopt.at.util.MainTabRoute
 
 enum class MainNavTab(
     @DrawableRes val selectedIconRes: Int,

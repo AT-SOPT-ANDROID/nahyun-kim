@@ -26,10 +26,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.presentation.main.MainNavTab
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonDisableText
-import org.sopt.at.ui.theme.White
-import org.sopt.at.util.DisableRippleEffect
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ButtonDisableText
+import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.util.DisableRippleEffect
 
 @Composable
 fun MainBottomBar(

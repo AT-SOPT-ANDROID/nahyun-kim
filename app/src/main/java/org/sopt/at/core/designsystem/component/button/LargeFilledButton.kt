@@ -1,4 +1,4 @@
-package org.sopt.at.ui.common.button
+package org.sopt.at.core.designsystem.component.button
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,11 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
-import org.sopt.at.ui.theme.ATSOPTANDROIDTheme
-import org.sopt.at.ui.theme.ButtonDisableBg
-import org.sopt.at.ui.theme.HintText
-import org.sopt.at.ui.theme.Primary
-import org.sopt.at.ui.theme.White
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.ButtonDisableBg
+import org.sopt.at.core.designsystem.theme.HintText
+import org.sopt.at.core.designsystem.theme.Primary
+import org.sopt.at.core.designsystem.theme.White
 
 
 @Composable
