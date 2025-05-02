@@ -63,6 +63,7 @@ dependencies {
     // Compose
     implementation(libs.androidx.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.kotlinx.immutable)
     implementation(libs.landscapist.glide)
     implementation(libs.datastore.preferences)
     implementation(libs.core.splashscreen)
