@@ -105,9 +105,7 @@ fun MyScreen(
                     style = MaterialTheme.typography.titleMedium
                 )
 
-                IconButton(onClick = {
-                    //TODO: 상위에서 onProfileEditClick 정의하기
-                }) {
+                IconButton(onClick = {}) {
                     Icon(
                         imageVector = Icons.Default.Edit,
                         tint = ButtonTint,
@@ -120,9 +118,7 @@ fun MyScreen(
                 modifier = Modifier.height(30.dp),
                 sizeType = ButtonSizeType.SMALL,
                 textResId = R.string.my_profile_switch,
-                onClick = {
-                    //TODO: 상위에서 onProfileSwitchClick 정의하기
-                }
+                onClick = {}
             )
         }
         Spacer(modifier = Modifier.weight(1f))

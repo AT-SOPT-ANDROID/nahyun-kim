@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.collections.immutable.ImmutableList
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.ButtonTint
 import org.sopt.at.core.designsystem.theme.TextFieldBg
@@ -36,7 +37,7 @@ fun RecommendContent(
     title: String,
     isSupportRanking: Boolean,
     isShowMoreButton: Boolean,
-    imageUrls: List<String>,
+    imageUrls: ImmutableList<String>,
     modifier: Modifier = Modifier,
 ) {
     Row(

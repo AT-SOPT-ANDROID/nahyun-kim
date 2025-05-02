@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +47,9 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
     onProfileClick: () -> Unit
 ) {
-    val tabTitles = stringArrayResource(R.array.home_tab_array)
+    val tabTitlesArray = stringArrayResource(R.array.home_tab_array)
+    val tabTitles = remember(tabTitlesArray) { tabTitlesArray.toList() }
+
     var selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
 
     val scrollState = rememberLazyListState()
@@ -84,6 +87,7 @@ fun HomeScreen(
             }
             stickyHeader {
                 HomeTabLayout(
+                    tabTitles = tabTitles,
                     selectedTabIndex = selectedTabIndex,
                     onTabClick = { tabIndex ->
                         viewModel.selectTab(tabIndex)
@@ -111,7 +115,7 @@ fun HomeScreen(
                     title = stringResource(R.string.home_recommend_current_broadcast),
                     isSupportRanking = false,
                     isShowMoreButton = true,
-                    imageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.posterImages.reversed()
+                    imageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.posterImages
                 )
             }
         }

@@ -17,13 +17,14 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
+import kotlinx.collections.immutable.ImmutableList
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.ButtonTint
 import org.sopt.at.core.designsystem.theme.TextFieldBg
 
 @Composable
 fun BannerCarousel(
-    bannerImageUrls: List<String>,
+    bannerImageUrls: ImmutableList<String>,
     modifier: Modifier = Modifier
 ) {
     val pagerState = rememberPagerState(
