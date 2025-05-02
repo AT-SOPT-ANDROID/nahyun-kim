@@ -26,6 +26,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -37,7 +38,7 @@ import org.sopt.at.core.designsystem.component.button.LargeFilledButton
 import org.sopt.at.core.designsystem.component.textfield.CommonTextField
 import org.sopt.at.core.designsystem.component.textfield.TextFieldType
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.ButtonDisableBg
+import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.state.UiState
 
 @Composable
@@ -159,6 +160,8 @@ fun LoginScreen(
         Spacer(Modifier.height(20.dp))
         Text(
             text = stringResource(R.string.login_term_guide),
+            color = TvingTheme.colors.guideText,
+            textAlign = TextAlign.Center,
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.fillMaxSize()
         )
@@ -170,7 +173,7 @@ fun ButtonDivider() {
     Spacer(modifier = Modifier
         .width(dimensionResource(R.dimen.divider_width))
         .height(16.dp)
-        .background(ButtonDisableBg)
+        .background(TvingTheme.colors.gray4)
     )
 }
 

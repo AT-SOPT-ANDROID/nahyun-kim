@@ -40,10 +40,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.ButtonDisableText
-import org.sopt.at.core.designsystem.theme.HintText
-import org.sopt.at.core.designsystem.theme.TextFieldBg
-import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 enum class TextFieldType() {
     DEFAULT, PASSWORD
@@ -67,7 +64,7 @@ fun CommonTextField(
     val isPwdTextField = (type == TextFieldType.PASSWORD)
 
     val borderLineColor = when {
-        isFocused -> ButtonDisableText
+        isFocused -> TvingTheme.colors.buttonDisableText
         else -> Color.Transparent
     }
 
@@ -80,14 +77,14 @@ fun CommonTextField(
         interactionSource = interactionSource,
         singleLine = true,
         textStyle = MaterialTheme.typography.bodyMedium.copy(
-            color = White
+            color = TvingTheme.colors.onPrimary
         ),
-        cursorBrush = SolidColor(White),
+        cursorBrush = SolidColor(TvingTheme.colors.onPrimary),
         decorationBox = { innerTextField ->
             Row(
                 modifier = Modifier
                     .clip(RoundedCornerShape(dimensionResource(R.dimen.button_radius)))
-                    .background(color = TextFieldBg)
+                    .background(color = TvingTheme.colors.primaryContainer)
                     .border(border = BorderStroke(dimensionResource(R.dimen.outline_button_stroke_width), borderLineColor), shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)))
                     .fillMaxSize()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -101,7 +98,7 @@ fun CommonTextField(
                         Text(
                             text = placeholder,
                             style = MaterialTheme.typography.bodyMedium.copy(
-                                color = HintText
+                                color = TvingTheme.colors.hintText
                             )
                         )
                     }
@@ -112,7 +109,7 @@ fun CommonTextField(
                         Icon(
                             modifier = Modifier.size(20.dp),
                             imageVector = ImageVector.vectorResource(pwdIconId),
-                            tint = ButtonDisableText,
+                            tint = TvingTheme.colors.iconTint,
                             contentDescription = "password",
                         )
                     }

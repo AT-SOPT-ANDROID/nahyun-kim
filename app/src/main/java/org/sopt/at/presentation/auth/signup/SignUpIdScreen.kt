@@ -30,7 +30,7 @@ import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
 import org.sopt.at.core.designsystem.component.textfield.CommonTextField
 import org.sopt.at.core.designsystem.component.textfield.TextFieldType
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.GuideText
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 @Composable
 fun SignUpIdScreen(
@@ -70,7 +70,7 @@ fun SignUpIdScreen(
             Spacer(Modifier.height(12.dp))
             Text(
                 text = stringResource(R.string.signup_id_guide),
-                color = GuideText,
+                color = TvingTheme.colors.guideText,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Start,

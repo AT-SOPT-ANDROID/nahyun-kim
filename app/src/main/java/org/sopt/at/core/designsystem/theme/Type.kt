@@ -10,19 +10,19 @@ import androidx.compose.ui.unit.sp
 
 val Typography = Typography(
     titleLarge = TextStyle(
-        color = White,
+        color = BasicWhite,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 26.sp,
     ),
     titleMedium = TextStyle(
-        color = White,
+        color = BasicWhite,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.ExtraBold,
         fontSize = 20.sp,
     ),
     titleSmall = TextStyle(
-        color = White,
+        color = BasicWhite,
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
         fontSize = 18.sp,
@@ -36,7 +36,7 @@ val Typography = Typography(
     ),
     bodyMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        color = LabelButtonText,
+        color = Gray1,
         fontSize = 15.sp,
     ),
     labelLarge = TextStyle(
@@ -46,12 +46,12 @@ val Typography = Typography(
     ),
     labelMedium = TextStyle(
         fontFamily = FontFamily.Default,
-        color = LabelButtonText,
+        color = Gray1,
         fontSize = 14.sp,
     ),
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
-        color = GuideText,
+        color = Gray2,
         fontSize = 12.sp,
         textAlign = TextAlign.Center,
         lineHeight = 1.4.em,

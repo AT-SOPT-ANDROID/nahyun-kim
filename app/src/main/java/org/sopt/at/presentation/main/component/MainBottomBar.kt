@@ -25,11 +25,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.sopt.at.presentation.main.MainNavTab
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.ButtonDisableText
-import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.util.DisableRippleEffect
+import org.sopt.at.presentation.main.MainNavTab
 
 @Composable
 fun MainBottomBar(
@@ -67,7 +66,7 @@ fun RowScope.TabItem(
     selected: Boolean,
     onTabClick: () -> Unit
 ) {
-    val contentColor = if (selected) White else ButtonDisableText
+    val contentColor = if (selected) TvingTheme.colors.onPrimary else TvingTheme.colors.buttonDisableText
 
     DisableRippleEffect {
         Box(

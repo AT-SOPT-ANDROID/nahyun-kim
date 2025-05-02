@@ -17,8 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.ButtonDisableText
-import org.sopt.at.core.designsystem.theme.LabelButtonText
+import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.util.DisableRippleEffect
 
 enum class ButtonSizeType() {
@@ -41,7 +40,7 @@ fun CommonOutlinedButton(
             onClick = onClick,
             border = BorderStroke(
                 width = dimensionResource(R.dimen.outline_button_stroke_width),
-                color = ButtonDisableText
+                color = TvingTheme.colors.gray3
             ),
             shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
             contentPadding = when (sizeType) {
@@ -56,7 +55,7 @@ fun CommonOutlinedButton(
                     ButtonSizeType.SMALL -> 12.sp
                 },
                 fontWeight = FontWeight.ExtraBold,
-                color = LabelButtonText
+                color = TvingTheme.colors.labelButtonText
             )
         }
     }

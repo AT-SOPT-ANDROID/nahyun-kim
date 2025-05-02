@@ -13,9 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import org.sopt.at.core.designsystem.theme.Background
-import org.sopt.at.core.designsystem.theme.ButtonDisableText
-import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.util.DisableRippleEffect
 
 @Composable
@@ -28,7 +26,7 @@ fun HomeTabLayout(
     LazyRow(
         modifier = modifier
             .fillMaxWidth()
-            .background(Background)
+            .background(TvingTheme.colors.background)
             .padding(vertical = 4.dp),
         horizontalArrangement = Arrangement
             .spacedBy(
@@ -59,8 +57,8 @@ fun TabTextItem(
     selectedTabIndex: Int?,
 ) {
     val textColor = when (selectedTabIndex) {
-        null, index -> White
-        else -> ButtonDisableText
+        null, index -> TvingTheme.colors.onPrimary
+        else -> TvingTheme.colors.buttonDisableText
     }
 
     DisableRippleEffect {
