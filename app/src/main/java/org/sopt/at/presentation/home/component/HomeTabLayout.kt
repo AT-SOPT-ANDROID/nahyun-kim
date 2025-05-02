@@ -65,7 +65,7 @@ fun TabTextItem(
         Text(
             text = text,
             color = textColor,
-            style = MaterialTheme.typography.bodyMedium,
+            style = TvingTheme.typography.labelButton,
             modifier = modifier
                 .clickable(
                     onClick = onTabClick

@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -46,13 +45,13 @@ fun RecommendContent(
     ) {
         Text( // 타이틀
             text = title,
-            style = MaterialTheme.typography.titleSmall,
+            style = TvingTheme.typography.subTitle,
         )
         Spacer(Modifier.weight(1f))
         if (isShowMoreButton) { // 더보기
             Text(
                 text = stringResource(R.string.more),
-                style = MaterialTheme.typography.labelMedium,
+                style = TvingTheme.typography.label,
             )
         }
     }

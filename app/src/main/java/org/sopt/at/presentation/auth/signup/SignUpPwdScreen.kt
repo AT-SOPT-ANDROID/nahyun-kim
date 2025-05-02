@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -55,7 +54,7 @@ fun SignUpPwdScreen(
         ) {
             Text(
                 text = stringResource(R.string.signup_pwd_title),
-                style = MaterialTheme.typography.titleLarge,
+                style = TvingTheme.typography.title,
                 modifier = Modifier
             )
             Spacer(Modifier.height(24.dp))
@@ -72,7 +71,7 @@ fun SignUpPwdScreen(
             Text(
                 text = stringResource(R.string.signup_pwd_guide),
                 color = TvingTheme.colors.guideText,
-                style = MaterialTheme.typography.labelSmall,
+                style = TvingTheme.typography.caption,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()
             )

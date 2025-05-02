@@ -1,7 +1,6 @@
 package org.sopt.at.core.designsystem.component.button
 
 import androidx.annotation.StringRes
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -22,7 +21,7 @@ fun CommonTextButton(
         Text(
             text = stringResource(buttonTextRes),
             color = TvingTheme.colors.labelButtonText,
-            style = MaterialTheme.typography.labelMedium
+            style = TvingTheme.typography.label
         )
     }
 }

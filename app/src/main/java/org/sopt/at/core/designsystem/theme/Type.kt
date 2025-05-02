@@ -1,59 +1,64 @@
 package org.sopt.at.core.designsystem.theme
 
-import androidx.compose.material3.Typography
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import org.sopt.at.R
 
-val Typography = Typography(
-    titleLarge = TextStyle(
-        color = BasicWhite,
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 26.sp,
-    ),
-    titleMedium = TextStyle(
-        color = BasicWhite,
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 20.sp,
-    ),
-    titleSmall = TextStyle(
-        color = BasicWhite,
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Bold,
-        fontSize = 18.sp,
-    ),
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    ),
-    bodyMedium = TextStyle(
-        fontFamily = FontFamily.Default,
-        color = Gray1,
-        fontSize = 15.sp,
-    ),
-    labelLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontSize = 16.sp,
-        fontWeight = FontWeight.ExtraBold
-    ),
-    labelMedium = TextStyle(
-        fontFamily = FontFamily.Default,
-        color = Gray1,
-        fontSize = 14.sp,
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        color = Gray2,
-        fontSize = 12.sp,
-        textAlign = TextAlign.Center,
-        lineHeight = 1.4.em,
-    )
+val tvingBold = FontFamily(Font(R.font.pretendard_bold))
+val tvingSemiBold = FontFamily(Font(R.font.pretendard_semibold))
+val tvingRegular = FontFamily(Font(R.font.pretendard_regular))
+
+@Immutable
+data class TivingTypography(
+    val title: TextStyle,
+    val subTitle: TextStyle,
+    val body: TextStyle,
+    val button: TextStyle,
+    val labelButton: TextStyle,
+    val label: TextStyle,
+    val caption: TextStyle,
 )
+
+val defaultTvingTypography = TivingTypography(
+    title = TextStyle(
+        fontFamily = tvingBold,
+        fontSize = 26.sp,
+        lineHeight = 32.sp
+    ),
+    subTitle = TextStyle(
+        fontFamily = tvingSemiBold,
+        fontSize = 18.sp,
+        lineHeight = 26.sp
+    ),
+    body = TextStyle(
+        fontFamily = tvingRegular,
+        fontSize = 16.sp,
+        lineHeight = 24.sp
+    ),
+    button = TextStyle(
+        fontFamily = tvingBold,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
+    ),
+    labelButton = TextStyle(
+        fontFamily = tvingRegular,
+        fontSize = 15.sp,
+        lineHeight = 20.sp
+    ),
+    label = TextStyle(
+        fontFamily = tvingRegular,
+        fontSize = 14.sp,
+        lineHeight = 20.sp
+    ),
+    caption = TextStyle(
+        fontFamily = tvingRegular,
+        fontSize = 12.sp,
+        lineHeight = 16.sp
+    ),
+)
+
+val LocalTvingTypographyProvider = staticCompositionLocalOf { defaultTvingTypography }
