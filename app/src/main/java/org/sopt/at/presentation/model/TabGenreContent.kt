@@ -1,12 +1,15 @@
 package org.sopt.at.presentation.model
 
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
 enum class TabGenreContent(
-    val bannerImages: List<String>,
-    val posterImages: List<String>
+    val bannerImages: ImmutableList<String>,
+    val posterImages: ImmutableList<String>
 ) {
     DRAMA(
-        bannerImages = listOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0645/P001768759.jpg/dims/resize/F_webp,480"),
-        posterImages = listOf(
+        bannerImages = persistentListOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0645/P001768759.jpg/dims/resize/F_webp,480"),
+        posterImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP1130/ko/20250414/0643/P001768976.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0110/P001769310.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP1160/ko/20250414/0643/P001769546.jpg/dims/resize/F_webp,400",
@@ -15,29 +18,29 @@ enum class TabGenreContent(
         )
     ),
     VARIETY(
-        bannerImages = listOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250307/0840/P001768874.jpg/dims/resize/F_webp,480"),
-        posterImages = listOf(
+        bannerImages = persistentListOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250307/0840/P001768874.jpg/dims/resize/F_webp,480"),
+        posterImages = persistentListOf(
             "https://tn.tv.nate.com/unsafe/376x540/https://fs.jtbc.co.kr/joydata/CP00000001/prog/enter/divorcecamp2/img/20240813_102635_402.jpg",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250224/0240/P001768309.jpg/dims/resize/480",
             "https://image3.tple.co.kr/_tpleStory/image/0001459/p0001459167178171825964.gif"
         )
     ),
     MOVIE(
-        bannerImages = listOf("https://image.tving.com/ntgs/contents/CTC/caim/CAIM2100/ko/20250411/0445/M000378588.jpg/dims/resize/F_webp,480"),
-        posterImages = listOf(
+        bannerImages = persistentListOf("https://image.tving.com/ntgs/contents/CTC/caim/CAIM2100/ko/20250411/0445/M000378588.jpg/dims/resize/F_webp,480"),
+        posterImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caim/CAIM2100/ko/20250411/0445/M000378588.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caim/CAIM2100/ko/20240619/0540/M000377290.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caim/CAIM2100/ko/20241004/0120/M000250033.jpg/dims/resize/F_webp,400"
         )
     ),
     SPORTS(
-        bannerImages = listOf(
+        bannerImages = persistentListOf(
             "https://blog.kakaocdn.net/dn/bfRO7x/btsMyAAtsrv/1MYexjkKh5aC1lbmlM6iKK/img.jpg",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250310/0125/P001768756.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/2326/P001769357.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250309/1001/P001768944.jpg/dims/resize/F_webp,480"
         ),
-        posterImages = listOf(
+        posterImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caic/CAIC3000/ko/20250220/0829/C52279.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caic/CAIC3000/ko/20250220/0827/C52273.jpg/dims/resize/F_webp,400",
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgvLeuyFcr0AyeVO-5JVsj6KvjwXro0AurEuRc_AFcHdXdzQ807jsMQmLlv2riF2VQ7ac&usqp=CAU",
@@ -45,10 +48,10 @@ enum class TabGenreContent(
         )
     ),
     ANIMATION(
-        bannerImages = listOf(
+        bannerImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20160131/P000241379.jpg/dims/resize/F_webp,400"
         ),
-        posterImages = listOf(
+        posterImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20200902/P001319056.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20240731/0016/P001759776.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caim/CAIM2100/ko/20250411/0445/M000378588.jpg/dims/resize/F_webp,480",
@@ -58,8 +61,8 @@ enum class TabGenreContent(
         )
     ),
     NEWS(
-        bannerImages = listOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20240311/1005/P001152940.jpg/dims/resize/F_webp,400"),
-        posterImages = listOf(
+        bannerImages = persistentListOf("https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20240311/1005/P001152940.jpg/dims/resize/F_webp,400"),
+        posterImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20231028/1335/P000121860.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250310/0920/P001768977.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250311/0155/P001769014.jpg/dims/resize/F_webp,400",
@@ -68,13 +71,13 @@ enum class TabGenreContent(
         )
     ),
     DEFAULT(
-        bannerImages = listOf(
+        bannerImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250326/0511/P001769546.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0636/P001768976.jpg/dims/resize/F_webp,400",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250212/0755/P001767988.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP1110/ko/20250408/0916/P001769110.jpg/dims/resize/F_webp,400"
         ),
-        posterImages = listOf(
+        posterImages = persistentListOf(
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250410/0706/P001770178.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20250320/0110/P001769310.jpg/dims/resize/F_webp,480",
             "https://image.tving.com/ntgs/contents/CTC/caip/CAIP0900/ko/20240814/1707/P001760343.jpg/dims/resize/F_webp,480",

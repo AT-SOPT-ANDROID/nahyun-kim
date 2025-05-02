@@ -12,9 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.dp
-import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.Background
 import org.sopt.at.core.designsystem.theme.ButtonDisableText
 import org.sopt.at.core.designsystem.theme.White
@@ -22,12 +20,11 @@ import org.sopt.at.core.util.DisableRippleEffect
 
 @Composable
 fun HomeTabLayout(
+    tabTitles: List<String>,
     onTabClick: (Int) -> Unit,
-    selectedTabIndex: Int?,
     modifier: Modifier = Modifier,
+    selectedTabIndex: Int?,
 ) {
-    val stringArr = stringArrayResource(R.array.home_tab_array)
-
     LazyRow(
         modifier = modifier
             .fillMaxWidth()
@@ -39,10 +36,13 @@ fun HomeTabLayout(
                 alignment = Alignment.CenterHorizontally
             ),
     ) {
-        itemsIndexed(stringArr) { index, text ->
+        itemsIndexed(
+            items = tabTitles,
+            key = { index, title -> title },
+        ) { index, title ->
             TabTextItem(
                 index = index,
-                text = text,
+                text = title,
                 onTabClick = { onTabClick(index) },
                 selectedTabIndex = selectedTabIndex,
             )
