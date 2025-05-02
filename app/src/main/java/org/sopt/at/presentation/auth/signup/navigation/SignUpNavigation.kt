@@ -25,7 +25,7 @@ fun NavGraphBuilder.signUpNavGraph(
         SignUpRoute(
             paddingValues = paddingValues,
             onBackClick = navigateBack,
-            onLoginClick = navigateToLogin,
+            onNextClick = navigateToLogin,
         )
     }
 }

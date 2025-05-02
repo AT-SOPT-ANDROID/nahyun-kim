@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -37,6 +38,7 @@ import org.sopt.at.core.designsystem.component.textfield.CommonTextField
 import org.sopt.at.core.designsystem.component.textfield.TextFieldType
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.ButtonDisableBg
+import org.sopt.at.core.state.UiState
 
 @Composable
 fun LoginRoute(
@@ -64,10 +66,24 @@ fun LoginScreen(
     onSignUpClick: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
+    val state by viewModel.state.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
+
     val scope = rememberCoroutineScope()
 
-    val loginInfo by viewModel.loginUserInfo.collectAsState()
-    val isLoginEnable by viewModel.isButtonEnable.collectAsState()
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is UiState.Success -> { onLoginClick() }
+            is UiState.Error -> {
+                scope.launch {
+                    snackbarHostState.showSnackbar(
+                        (uiState as UiState.Error).message
+                    )
+                }
+            }
+            else -> null
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -97,7 +113,7 @@ fun LoginScreen(
             CommonTextField(
                 modifier = Modifier.fillMaxWidth(),
                 type = TextFieldType.DEFAULT,
-                value = loginInfo.id,
+                value = state.userId,
                 onValueChange = viewModel::updateId,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
@@ -113,7 +129,7 @@ fun LoginScreen(
                     keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Done
                 ),
-                value = loginInfo.password,
+                value = state.password,
                 onValueChange = viewModel::updatePassword,
                 placeholder = stringResource(R.string.password_hint),
             )
@@ -122,21 +138,8 @@ fun LoginScreen(
         LargeFilledButton( // 로그인 버튼
             modifier = Modifier.fillMaxWidth(),
             buttonTextRes = R.string.do_login,
-            isButtonEnable = isLoginEnable,
-            onClick = {
-                when (viewModel.isIdenticalUser()) {
-                    true -> {
-                        onLoginClick()
-                        viewModel.saveUser()
-                    }
-                    false -> scope.launch {
-                        snackbarHostState.showSnackbar("아이디 또는 비밀번호가 일치하지 않습니다.")
-                    }
-                    null  -> scope.launch {
-                        snackbarHostState.showSnackbar("회원 정보가 없습니다.")
-                    }
-                }
-            }
+            isButtonEnable = state.isButtonEnabled,
+            onClick = viewModel::tryLogin
         )
         Spacer(Modifier.height(20.dp))
         Row(

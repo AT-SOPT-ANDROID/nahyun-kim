@@ -4,41 +4,76 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import org.sopt.at.presentation.auth.login.navigation.Login
+import org.sopt.at.core.state.UiState
+import org.sopt.at.presentation.auth.signup.state.SignUpState
 
 class SignUpViewModel: ViewModel() {
 
-    private val _currentStep = MutableStateFlow(SignUpStep.ID)
-    val currentStep: StateFlow<SignUpStep>
-        get() = _currentStep.asStateFlow()
+    private val _state = MutableStateFlow(SignUpState())
+    val state: StateFlow<SignUpState>
+        get() = _state.asStateFlow()
 
-    private val _userInfo = MutableStateFlow<Login>(Login())
-    val userInfo: StateFlow<Login>
-        get() = _userInfo.asStateFlow()
+    private val _uiState = MutableStateFlow<UiState<Unit>>(UiState.Empty)
+    val uiState: StateFlow<UiState<Unit>>
+        get() = _uiState.asStateFlow()
 
-    fun updateStep(step: SignUpStep) {
-        _currentStep.value = step
+    fun updateStep(moveDirection: MoveDirection) {
+        val currentStep = _state.value.currentStep
+        val targetStep = when (moveDirection) {
+            MoveDirection.PREV -> SignUpStep.getPrevStep(currentStep)
+            MoveDirection.NEXT -> SignUpStep.getNextStep(currentStep)
+        }
+        if (targetStep == null) return
+        _state.value = _state.value.copy(
+            currentStep = targetStep
+        )
     }
 
     fun updateId(id: String) {
-        _userInfo.update {
-            it.copy(id = id)
-        }
+        _state.value = _state.value.copy(
+            userId = id
+        )
     }
 
     fun updatePassword(password: String) {
-        _userInfo.update {
-            it.copy(password = password)
+        _state.value = _state.value.copy(
+            password = password
+        )
+    }
+
+    fun onNextClick() {
+        when (_state.value.currentStep) {
+            SignUpStep.ID -> {
+                if (isValidId()) {
+                    updateStep(MoveDirection.NEXT)
+                    _uiState.value = UiState.Empty
+                } else {
+                    _uiState.value = UiState.Error(
+                        message = "아이디 형식에 맞지 않습니다."
+                    )
+                    _state.value = _state.value.copy(isSignupSuccess = true)
+                }
+            }
+            SignUpStep.PASSWORD -> {
+                if (isValidPassword()) {
+                    _uiState.value = UiState.Success(Unit)
+                    _state.value = _state.value.copy(isSignupSuccess = true)
+                } else {
+                    _uiState.value = UiState.Error(
+                        message = "비밀번호 형식에 맞지 않습니다."
+                    )
+                    _state.value = _state.value.copy(isSignupSuccess = true)
+                }
+            }
         }
     }
 
     fun isValidId(): Boolean {
-        return checkIdValidation(_userInfo.value.id)
+        return checkIdValidation(_state.value.userId)
     }
 
     fun isValidPassword(): Boolean {
-        return checkPasswordValidation(_userInfo.value.password)
+        return checkPasswordValidation(_state.value.password)
     }
 
     companion object {
@@ -56,6 +91,10 @@ class SignUpViewModel: ViewModel() {
     }
 }
 
+enum class MoveDirection() {
+    PREV, NEXT
+}
+
 enum class SignUpStep(var order: Int) {
     ID(1),
     PASSWORD(2);
@@ -64,6 +103,12 @@ enum class SignUpStep(var order: Int) {
         fun getPrevStep(currentStep: SignUpStep): SignUpStep? { // 뒤로가기
             return entries.find {
                 it.order == currentStep.order - 1
+            }
+        }
+
+        fun getNextStep(currentStep: SignUpStep): SignUpStep? { // 다음
+            return entries.find {
+                it.order == currentStep.order + 1
             }
         }
     }
