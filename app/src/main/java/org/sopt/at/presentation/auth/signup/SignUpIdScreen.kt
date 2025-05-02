@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -19,11 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.component.button.ButtonSizeType
 import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
@@ -55,7 +52,7 @@ fun SignUpIdScreen(
         ) {
             Text(
                 text = stringResource(R.string.signup_id_title),
-                style = MaterialTheme.typography.titleLarge,
+                style = TvingTheme.typography.title,
                 modifier = Modifier
             )
             Spacer(Modifier.height(24.dp))
@@ -71,8 +68,7 @@ fun SignUpIdScreen(
             Text(
                 text = stringResource(R.string.signup_id_guide),
                 color = TvingTheme.colors.guideText,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium,
+                style = TvingTheme.typography.caption,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()
             )

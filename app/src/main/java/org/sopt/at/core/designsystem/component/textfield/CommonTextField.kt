@@ -76,7 +76,7 @@ fun CommonTextField(
         visualTransformation = if (!isPwdVisible && isPwdTextField) PasswordVisualTransformation() else VisualTransformation.None,
         interactionSource = interactionSource,
         singleLine = true,
-        textStyle = MaterialTheme.typography.bodyMedium.copy(
+        textStyle = TvingTheme.typography.label.copy(
             color = TvingTheme.colors.onPrimary
         ),
         cursorBrush = SolidColor(TvingTheme.colors.onPrimary),
@@ -97,7 +97,7 @@ fun CommonTextField(
                     if (value.isEmpty()) {
                         Text(
                             text = placeholder,
-                            style = MaterialTheme.typography.bodyMedium.copy(
+                            style = TvingTheme.typography.label.copy(
                                 color = TvingTheme.colors.hintText
                             )
                         )

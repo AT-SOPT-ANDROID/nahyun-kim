@@ -103,7 +103,7 @@ fun LoginScreen(
         Spacer(Modifier.height(50.dp))
         Text(
             text = stringResource(R.string.login_using_tving_id),
-            style = MaterialTheme.typography.titleLarge,
+            style = TvingTheme.typography.title,
             modifier = Modifier
         )
         Spacer(Modifier.height(22.dp))
@@ -162,7 +162,7 @@ fun LoginScreen(
             text = stringResource(R.string.login_term_guide),
             color = TvingTheme.colors.guideText,
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.labelSmall,
+            style = TvingTheme.typography.caption,
             modifier = Modifier.fillMaxSize()
         )
     }

@@ -7,7 +7,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.sopt.at.core.navigation.MainTabRoute
-import org.sopt.at.presentation.history.HistoryRoute
 
 fun NavController.navigateToLive(
     navOptions: NavOptions? = null
@@ -19,7 +18,7 @@ fun NavGraphBuilder.liveNavGraph(
     paddingValues: PaddingValues
 ) {
     composable<Live> {
-        HistoryRoute(
+        LiveRoute(
             paddingValues = paddingValues
         )
     }

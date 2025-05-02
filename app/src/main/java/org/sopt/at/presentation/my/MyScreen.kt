@@ -104,7 +104,7 @@ fun MyScreen(
 
                 Text(
                     text = state.userId,
-                    style = MaterialTheme.typography.titleMedium
+                    style = TvingTheme.typography.subTitle
                 )
 
                 IconButton(onClick = {}) {
