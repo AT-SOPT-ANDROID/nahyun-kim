@@ -28,9 +28,7 @@ import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
 import kotlinx.collections.immutable.ImmutableList
 import org.sopt.at.R
-import org.sopt.at.core.designsystem.theme.ButtonTint
-import org.sopt.at.core.designsystem.theme.TextFieldBg
-import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 @Composable
 fun RecommendContent(
@@ -87,7 +85,7 @@ fun ContentItem(
                 text = ranking.toString(),
                 fontSize = 80.sp,
                 fontWeight = FontWeight.Bold,
-                color = White,
+                color = TvingTheme.colors.onPrimary,
                 fontStyle = FontStyle.Italic,
                 letterSpacing = (-2).sp,
                 modifier = modifier.height(80.dp)
@@ -96,8 +94,8 @@ fun ContentItem(
         GlideImage(
             imageModel = imageUrl,
             shimmerParams = ShimmerParams(
-                baseColor = TextFieldBg,
-                highlightColor = ButtonTint,
+                baseColor = TvingTheme.colors.gray5,
+                highlightColor = TvingTheme.colors.gray3,
                 durationMillis = 350,
                 dropOff = 0.65f,
                 tilt = 20f

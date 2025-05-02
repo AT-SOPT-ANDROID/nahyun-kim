@@ -30,6 +30,7 @@ import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
 import org.sopt.at.core.designsystem.component.textfield.CommonTextField
 import org.sopt.at.core.designsystem.component.textfield.TextFieldType
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 @Composable
 fun SignUpPwdScreen(
@@ -70,6 +71,7 @@ fun SignUpPwdScreen(
             Spacer(Modifier.height(12.dp))
             Text(
                 text = stringResource(R.string.signup_pwd_guide),
+                color = TvingTheme.colors.guideText,
                 style = MaterialTheme.typography.labelSmall,
                 textAlign = TextAlign.Start,
                 modifier = Modifier.fillMaxWidth()

@@ -16,13 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -36,9 +34,7 @@ import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.component.button.ButtonSizeType
 import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.ButtonTint
-import org.sopt.at.core.designsystem.theme.White
-import org.sopt.at.core.state.UiState
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 @Composable
 fun MyRoute(
@@ -76,14 +72,14 @@ fun MyScreen(
                 IconButton(onClick = {}) {
                     Icon(
                         imageVector = Icons.Outlined.Notifications,
-                        tint = White,
+                        tint = TvingTheme.colors.onPrimary,
                         contentDescription = null
                     )
                 }
                 IconButton(onClick = {}) {
                     Icon(
                         imageVector = Icons.Outlined.Settings,
-                        tint = White,
+                        tint = TvingTheme.colors.onPrimary,
                         contentDescription = null
                     )
                 }
@@ -114,7 +110,7 @@ fun MyScreen(
                 IconButton(onClick = {}) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        tint = ButtonTint,
+                        tint = TvingTheme.colors.iconTint,
                         contentDescription = null,
                         modifier = Modifier.size(18.dp)
                     )
@@ -137,7 +133,7 @@ fun MyScreen(
                 onLogoutClick()
             }
         )
-        Spacer(modifier = Modifier.width(12.dp))
+        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 

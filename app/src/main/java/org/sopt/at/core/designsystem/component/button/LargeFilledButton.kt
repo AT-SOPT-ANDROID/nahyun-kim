@@ -16,10 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
-import org.sopt.at.core.designsystem.theme.ButtonDisableBg
-import org.sopt.at.core.designsystem.theme.HintText
-import org.sopt.at.core.designsystem.theme.Primary
-import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 
 @Composable
@@ -36,10 +33,10 @@ fun LargeFilledButton(
         shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
         contentPadding = PaddingValues(vertical = 14.dp),
         colors = ButtonDefaults.buttonColors(
-            disabledContainerColor = ButtonDisableBg,
-            disabledContentColor = HintText,
-            containerColor = Primary,
-            contentColor = White
+            disabledContainerColor = TvingTheme.colors.buttonDisableBg,
+            disabledContentColor = TvingTheme.colors.buttonDisableText,
+            containerColor = TvingTheme.colors.primary,
+            contentColor = TvingTheme.colors.onPrimary
         )
     ) {
         Text(
