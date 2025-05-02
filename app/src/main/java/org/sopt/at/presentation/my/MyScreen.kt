@@ -16,12 +16,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -35,6 +38,7 @@ import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.ButtonTint
 import org.sopt.at.core.designsystem.theme.White
+import org.sopt.at.core.state.UiState
 
 @Composable
 fun MyRoute(
@@ -56,6 +60,8 @@ fun MyScreen(
     onBackClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
+    val state by viewModel.state.collectAsState()
+
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -101,7 +107,7 @@ fun MyScreen(
                 Spacer(modifier = Modifier.width(10.dp))
 
                 Text(
-                    text = viewModel.userName.collectAsState().value.toString(),
+                    text = state.userId,
                     style = MaterialTheme.typography.titleMedium
                 )
 

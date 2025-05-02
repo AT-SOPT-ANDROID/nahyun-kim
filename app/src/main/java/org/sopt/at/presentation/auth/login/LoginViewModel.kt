@@ -1,6 +1,5 @@
 package org.sopt.at.presentation.auth.login
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,11 +8,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.sopt.at.domain.model.UserInfo
+import org.sopt.at.core.state.UiState
 import org.sopt.at.domain.usecase.SaveUserInfoUseCase
 import org.sopt.at.presentation.auth.login.navigation.Login
+import org.sopt.at.presentation.auth.login.state.LoginState
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,50 +20,73 @@ class LoginViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val saveUserInfoUseCase: SaveUserInfoUseCase
 ): ViewModel() {
-    private val _loginUserInfo = MutableStateFlow<UserInfo>(UserInfo())
-    val loginUserInfo: StateFlow<UserInfo>
-        get() = _loginUserInfo.asStateFlow()
+    private val _state = MutableStateFlow(LoginState())
+    val state: StateFlow<LoginState>
+        get() = _state.asStateFlow()
 
-    private val _isButtonEnable = MutableStateFlow(false)
-    val isButtonEnable: StateFlow<Boolean>
-        get() = _isButtonEnable.asStateFlow()
+    private val _uiState = MutableStateFlow<UiState<Unit>>(UiState.Empty)
+    val uiState: StateFlow<UiState<Unit>>
+        get() = _uiState.asStateFlow()
 
-    val registerUserInfo = savedStateHandle.toRoute<Login>()
-
-    private val _autoLoinEnable = MutableStateFlow(false)
+    val registerUserInfo = savedStateHandle.toRoute<Login>() // 회원가입 정보
 
     fun updateId(id: String) {
-        _loginUserInfo.update {
-            it.copy(id = id)
-        }
-        updateButtonState()
+        val newState = _state.value.copy(
+            userId = id,
+        )
+        _state.value = newState.copy(
+            isButtonEnabled = checkButtonEnabled(newState.userId, newState.password)
+        )
     }
 
+    fun updatePassword(password: String) {
+        val newState = _state.value.copy(
+            password = password,
+        )
+        _state.value = newState.copy(
+            isButtonEnabled = checkButtonEnabled(newState.userId, newState.password)
+        )
+    }
+
+    fun tryLogin() {
+        when (checkIdenticalUser()) {
+            true -> { // 성공
+                _state.value = _state.value.copy(isLoginSuccess = true)
+                _uiState.value = UiState.Success(Unit)
+                saveUser()
+            }
+            false -> { // 실패
+                _uiState.value = UiState.Error(
+                    message = "아이디 또는 비밀번호가 일치하지 않습니다."
+                )
+            }
+            null -> {
+                _uiState.value = UiState.Error(
+                    "회원 정보가 없습니다."
+                )
+            }
+        }
+    }
+
+    // 저장소에 로그인 정보 저장
     fun saveUser() {
         viewModelScope.launch {
             saveUserInfoUseCase(
-                id = _loginUserInfo.value.id,
-                password = _loginUserInfo.value.password
+                id = _state.value.userId,
+                password = _state.value.password
             )
         }
     }
 
-    fun updatePassword(password: String) {
-        _loginUserInfo.update {
-            it.copy(password = password)
-        }
-        updateButtonState()
-    }
-
-    private fun updateButtonState() {
-        val (id, password) = _loginUserInfo.value
-        _isButtonEnable.value = id.isNotEmpty() && password.isNotEmpty()
+    private fun checkButtonEnabled(id: String, password: String): Boolean {
+        return id.isNotEmpty() && password.isNotEmpty()
     }
 
     // 로그인 한 유저 정보가 회원가입 한 유저 정보와 동일한지 판단
-    fun isIdenticalUser(): Boolean? {
+    fun checkIdenticalUser(): Boolean? {
+        val (id, password) = _state.value
         if (registerUserInfo.id.isEmpty()) return null
-        return registerUserInfo.id == _loginUserInfo.value.id
-                && registerUserInfo.password == _loginUserInfo.value.password
+        return registerUserInfo.id == id
+                && registerUserInfo.password == password
     }
 }
