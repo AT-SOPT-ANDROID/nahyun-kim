@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +16,9 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import org.sopt.at.R
 import org.sopt.at.presentation.model.TabGenreContent
@@ -47,10 +47,9 @@ fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
     onProfileClick: () -> Unit
 ) {
-    val tabTitlesArray = stringArrayResource(R.array.home_tab_array)
-    val tabTitles = remember(tabTitlesArray) { tabTitlesArray.toList() }
+    val tabTitles = stringArrayResource(R.array.home_tab_array).toImmutableList()
 
-    var selectedTabIndex = viewModel.selectedTabIndex.collectAsState().value
+    var selectedTabIndex = viewModel.selectedTabIndex.collectAsStateWithLifecycle().value
 
     val scrollState = rememberLazyListState()
     val scope = rememberCoroutineScope()

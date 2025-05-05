@@ -21,6 +21,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,6 +35,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,6 +45,7 @@ import org.sopt.at.R
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.TvingTheme
 
+@Immutable
 enum class TextFieldType() {
     DEFAULT, PASSWORD
 }
@@ -60,12 +64,17 @@ fun CommonTextField(
     val interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
     val isFocused by interactionSource.collectIsFocusedAsState()
     var isPwdVisible by remember { mutableStateOf(false) }
-    val pwdIconId = if (isPwdVisible) R.drawable.ic_password_show else R.drawable.ic_password_hide
+    val pwdIconId = remember(isPwdVisible) {
+        if (isPwdVisible) R.drawable.ic_password_show else R.drawable.ic_password_hide
+    }
     val isPwdTextField = (type == TextFieldType.PASSWORD)
 
-    val borderLineColor = when {
-        isFocused -> TvingTheme.colors.buttonDisableText
-        else -> Color.Transparent
+    val colors = TvingTheme.colors
+    val borderLineColor = remember(isFocused) {
+        when {
+            isFocused -> colors.buttonDisableText
+            else -> Color.Transparent
+        }
     }
 
     BasicTextField(
@@ -97,9 +106,8 @@ fun CommonTextField(
                     if (value.isEmpty()) {
                         Text(
                             text = placeholder,
-                            style = TvingTheme.typography.label.copy(
-                                color = TvingTheme.colors.hintText
-                            )
+                            color = TvingTheme.colors.hintText,
+                            style = TvingTheme.typography.label
                         )
                     }
                     innerTextField()
