@@ -70,7 +70,7 @@ fun RowScope.TabItem(
     val colors = TvingTheme.colors
     val contentColor = remember(selected) {
         if (selected) colors.onPrimary
-        else colors.buttonDisableText
+        else colors.disableContent
     }
 
     DisableRippleEffect {

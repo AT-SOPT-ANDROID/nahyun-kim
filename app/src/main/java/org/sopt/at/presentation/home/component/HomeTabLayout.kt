@@ -61,7 +61,7 @@ fun TabTextItem(
     val textColor = remember(selectedTabIndex) {
         when (selectedTabIndex) {
             null, index -> colors.onPrimary
-            else -> colors.buttonDisableText
+            else -> colors.disableContent
         }
     }
 

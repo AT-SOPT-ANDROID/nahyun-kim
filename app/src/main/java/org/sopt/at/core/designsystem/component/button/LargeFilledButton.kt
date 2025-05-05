@@ -32,8 +32,8 @@ fun LargeFilledButton(
         shape = RoundedCornerShape(dimensionResource(R.dimen.button_radius)),
         contentPadding = PaddingValues(vertical = 14.dp),
         colors = ButtonDefaults.buttonColors(
-            disabledContainerColor = TvingTheme.colors.buttonDisableBg,
-            disabledContentColor = TvingTheme.colors.buttonDisableText,
+            disabledContainerColor = TvingTheme.colors.disableContainer,
+            disabledContentColor = TvingTheme.colors.disableContent,
             containerColor = TvingTheme.colors.primary,
             contentColor = TvingTheme.colors.onPrimary
         )

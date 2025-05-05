@@ -31,8 +31,8 @@ data class TvingColors(
     val background: Color,
     val hintText: Color,
     val guideText: Color,
-    val buttonDisableBg: Color,
-    val buttonDisableText: Color,
+    val disableContainer: Color,
+    val disableContent: Color,
     val labelButtonText: Color,
     val iconTint: Color
 )
@@ -51,8 +51,8 @@ val defaultTvingColors = TvingColors(
     background = BasicBlack,
     hintText = Gray2,
     guideText = Gray2,
-    buttonDisableBg = Gray4,
-    buttonDisableText = Gray3,
+    disableContainer = Gray4,
+    disableContent = Gray3,
     labelButtonText = Gray1,
     iconTint = Gray3,
 )
