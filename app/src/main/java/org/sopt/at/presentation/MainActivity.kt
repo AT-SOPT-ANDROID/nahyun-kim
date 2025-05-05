@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.runtime.collectAsState
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.presentation.main.MainScreen
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             ATSOPTANDROIDTheme {
-                val isReady = viewModel.isReady.collectAsState().value
+                val isReady = viewModel.isReady.collectAsStateWithLifecycle().value
 
                 if (isReady) {
                     MainScreen(startDestination = viewModel.getStartDestination())

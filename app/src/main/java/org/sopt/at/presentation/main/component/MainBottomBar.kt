@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -66,7 +67,11 @@ fun RowScope.TabItem(
     selected: Boolean,
     onTabClick: () -> Unit
 ) {
-    val contentColor = if (selected) TvingTheme.colors.onPrimary else TvingTheme.colors.buttonDisableText
+    val colors = TvingTheme.colors
+    val contentColor = remember(selected) {
+        if (selected) colors.onPrimary
+        else colors.buttonDisableText
+    }
 
     DisableRippleEffect {
         Box(
