@@ -1,6 +1,5 @@
 package org.sopt.at.presentation.main
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,25 +21,22 @@ class SplashViewModel @Inject constructor(
     val isReady: StateFlow<Boolean>
         get() = _isReady.asStateFlow()
 
-    var isAutoLoinEnable = false
+    var isAutoLoginEnable = false
 
     init {
         checkAuthLogin()
     }
 
     private fun checkAuthLogin() {
-        var name = ""
         viewModelScope.launch {
-            getUserNameUseCase().collect { it ->
-                Log.d("SplashVM", "name: ${it.toString()}")
-                name = it.toString()
-                isAutoLoinEnable = (it != null)
+            getUserNameUseCase().collect { name ->
+                isAutoLoginEnable = (name != null)
                 _isReady.value = true
             }
         }
     }
 
     fun getStartDestination(): Route {
-        return if (isAutoLoinEnable == true) Home else Login()
+        return if (isAutoLoginEnable == true) Home else Login()
     }
 }

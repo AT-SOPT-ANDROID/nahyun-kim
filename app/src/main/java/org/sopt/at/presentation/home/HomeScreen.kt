@@ -123,7 +123,7 @@ fun HomeScreen(
 
 @Preview(showBackground = true, backgroundColor = 0x00000)
 @Composable
-private fun Preview() {
+private fun HomePreview() {
     ATSOPTANDROIDTheme {
         HomeScreen(
             paddingValues = PaddingValues(),

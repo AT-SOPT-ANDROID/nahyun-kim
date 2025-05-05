@@ -2,8 +2,8 @@ package org.sopt.at.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import org.sopt.at.data.local.UserLocalDataSource
+import org.sopt.at.data.model.toEntity
 import org.sopt.at.domain.model.UserInfo
-import org.sopt.at.domain.model.toEntity
 import org.sopt.at.domain.repository.UserRepository
 import javax.inject.Inject
 

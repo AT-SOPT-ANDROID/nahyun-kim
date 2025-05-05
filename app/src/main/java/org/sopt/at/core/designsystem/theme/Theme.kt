@@ -40,6 +40,7 @@ fun ProvideTvingColorsAndTypography(
 ) {
     CompositionLocalProvider(
         LocalTvingColorsProvider provides colors,
+        LocalTvingTypographyProvider provides typography,
         content = content
     )
 }
