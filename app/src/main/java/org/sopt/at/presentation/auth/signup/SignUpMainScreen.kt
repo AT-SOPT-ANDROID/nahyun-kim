@@ -8,12 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.state.UiState
@@ -22,33 +22,25 @@ import org.sopt.at.presentation.auth.login.navigation.Login
 @Composable
 fun SignUpRoute(
     paddingValues: PaddingValues,
-    onBackClick: () -> Unit,
-    onNextClick: (Login) -> Unit,
+    navigateBack: () -> Unit,
+    navigateToLogin: (Login) -> Unit,
+    viewModel: SignUpViewModel = hiltViewModel()
 ) {
-    SignUpMainScreen(
-        paddingValues = paddingValues,
-        onBackClick = onBackClick,
-        onNextClick =  onNextClick,
-    )
-}
-
-@Composable
-fun SignUpMainScreen(
-    paddingValues: PaddingValues,
-    onBackClick: () -> Unit,
-    onNextClick: (Login) -> Unit,
-    viewModel: SignUpViewModel = viewModel(),
-) {
-    val state by viewModel.state.collectAsState()
-    val uiState by viewModel.uiState.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val context = LocalContext.current
+
+    val onBackClick: () -> Unit = when (state.currentStep) {
+        SignUpStep.ID -> navigateBack
+        else -> { { viewModel.updateStep(MoveDirection.PREV) } }
+    }
 
     LaunchedEffect(uiState) {
         when (uiState) {
             is UiState.Success -> {
                 Toast.makeText(context, "회원가입 완료!", Toast.LENGTH_SHORT).show()
-                onNextClick(Login(
+                navigateToLogin(Login(
                     state.userId,
                     state.password
                 ))
@@ -60,42 +52,56 @@ fun SignUpMainScreen(
         }
     }
 
-    // 뒤로가기 이벤트 정의
     BackHandler {
-        when (state.currentStep) {
-            SignUpStep.ID -> onBackClick()
-            else -> viewModel.updateStep(MoveDirection.PREV)
-        }
+        onBackClick
     }
 
+    SignUpMainScreen(
+        paddingValues = paddingValues,
+        onBackClick = onBackClick,
+        onNextClick =  viewModel::onNextClick,
+        currentStep = state.currentStep,
+        userId = state.userId,
+        onUserIdChanged = viewModel::updateId,
+        password = state.password,
+        onPasswordChanged = viewModel::updatePassword
+    )
+}
+
+@Composable
+fun SignUpMainScreen(
+    paddingValues: PaddingValues,
+    onBackClick: () -> Unit,
+    onNextClick: () -> Unit,
+    currentStep: SignUpStep,
+    userId: String,
+    onUserIdChanged: (String) -> Unit,
+    password: String,
+    onPasswordChanged: (String) -> Unit,
+) {
     Column(
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()
     ) {
         CommonTopAppBar(
-            onBackClick = {
-                when (state.currentStep) {
-                    SignUpStep.ID -> onBackClick()
-                    else -> viewModel.updateStep(MoveDirection.PREV)
-                }
-            }
+            onBackClick = onBackClick
         ) {}
         //TODO: 회원가입 단계 Navigation으로 구분
-        when (state.currentStep) {
+        when (currentStep) {
             SignUpStep.ID -> {
                 SignUpIdScreen(
-                    idText = state.userId,
-                    onIdChange = viewModel::updateId,
-                    onNextClick = viewModel::onNextClick
+                    idText = userId,
+                    onIdChange = onUserIdChanged,
+                    onNextClick = onNextClick
                 )
             }
 
             SignUpStep.PASSWORD -> {
                 SignUpPwdScreen(
-                    pwdText = state.password,
-                    onPwdChange = viewModel::updatePassword,
-                    onNextClick = viewModel::onNextClick
+                    pwdText = password,
+                    onPwdChange = onPasswordChanged,
+                    onNextClick = onNextClick
                 )
             }
         }
@@ -109,7 +115,12 @@ private fun SignUpMainPreview() {
         SignUpMainScreen(
             paddingValues = PaddingValues(),
             onBackClick = { },
-            onNextClick =  { }
+            onNextClick = { },
+            currentStep = SignUpStep.ID,
+            userId = "",
+            onUserIdChanged = { },
+            password = "",
+            onPasswordChanged = { },
         )
     }
 }

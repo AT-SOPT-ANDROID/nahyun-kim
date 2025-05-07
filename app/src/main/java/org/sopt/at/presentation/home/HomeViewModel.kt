@@ -1,18 +1,11 @@
 package org.sopt.at.presentation.home
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.navigation.toRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import org.sopt.at.presentation.home.navigation.Home
 
-class HomeViewModel(
-    savedStateHandle: SavedStateHandle,
-): ViewModel() {
-    val profile = savedStateHandle.toRoute<Home>()
-
+class HomeViewModel: ViewModel() {
     private val _selectedTabIndex = MutableStateFlow<Int?>(null)
     val selectedTabIndex: StateFlow<Int?>
         get() = _selectedTabIndex.asStateFlow()
@@ -21,4 +14,3 @@ class HomeViewModel(
         _selectedTabIndex.value = index
     }
 }
-

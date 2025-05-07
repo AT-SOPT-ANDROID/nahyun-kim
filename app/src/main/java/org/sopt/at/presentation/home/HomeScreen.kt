@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +33,16 @@ import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 @Composable
 fun HomeRoute(
     paddingValues: PaddingValues,
-    onProfileClick: () -> Unit
+    navigateToMy: () -> Unit,
+    viewModel: HomeViewModel = viewModel()
 ) {
+    val selectedTabIndex by viewModel.selectedTabIndex.collectAsStateWithLifecycle()
+
     HomeScreen(
         paddingValues = paddingValues,
-        onProfileClick = onProfileClick
+        onProfileClick = navigateToMy,
+        selectedTabIndex = selectedTabIndex,
+        selectTab = viewModel::selectTab
     )
 }
 
@@ -44,12 +50,11 @@ fun HomeRoute(
 @Composable
 fun HomeScreen(
     paddingValues: PaddingValues,
-    viewModel: HomeViewModel = viewModel(),
-    onProfileClick: () -> Unit
+    onProfileClick: () -> Unit,
+    selectedTabIndex: Int?,
+    selectTab: (Int?) -> Unit
 ) {
     val tabTitles = stringArrayResource(R.array.home_tab_array).toImmutableList()
-
-    var selectedTabIndex = viewModel.selectedTabIndex.collectAsStateWithLifecycle().value
 
     val scrollState = rememberLazyListState()
     val scope = rememberCoroutineScope()
@@ -78,7 +83,7 @@ fun HomeScreen(
                 HomeTopBar(
                     modifier = Modifier,
                     onLogoClick = {
-                        viewModel.selectTab(null)
+                        selectTab(null)
                         scrollToTop()
                     },
                     onProfileClick = onProfileClick
@@ -89,7 +94,7 @@ fun HomeScreen(
                     tabTitles = tabTitles,
                     selectedTabIndex = selectedTabIndex,
                     onTabClick = { tabIndex ->
-                        viewModel.selectTab(tabIndex)
+                        selectTab(tabIndex)
                         scrollToTop()
                     }
                 )
@@ -127,7 +132,9 @@ private fun HomePreview() {
     ATSOPTANDROIDTheme {
         HomeScreen(
             paddingValues = PaddingValues(),
-            onProfileClick = { },
+            onProfileClick = {},
+            selectedTabIndex = 0,
+            selectTab = {},
         )
     }
 }

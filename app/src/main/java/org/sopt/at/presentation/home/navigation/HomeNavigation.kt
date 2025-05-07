@@ -22,7 +22,7 @@ fun NavGraphBuilder.homeNavGraph(
     composable<Home> {
         HomeRoute(
             paddingValues = paddingValues,
-            onProfileClick = navigateToMy,
+            navigateToMy = navigateToMy,
         )
     }
 }

@@ -24,8 +24,8 @@ fun NavGraphBuilder.signUpNavGraph(
     composable<SignUp> {
         SignUpRoute(
             paddingValues = paddingValues,
-            onBackClick = navigateBack,
-            onNextClick = navigateToLogin,
+            navigateBack = navigateBack,
+            navigateToLogin = navigateToLogin,
         )
     }
 }
