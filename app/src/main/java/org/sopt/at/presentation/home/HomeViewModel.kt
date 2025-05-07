@@ -1,11 +1,14 @@
 package org.sopt.at.presentation.home
 
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class HomeViewModel: ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(): ViewModel() {
     private val _selectedTabState = MutableStateFlow<TabState>(TabState.None)
     val selectedTabState: StateFlow<TabState>
         get() = _selectedTabState.asStateFlow()
