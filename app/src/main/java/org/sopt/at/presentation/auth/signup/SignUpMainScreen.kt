@@ -2,6 +2,7 @@ package org.sopt.at.presentation.auth.signup
 
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,6 +17,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.state.UiState
 import org.sopt.at.presentation.auth.signin.navigation.SignIn
 
@@ -81,13 +83,14 @@ fun SignUpMainScreen(
 ) {
     Column(
         modifier = Modifier
+            .background(TvingTheme.colors.background)
             .padding(paddingValues)
             .fillMaxSize()
     ) {
         CommonTopAppBar(
             onBackClick = onBackClick
         ) {}
-        //TODO: 회원가입 단계 Navigation으로 구분
+        //TODO: 회원가입 단계 Navigation으로 구분 (중첩 네비게이션 활용)
         when (currentStep) {
             SignUpStep.ID -> {
                 SignUpIdScreen(
@@ -108,7 +111,7 @@ fun SignUpMainScreen(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0x000000)
+@Preview
 @Composable
 private fun SignUpMainPreview() {
     ATSOPTANDROIDTheme {

@@ -1,6 +1,7 @@
 package org.sopt.at.presentation.my
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -64,7 +66,12 @@ fun MyScreen(
 ) {
     Column(
         modifier = Modifier
+            .background(TvingTheme.colors.background)
             .padding(paddingValues)
+            .padding(
+                vertical = dimensionResource(R.dimen.screen_padding_vertical),
+                horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
+            )
             .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.Start,
@@ -108,7 +115,8 @@ fun MyScreen(
 
                 Text(
                     text = userId,
-                    style = TvingTheme.typography.subTitle
+                    style = TvingTheme.typography.subTitle,
+                    color = TvingTheme.colors.basicWhite
                 )
 
                 IconButton(onClick = {}) {
@@ -134,11 +142,10 @@ fun MyScreen(
             textResId = R.string.my_logout,
             onClick = onLogoutClick
         )
-        Spacer(modifier = Modifier.height(12.dp))
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun MyPreview() {
     ATSOPTANDROIDTheme {

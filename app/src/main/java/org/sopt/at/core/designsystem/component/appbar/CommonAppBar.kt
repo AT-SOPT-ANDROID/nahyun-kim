@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import org.sopt.at.R
+import org.sopt.at.core.designsystem.theme.TvingTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,7 +27,8 @@ fun CommonTopAppBar(
         IconButton(onClick = onBackClick) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_back),
-                contentDescription = null
+                contentDescription = null,
+                tint = TvingTheme.colors.basicWhite
             )
         }
         trailingIcon
