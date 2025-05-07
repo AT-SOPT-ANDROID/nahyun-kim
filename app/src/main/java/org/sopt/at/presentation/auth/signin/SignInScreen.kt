@@ -17,7 +17,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -29,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlinx.coroutines.launch
 import org.sopt.at.R
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.component.button.CommonTextButton
@@ -52,19 +50,15 @@ fun SignInRoute(
     val state by viewModel.state.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val scope = rememberCoroutineScope()
-
     LaunchedEffect(uiState) {
         when (uiState) {
             is UiState.Success -> {
                 navigateToHome()
             }
             is UiState.Error -> {
-                scope.launch {
-                    snackbarHostState.showSnackbar(
-                        (uiState as UiState.Error).message
-                    )
-                }
+                snackbarHostState.showSnackbar(
+                    (uiState as UiState.Error).message
+                )
             }
             else -> null
         }
