@@ -39,7 +39,7 @@ import org.sopt.at.core.designsystem.theme.TvingTheme
 fun MyRoute(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
-    navigateToLogin: () -> Unit,
+    navigateToSignIn: () -> Unit,
     viewModel: MyViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -50,7 +50,7 @@ fun MyRoute(
         onBackClick = navigateBack,
         onLogoutClick = {
             viewModel.clearUserInfo() // 유저 정보 삭제
-            navigateToLogin()
+            navigateToSignIn()
         }
     )
 }

@@ -1,4 +1,4 @@
-package org.sopt.at.presentation.auth.login
+package org.sopt.at.presentation.auth.signin
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -41,13 +41,13 @@ import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.state.UiState
 
 @Composable
-fun LoginRoute(
+fun SignInRoute(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
     navigateToHome: () -> Unit,
     navigateToSignUp: () -> Unit,
     snackbarHostState: SnackbarHostState,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: SignInViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -70,7 +70,7 @@ fun LoginRoute(
         }
     }
 
-    LoginScreen(
+    SignInScreen(
         paddingValues = paddingValues,
         onBackClick = navigateBack,
         onLoginClick = viewModel::tryLogin,
@@ -84,7 +84,7 @@ fun LoginRoute(
 }
 
 @Composable
-fun LoginScreen(
+fun SignInScreen(
     paddingValues: PaddingValues,
     onBackClick: () -> Unit,
     onLoginClick: () -> Unit,
@@ -189,9 +189,9 @@ fun ButtonDivider() {
 
 @Preview(showBackground = true, backgroundColor = 0x000000)
 @Composable
-private fun LoginPreview() {
+private fun SignInPreview() {
     ATSOPTANDROIDTheme {
-        LoginScreen(
+        SignInScreen(
             paddingValues = PaddingValues(),
             onBackClick = { },
             onLoginClick = { },

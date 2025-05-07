@@ -10,8 +10,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import org.sopt.at.core.navigation.Route
-import org.sopt.at.presentation.auth.login.navigation.Login
-import org.sopt.at.presentation.auth.login.navigation.navigateToLogin
+import org.sopt.at.presentation.auth.signin.navigation.SignIn
+import org.sopt.at.presentation.auth.signin.navigation.navigateToSignIn
 import org.sopt.at.presentation.auth.signup.navigation.navigateToSignUp
 import org.sopt.at.presentation.history.navigateToHistory
 import org.sopt.at.presentation.home.navigation.Home
@@ -70,9 +70,9 @@ class MainNavigator(
         navController.popBackStack()
     }
 
-    fun navigateToLogin(loginInfo: Login? = null) {
-        navController.navigateToLogin(
-            loginInfo,
+    fun navigateToSignIn(signInInfo: SignIn? = null) {
+        navController.navigateToSignIn(
+            signInInfo,
             navOptions {
                 popUpTo(navController.graph.id) {
                     inclusive = true

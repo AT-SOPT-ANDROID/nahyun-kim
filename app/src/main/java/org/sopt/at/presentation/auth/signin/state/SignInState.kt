@@ -1,6 +1,6 @@
-package org.sopt.at.presentation.auth.login.state
+package org.sopt.at.presentation.auth.signin.state
 
-data class LoginState(
+data class SignInState(
     val userId: String = "",
     val password: String = "",
     val isButtonEnabled: Boolean = false,

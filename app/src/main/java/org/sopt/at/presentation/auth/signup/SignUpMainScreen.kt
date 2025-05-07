@@ -17,13 +17,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.state.UiState
-import org.sopt.at.presentation.auth.login.navigation.Login
+import org.sopt.at.presentation.auth.signin.navigation.SignIn
 
 @Composable
 fun SignUpRoute(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
-    navigateToLogin: (Login) -> Unit,
+    navigateToLogin: (SignIn) -> Unit,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -40,7 +40,7 @@ fun SignUpRoute(
         when (uiState) {
             is UiState.Success -> {
                 Toast.makeText(context, "회원가입 완료!", Toast.LENGTH_SHORT).show()
-                navigateToLogin(Login(
+                navigateToLogin(SignIn(
                     state.userId,
                     state.password
                 ))

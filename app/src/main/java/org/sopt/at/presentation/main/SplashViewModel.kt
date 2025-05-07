@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.navigation.Route
 import org.sopt.at.domain.usecase.GetUserNameUseCase
-import org.sopt.at.presentation.auth.login.navigation.Login
+import org.sopt.at.presentation.auth.signin.navigation.SignIn
 import org.sopt.at.presentation.home.navigation.Home
 import javax.inject.Inject
 
@@ -37,6 +37,6 @@ class SplashViewModel @Inject constructor(
     }
 
     fun getStartDestination(): Route {
-        return if (isAutoLoginEnable == true) Home else Login()
+        return if (isAutoLoginEnable == true) Home else SignIn()
     }
 }

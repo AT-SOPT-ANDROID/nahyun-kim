@@ -10,7 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.sopt.at.core.navigation.Route
-import org.sopt.at.presentation.auth.login.navigation.loginNavGraph
+import org.sopt.at.presentation.auth.signin.navigation.signInNavGraph
 import org.sopt.at.presentation.auth.signup.navigation.signUpNavGraph
 import org.sopt.at.presentation.history.historyNavGraph
 import org.sopt.at.presentation.home.navigation.homeNavGraph
@@ -47,7 +47,7 @@ fun MainScreen(
             navController = navigator.navController,
             startDestination = navigator.startDestination
         ) {
-            loginNavGraph(
+            signInNavGraph(
                 paddingValues = innerPadding,
                 navigateBack = navigator::navigateBack,
                 navigateToHome = navigator::navigateToHome,
@@ -57,7 +57,7 @@ fun MainScreen(
             signUpNavGraph(
                 paddingValues = innerPadding,
                 navigateBack = navigator::navigateBack,
-                navigateToLogin = navigator::navigateToLogin
+                navigateToSignIn = navigator::navigateToSignIn
             )
             homeNavGraph(
                 paddingValues = innerPadding,
@@ -71,7 +71,7 @@ fun MainScreen(
             myNavGraph(
                 paddingValues = innerPadding,
                 onBackClick = navigator::navigateBack,
-                navigateToLogIn = navigator::navigateToLogin
+                navigateToSignIn = navigator::navigateToSignIn
             )
         }
     }
