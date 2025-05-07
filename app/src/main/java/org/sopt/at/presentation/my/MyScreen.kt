@@ -38,25 +38,30 @@ import org.sopt.at.core.designsystem.theme.TvingTheme
 @Composable
 fun MyRoute(
     paddingValues: PaddingValues,
-    onBackClick: () -> Unit,
-    onLogoutClick: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateToLogin: () -> Unit,
+    viewModel: MyViewModel = hiltViewModel()
 ) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
     MyScreen(
         paddingValues = paddingValues,
-        onBackClick = onBackClick,
-        onLogoutClick = onLogoutClick
+        userId = state.userId,
+        onBackClick = navigateBack,
+        onLogoutClick = {
+            viewModel.clearUserInfo() // 유저 정보 삭제
+            navigateToLogin()
+        }
     )
 }
 
 @Composable
 fun MyScreen(
     paddingValues: PaddingValues,
-    viewModel: MyViewModel = hiltViewModel(),
+    userId: String,
     onBackClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -102,7 +107,7 @@ fun MyScreen(
                 Spacer(modifier = Modifier.width(10.dp))
 
                 Text(
-                    text = state.userId,
+                    text = userId,
                     style = TvingTheme.typography.subTitle
                 )
 
@@ -127,10 +132,7 @@ fun MyScreen(
             modifier = Modifier,
             sizeType = ButtonSizeType.LARGE,
             textResId = R.string.my_logout,
-            onClick = {
-                viewModel.clearUserInfo() // 유저 정보 삭제
-                onLogoutClick()
-            }
+            onClick = onLogoutClick
         )
         Spacer(modifier = Modifier.height(12.dp))
     }
@@ -142,6 +144,7 @@ private fun MyPreview() {
     ATSOPTANDROIDTheme {
         MyScreen(
             paddingValues = PaddingValues(),
+            userId = "nahyun",
             onBackClick = {},
             onLogoutClick = {}
         )

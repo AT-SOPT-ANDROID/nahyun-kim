@@ -27,9 +27,9 @@ fun NavGraphBuilder.loginNavGraph(
     composable<Login> {
         LoginRoute(
             paddingValues = paddingValues,
-            onBackClick = navigateBack,
-            onLoginClick = navigateToHome,
-            onSignUpClick = navigateToSignUp,
+            navigateBack = navigateBack,
+            navigateToHome = navigateToHome,
+            navigateToSignUp = navigateToSignUp,
             snackbarHostState = snackbarHostState
         )
     }

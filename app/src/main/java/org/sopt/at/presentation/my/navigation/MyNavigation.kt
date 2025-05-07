@@ -23,8 +23,8 @@ fun NavGraphBuilder.myNavGraph(
     composable<My> { backStackEntry ->
         MyRoute(
             paddingValues = paddingValues,
-            onBackClick = onBackClick,
-            onLogoutClick = navigateToLogIn
+            navigateBack = onBackClick,
+            navigateToLogin = navigateToLogIn
         )
     }
 }

@@ -43,28 +43,11 @@ import org.sopt.at.core.state.UiState
 @Composable
 fun LoginRoute(
     paddingValues: PaddingValues,
-    onBackClick: () -> Unit,
-    onLoginClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    snackbarHostState: SnackbarHostState
-) {
-    LoginScreen(
-        paddingValues = paddingValues,
-        onBackClick = onBackClick,
-        onLoginClick = onLoginClick,
-        onSignUpClick = onSignUpClick,
-        snackbarHostState = snackbarHostState
-    )
-}
-
-@Composable
-fun LoginScreen(
-    paddingValues: PaddingValues,
-    viewModel: LoginViewModel = hiltViewModel(),
-    onBackClick: () -> Unit,
-    onLoginClick: () -> Unit,
-    onSignUpClick: () -> Unit,
-    snackbarHostState: SnackbarHostState
+    navigateBack: () -> Unit,
+    navigateToHome: () -> Unit,
+    navigateToSignUp: () -> Unit,
+    snackbarHostState: SnackbarHostState,
+    viewModel: LoginViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -73,7 +56,9 @@ fun LoginScreen(
 
     LaunchedEffect(uiState) {
         when (uiState) {
-            is UiState.Success -> { onLoginClick() }
+            is UiState.Success -> {
+                navigateToHome()
+            }
             is UiState.Error -> {
                 scope.launch {
                     snackbarHostState.showSnackbar(
@@ -84,6 +69,32 @@ fun LoginScreen(
             else -> null
         }
     }
+
+    LoginScreen(
+        paddingValues = paddingValues,
+        onBackClick = navigateBack,
+        onLoginClick = viewModel::tryLogin,
+        onSignUpClick = navigateToSignUp,
+        userId = state.userId,
+        onUserIdChanged = viewModel::updateId,
+        password = state.password,
+        onPasswordChanged = viewModel::updatePassword,
+        isButtonEnable = state.isButtonEnabled,
+    )
+}
+
+@Composable
+fun LoginScreen(
+    paddingValues: PaddingValues,
+    onBackClick: () -> Unit,
+    onLoginClick: () -> Unit,
+    onSignUpClick: () -> Unit,
+    userId: String,
+    onUserIdChanged: (String) -> Unit,
+    password: String,
+    onPasswordChanged: (String) -> Unit,
+    isButtonEnable: Boolean
+) {
 
     Column(
         modifier = Modifier
@@ -113,8 +124,8 @@ fun LoginScreen(
             CommonTextField(
                 modifier = Modifier.fillMaxWidth(),
                 type = TextFieldType.DEFAULT,
-                value = state.userId,
-                onValueChange = viewModel::updateId,
+                value = userId,
+                onValueChange = onUserIdChanged,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
@@ -129,8 +140,8 @@ fun LoginScreen(
                     keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Done
                 ),
-                value = state.password,
-                onValueChange = viewModel::updatePassword,
+                value = password,
+                onValueChange = onPasswordChanged,
                 placeholder = stringResource(R.string.password_hint),
             )
         }
@@ -138,8 +149,8 @@ fun LoginScreen(
         LargeFilledButton( // 로그인 버튼
             modifier = Modifier.fillMaxWidth(),
             buttonTextRes = R.string.do_login,
-            isButtonEnable = state.isButtonEnabled,
-            onClick = viewModel::tryLogin
+            isButtonEnable = isButtonEnable,
+            onClick = onLoginClick
         )
         Spacer(Modifier.height(20.dp))
         Row(
@@ -185,7 +196,11 @@ private fun LoginPreview() {
             onBackClick = { },
             onLoginClick = { },
             onSignUpClick = { },
-            snackbarHostState = SnackbarHostState()
+            userId = "",
+            onUserIdChanged = { },
+            password = "",
+            onPasswordChanged = { },
+            isButtonEnable = false,
         )
     }
 }
