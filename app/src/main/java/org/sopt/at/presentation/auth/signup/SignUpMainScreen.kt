@@ -53,7 +53,7 @@ fun SignUpRoute(
     }
 
     BackHandler {
-        onBackClick
+        onBackClick()
     }
 
     SignUpMainScreen(
