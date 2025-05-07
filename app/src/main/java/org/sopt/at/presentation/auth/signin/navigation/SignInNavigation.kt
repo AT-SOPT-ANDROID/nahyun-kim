@@ -1,4 +1,4 @@
-package org.sopt.at.presentation.auth.login.navigation
+package org.sopt.at.presentation.auth.signin.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.SnackbarHostState
@@ -8,24 +8,24 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import kotlinx.serialization.Serializable
 import org.sopt.at.core.navigation.Route
-import org.sopt.at.presentation.auth.login.LoginRoute
+import org.sopt.at.presentation.auth.signin.SignInRoute
 
-fun NavController.navigateToLogin(
-    userInfo: Login?,
+fun NavController.navigateToSignIn(
+    userInfo: SignIn?,
     navOptions: NavOptions? = null
 ) {
-    navigate(userInfo ?: Login(), navOptions)
+    navigate(userInfo ?: SignIn(), navOptions)
 }
 
-fun NavGraphBuilder.loginNavGraph(
+fun NavGraphBuilder.signInNavGraph(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
     navigateToHome: () -> Unit,
     navigateToSignUp: () -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
-    composable<Login> {
-        LoginRoute(
+    composable<SignIn> {
+        SignInRoute(
             paddingValues = paddingValues,
             navigateBack = navigateBack,
             navigateToHome = navigateToHome,
@@ -36,7 +36,7 @@ fun NavGraphBuilder.loginNavGraph(
 }
 
 @Serializable
-data class Login(
+data class SignIn(
     val id: String = "",
     val password: String = ""
 ) : Route

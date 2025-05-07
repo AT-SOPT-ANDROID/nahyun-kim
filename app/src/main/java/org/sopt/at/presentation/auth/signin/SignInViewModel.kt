@@ -1,4 +1,4 @@
-package org.sopt.at.presentation.auth.login
+package org.sopt.at.presentation.auth.signin
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -11,24 +11,24 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.state.UiState
 import org.sopt.at.domain.usecase.SaveUserInfoUseCase
-import org.sopt.at.presentation.auth.login.navigation.Login
-import org.sopt.at.presentation.auth.login.state.LoginState
+import org.sopt.at.presentation.auth.signin.navigation.SignIn
+import org.sopt.at.presentation.auth.signin.state.SignInState
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class SignInViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val saveUserInfoUseCase: SaveUserInfoUseCase
 ): ViewModel() {
-    private val _state = MutableStateFlow(LoginState())
-    val state: StateFlow<LoginState>
+    private val _state = MutableStateFlow(SignInState())
+    val state: StateFlow<SignInState>
         get() = _state.asStateFlow()
 
     private val _uiState = MutableStateFlow<UiState<Unit>>(UiState.Empty)
     val uiState: StateFlow<UiState<Unit>>
         get() = _uiState.asStateFlow()
 
-    val registerUserInfo = savedStateHandle.toRoute<Login>() // 회원가입 정보
+    val registerUserInfo = savedStateHandle.toRoute<SignIn>() // 회원가입 정보
 
     fun updateId(id: String) {
         val newState = _state.value.copy(

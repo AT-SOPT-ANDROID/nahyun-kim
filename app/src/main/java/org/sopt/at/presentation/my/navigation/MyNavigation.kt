@@ -18,13 +18,13 @@ fun NavController.navigateToMy(
 fun NavGraphBuilder.myNavGraph(
     paddingValues: PaddingValues,
     onBackClick: () -> Unit,
-    navigateToLogIn: () -> Unit,
+    navigateToSignIn: () -> Unit,
 ) {
     composable<My> { backStackEntry ->
         MyRoute(
             paddingValues = paddingValues,
             navigateBack = onBackClick,
-            navigateToLogin = navigateToLogIn
+            navigateToSignIn = navigateToSignIn
         )
     }
 }
