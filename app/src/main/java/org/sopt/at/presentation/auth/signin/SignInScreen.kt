@@ -60,7 +60,7 @@ fun SignInRoute(
                     (uiState as UiState.Error).message
                 )
             }
-            else -> null
+            else -> return@LaunchedEffect
         }
     }
 

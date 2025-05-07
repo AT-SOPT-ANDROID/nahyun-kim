@@ -50,7 +50,7 @@ fun SignUpRoute(
             is UiState.Error -> {
                 Toast.makeText(context, (uiState as UiState.Error).message, Toast.LENGTH_SHORT).show()
             }
-            else -> null
+            else -> return@LaunchedEffect
         }
     }
 
