@@ -2,6 +2,7 @@ package org.sopt.at.presentation.model
 
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import org.sopt.at.presentation.home.TabState
 
 enum class TabGenreContent(
     val bannerImages: ImmutableList<String>,
@@ -87,10 +88,14 @@ enum class TabGenreContent(
     );
 
     companion object {
-        fun getGenreById(index: Int?): TabGenreContent? {
-            if (index == null) return DEFAULT
-            return entries.find {
-                it.ordinal == index
+        fun getGenreByState(tabState: TabState): TabGenreContent {
+            return when (tabState) {
+                is TabState.None -> DEFAULT
+                is TabState.Selected -> {
+                    entries.find {
+                        it.ordinal == tabState.index
+                    } ?: DEFAULT
+                }
             }
         }
     }

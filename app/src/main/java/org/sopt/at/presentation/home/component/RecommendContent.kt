@@ -52,6 +52,7 @@ fun RecommendContent(
             Text(
                 text = stringResource(R.string.more),
                 style = TvingTheme.typography.label,
+                color = TvingTheme.colors.labelButtonText
             )
         }
     }
