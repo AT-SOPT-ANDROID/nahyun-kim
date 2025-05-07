@@ -1,5 +1,6 @@
 package org.sopt.at.presentation.auth.signup
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.at.R
@@ -38,6 +38,7 @@ fun SignUpIdScreen(
 ) {
     Column(
         modifier = modifier
+            .background(TvingTheme.colors.background)
             .padding(
                 vertical = dimensionResource(R.dimen.screen_padding_vertical),
                 horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
@@ -53,6 +54,7 @@ fun SignUpIdScreen(
             Text(
                 text = stringResource(R.string.signup_id_title),
                 style = TvingTheme.typography.title,
+                color = TvingTheme.colors.basicWhite,
                 modifier = Modifier
             )
             Spacer(Modifier.height(24.dp))
@@ -69,8 +71,7 @@ fun SignUpIdScreen(
                 text = stringResource(R.string.signup_id_guide),
                 color = TvingTheme.colors.guideText,
                 style = TvingTheme.typography.caption,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.align(Alignment.Start)
             )
         }
         CommonOutlinedButton(
@@ -82,7 +83,7 @@ fun SignUpIdScreen(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 private fun SignupIdPreview() {
     ATSOPTANDROIDTheme {

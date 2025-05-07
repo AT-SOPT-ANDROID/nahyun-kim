@@ -1,5 +1,6 @@
 package org.sopt.at.presentation.search
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,6 +28,7 @@ fun SearchScreen(paddingValues: PaddingValues,
 ) {
     Column(
         modifier = Modifier
+            .background(TvingTheme.colors.background)
             .padding(paddingValues)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -34,7 +36,7 @@ fun SearchScreen(paddingValues: PaddingValues,
     ) {
         Text(
             text = stringResource(MainNavTab.SEARCH.labelRes),
-            style =TvingTheme.typography.subTitle
+            style = TvingTheme.typography.subTitle
         )
     }
 }

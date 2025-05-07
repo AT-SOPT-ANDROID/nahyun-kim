@@ -89,16 +89,16 @@ fun SignInScreen(
     onPasswordChanged: (String) -> Unit,
     isButtonEnable: Boolean
 ) {
-
     Column(
         modifier = Modifier
+            .background(TvingTheme.colors.background)
             .padding(paddingValues)
             .padding(
                 vertical = dimensionResource(R.dimen.screen_padding_vertical),
                 horizontal = dimensionResource(R.dimen.screen_padding_horizontal)
             )
             .fillMaxSize(),
-        horizontalAlignment = Alignment.Start,
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         CommonTopAppBar(
@@ -108,7 +108,8 @@ fun SignInScreen(
         Text(
             text = stringResource(R.string.login_using_tving_id),
             style = TvingTheme.typography.title,
-            modifier = Modifier
+            color = TvingTheme.colors.basicWhite,
+            modifier = Modifier.align(Alignment.Start)
         )
         Spacer(Modifier.height(22.dp))
         Column (
@@ -150,8 +151,7 @@ fun SignInScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 30.dp)
-            ,
+                .padding(horizontal = 30.dp),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -167,7 +167,7 @@ fun SignInScreen(
             color = TvingTheme.colors.guideText,
             textAlign = TextAlign.Center,
             style = TvingTheme.typography.caption,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
         )
     }
 }
@@ -181,7 +181,7 @@ fun ButtonDivider() {
     )
 }
 
-@Preview(showBackground = true, backgroundColor = 0x000000)
+@Preview
 @Composable
 private fun SignInPreview() {
     ATSOPTANDROIDTheme {

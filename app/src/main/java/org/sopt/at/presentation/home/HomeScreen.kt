@@ -1,6 +1,7 @@
 package org.sopt.at.presentation.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,16 +20,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.launch
 import org.sopt.at.R
-import org.sopt.at.presentation.model.TabGenreContent
+import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.presentation.home.component.BannerCarousel
 import org.sopt.at.presentation.home.component.HomeTabLayout
 import org.sopt.at.presentation.home.component.HomeTopBar
 import org.sopt.at.presentation.home.component.RecommendContent
-import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
+import org.sopt.at.presentation.model.TabGenreContent
 
 
 @Composable
@@ -68,6 +69,7 @@ fun HomeScreen(
 
     Column(
         modifier = Modifier
+            .background(TvingTheme.colors.background)
             .padding(paddingValues)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -133,7 +135,7 @@ fun HomeScreen(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0x00000)
+@Preview
 @Composable
 private fun HomePreview() {
     ATSOPTANDROIDTheme {

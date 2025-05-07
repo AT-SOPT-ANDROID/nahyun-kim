@@ -1,5 +1,6 @@
 package org.sopt.at.presentation.history
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ fun HistoryScreen(
 ) {
     Column(
         modifier = Modifier
+            .background(TvingTheme.colors.background)
             .padding(paddingValues)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
