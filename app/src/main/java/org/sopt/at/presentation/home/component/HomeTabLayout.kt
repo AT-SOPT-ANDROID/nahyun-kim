@@ -16,13 +16,14 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.util.DisableRippleEffect
+import org.sopt.at.presentation.home.TabState
 
 @Composable
 fun HomeTabLayout(
     tabTitles: ImmutableList<String>,
     onTabClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    selectedTabIndex: Int?,
+    selectedTabState: TabState,
 ) {
     LazyRow(
         modifier = modifier
@@ -43,7 +44,7 @@ fun HomeTabLayout(
                 index = index,
                 text = title,
                 onTabClick = { onTabClick(index) },
-                selectedTabIndex = selectedTabIndex,
+                selectedTabState = selectedTabState,
             )
         }
     }
@@ -55,13 +56,13 @@ fun TabTextItem(
     index: Int,
     text: String,
     onTabClick: () -> Unit,
-    selectedTabIndex: Int?,
+    selectedTabState: TabState,
 ) {
     val colors = TvingTheme.colors
-    val textColor = remember(selectedTabIndex) {
-        when (selectedTabIndex) {
-            null, index -> colors.onPrimary
-            else -> colors.disableContent
+    val textColor = remember(selectedTabState) {
+        when (selectedTabState) {
+            is TabState.None -> colors.basicWhite
+            is TabState.Selected -> if (selectedTabState.index == index) colors.basicWhite else colors.disableContent
         }
     }
 

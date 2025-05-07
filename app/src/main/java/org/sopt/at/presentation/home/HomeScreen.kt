@@ -36,12 +36,12 @@ fun HomeRoute(
     navigateToMy: () -> Unit,
     viewModel: HomeViewModel = viewModel()
 ) {
-    val selectedTabIndex by viewModel.selectedTabIndex.collectAsStateWithLifecycle()
+    val selectedTabIndex by viewModel.selectedTabState.collectAsStateWithLifecycle()
 
     HomeScreen(
         paddingValues = paddingValues,
         onProfileClick = navigateToMy,
-        selectedTabIndex = selectedTabIndex,
+        selectedTabState = selectedTabIndex,
         selectTab = viewModel::selectTab
     )
 }
@@ -51,8 +51,8 @@ fun HomeRoute(
 fun HomeScreen(
     paddingValues: PaddingValues,
     onProfileClick: () -> Unit,
-    selectedTabIndex: Int?,
-    selectTab: (Int?) -> Unit
+    selectedTabState: TabState,
+    selectTab: (TabState) -> Unit
 ) {
     val tabTitles = stringArrayResource(R.array.home_tab_array).toImmutableList()
 
@@ -83,7 +83,7 @@ fun HomeScreen(
                 HomeTopBar(
                     modifier = Modifier,
                     onLogoClick = {
-                        selectTab(null)
+                        selectTab(TabState.None)
                         scrollToTop()
                     },
                     onProfileClick = onProfileClick
@@ -92,24 +92,30 @@ fun HomeScreen(
             stickyHeader {
                 HomeTabLayout(
                     tabTitles = tabTitles,
-                    selectedTabIndex = selectedTabIndex,
+                    selectedTabState = selectedTabState,
                     onTabClick = { tabIndex ->
-                        selectTab(tabIndex)
+                        selectTab(TabState.Selected(tabIndex))
                         scrollToTop()
                     }
                 )
             }
             item {
                 BannerCarousel(
-                    bannerImageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.bannerImages,
+                    bannerImageUrls = TabGenreContent.getGenreByState(selectedTabState).bannerImages,
                 )
             }
             item {
                 RecommendContent(
                     modifier = Modifier,
-                    title = if (selectedTabIndex == null) stringResource(R.string.home_recommend_top20) else stringResource(R.string.home_recommend_live_popular, tabTitles[selectedTabIndex]),
+                    title = when (selectedTabState) {
+                        is TabState.None -> stringResource(R.string.home_recommend_top20)
+                        is TabState.Selected -> stringResource(
+                            R.string.home_recommend_live_popular,
+                            tabTitles[selectedTabState.index]
+                        )
+                    },
                     isSupportRanking = true,
-                    imageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.posterImages,
+                    imageUrls = TabGenreContent.getGenreByState(selectedTabState).posterImages,
                     isShowMoreButton = false
                 )
             }
@@ -119,7 +125,7 @@ fun HomeScreen(
                     title = stringResource(R.string.home_recommend_current_broadcast),
                     isSupportRanking = false,
                     isShowMoreButton = true,
-                    imageUrls = TabGenreContent.getGenreById(selectedTabIndex)!!.posterImages
+                    imageUrls = TabGenreContent.getGenreByState(selectedTabState).posterImages
                 )
             }
         }
@@ -133,7 +139,7 @@ private fun HomePreview() {
         HomeScreen(
             paddingValues = PaddingValues(),
             onProfileClick = {},
-            selectedTabIndex = 0,
+            selectedTabState = TabState.None,
             selectTab = {},
         )
     }

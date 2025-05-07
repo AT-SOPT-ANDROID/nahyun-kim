@@ -6,11 +6,16 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class HomeViewModel: ViewModel() {
-    private val _selectedTabIndex = MutableStateFlow<Int?>(null)
-    val selectedTabIndex: StateFlow<Int?>
-        get() = _selectedTabIndex.asStateFlow()
+    private val _selectedTabState = MutableStateFlow<TabState>(TabState.None)
+    val selectedTabState: StateFlow<TabState>
+        get() = _selectedTabState.asStateFlow()
 
-    fun selectTab(index: Int?) {
-        _selectedTabIndex.value = index
+    fun selectTab(tabState: TabState) {
+        _selectedTabState.value = tabState
     }
+}
+
+sealed class TabState {
+    object None : TabState()
+    data class Selected(val index: Int) : TabState()
 }
