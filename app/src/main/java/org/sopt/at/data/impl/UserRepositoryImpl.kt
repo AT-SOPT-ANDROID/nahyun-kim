@@ -2,7 +2,6 @@ package org.sopt.at.data.impl
 
 import kotlinx.coroutines.flow.Flow
 import org.sopt.at.data.local.UserLocalDataSource
-import org.sopt.at.data.model.toEntity
 import org.sopt.at.data.remote.UserRemoteDataSource
 import org.sopt.at.domain.model.User
 import org.sopt.at.domain.repository.UserRepository
@@ -23,15 +22,19 @@ class UserRepositoryImpl @Inject constructor(
         id: String,
         password: String
     ): SignInResponse {
-        return userRemoteDataSource.postSignIn(id, password)
+        val response = userRemoteDataSource.postSignIn(id, password)
+        if (response.success) {
+            userLocalDataSource.saveUserId(response.result.userId)
+        }
+        return response
     }
 
-    override suspend fun saveUserInfo(user: User) {
-        userLocalDataSource.saveUserInfo(user.toEntity())
+    override suspend fun saveUserId(userId: Long) {
+        userLocalDataSource.saveUserId(userId)
     }
 
-    override fun getUserName(): Flow<String?> {
-        return userLocalDataSource.getUserName()
+    override fun getUserId(): Flow<Long?> {
+        return userLocalDataSource.getUserId()
     }
 
     override suspend fun clearUserInfo() {

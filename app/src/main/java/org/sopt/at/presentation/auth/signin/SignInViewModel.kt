@@ -9,13 +9,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.state.UiState
 import org.sopt.at.domain.usecase.RequestSignInUseCase
-import org.sopt.at.domain.usecase.SaveUserInfoUseCase
 import org.sopt.at.presentation.auth.signin.state.SignInState
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val saveUserInfoUseCase: SaveUserInfoUseCase,
     private val requestSignInUseCase: RequestSignInUseCase
 ): ViewModel() {
     private val _state = MutableStateFlow(SignInState())
@@ -53,22 +51,11 @@ class SignInViewModel @Inject constructor(
             if (response.success) {
                 _state.value = _state.value.copy(isLoginSuccess = true)
                 _uiState.value = UiState.Success(Unit)
-                saveUser()
             } else {
                 _uiState.value = UiState.Error(
                     message = "아이디 또는 비밀번호가 일치하지 않습니다."
                 )
             }
-        }
-    }
-
-    // 저장소에 로그인 정보 저장
-    fun saveUser() {
-        viewModelScope.launch {
-            saveUserInfoUseCase(
-                id = _state.value.userId,
-                password = _state.value.password
-            )
         }
     }
 

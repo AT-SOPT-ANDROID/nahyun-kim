@@ -11,9 +11,9 @@ interface UserRepository {
 
     suspend fun requestSignIn(id: String, password: String): SignInResponse
 
-    suspend fun saveUserInfo(user: User)
+    suspend fun saveUserId(userId: Long)
 
-    fun getUserName(): Flow<String?>
+    fun getUserId(): Flow<Long?>
 
     suspend fun clearUserInfo()
 }

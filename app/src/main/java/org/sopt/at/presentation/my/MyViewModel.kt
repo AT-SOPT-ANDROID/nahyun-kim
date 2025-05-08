@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.state.UiState
 import org.sopt.at.domain.usecase.ClearUserInfoUseCase
-import org.sopt.at.domain.usecase.GetUserNameUseCase
+import org.sopt.at.domain.usecase.GetUserIdUseCase
 import org.sopt.at.presentation.my.state.MyState
 import javax.inject.Inject
 
 @HiltViewModel
 class MyViewModel @Inject constructor(
-    private val getUserNameUseCase: GetUserNameUseCase,
+    private val getUserIdUseCase: GetUserIdUseCase,
     private val clearUserInfoUseCase: ClearUserInfoUseCase
 ): ViewModel() {
 
@@ -33,7 +33,7 @@ class MyViewModel @Inject constructor(
 
     private fun loadUserInfo() {
         viewModelScope.launch {
-            getUserNameUseCase().collect { userId ->
+            getUserIdUseCase().collect { userId ->
                 if (userId == null) {
                     _uiState.value = UiState.Error(
                         message = "회원 정보가 없습니다."
@@ -42,7 +42,7 @@ class MyViewModel @Inject constructor(
                 }
                 _uiState.value = UiState.Success(Unit)
                 _state.value = _state.value.copy(
-                    userId = userId
+                    userId = userId.toString()
                 )
             }
         }
