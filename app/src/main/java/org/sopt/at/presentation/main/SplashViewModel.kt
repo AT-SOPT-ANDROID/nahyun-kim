@@ -37,6 +37,6 @@ class SplashViewModel @Inject constructor(
     }
 
     fun getStartDestination(): Route {
-        return if (isAutoLoginEnable == true) Home else SignIn()
+        return if (isAutoLoginEnable == true) Home else SignIn
     }
 }

@@ -19,7 +19,6 @@ import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.state.UiState
-import org.sopt.at.presentation.auth.signin.navigation.SignIn
 import org.sopt.at.presentation.auth.signup.screen.SignUpIdScreen
 import org.sopt.at.presentation.auth.signup.screen.SignUpNicknameScreen
 import org.sopt.at.presentation.auth.signup.screen.SignUpPwdScreen
@@ -28,7 +27,7 @@ import org.sopt.at.presentation.auth.signup.screen.SignUpPwdScreen
 fun SignUpRoute(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
-    navigateToLogin: (SignIn) -> Unit,
+    navigateToLogin: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -45,10 +44,7 @@ fun SignUpRoute(
         when (uiState) {
             is UiState.Success -> {
                 Toast.makeText(context, "회원가입 완료!", Toast.LENGTH_SHORT).show()
-                navigateToLogin(SignIn(
-                    state.id,
-                    state.password
-                ))
+                navigateToLogin()
             }
             is UiState.Error -> {
                 Toast.makeText(context, (uiState as UiState.Error).message, Toast.LENGTH_SHORT).show()

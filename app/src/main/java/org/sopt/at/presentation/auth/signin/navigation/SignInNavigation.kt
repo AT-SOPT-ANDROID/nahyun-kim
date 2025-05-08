@@ -11,10 +11,9 @@ import org.sopt.at.core.navigation.Route
 import org.sopt.at.presentation.auth.signin.SignInRoute
 
 fun NavController.navigateToSignIn(
-    userInfo: SignIn?,
     navOptions: NavOptions? = null
 ) {
-    navigate(userInfo ?: SignIn(), navOptions)
+    navigate(SignIn, navOptions)
 }
 
 fun NavGraphBuilder.signInNavGraph(
@@ -36,7 +35,4 @@ fun NavGraphBuilder.signInNavGraph(
 }
 
 @Serializable
-data class SignIn(
-    val id: String = "",
-    val password: String = ""
-) : Route
+data object SignIn: Route

@@ -7,6 +7,7 @@ import org.sopt.at.data.remote.UserRemoteDataSource
 import org.sopt.at.domain.model.User
 import org.sopt.at.domain.repository.UserRepository
 import org.sopt.at.remote.base.BaseResponse
+import org.sopt.at.remote.model.SignInResponse
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
@@ -16,6 +17,13 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun requestSignUp(user: User): BaseResponse {
         return userRemoteDataSource.postSignUp(user)
+    }
+
+    override suspend fun requestSignIn(
+        id: String,
+        password: String
+    ): SignInResponse {
+        return userRemoteDataSource.postSignIn(id, password)
     }
 
     override suspend fun saveUserInfo(user: User) {

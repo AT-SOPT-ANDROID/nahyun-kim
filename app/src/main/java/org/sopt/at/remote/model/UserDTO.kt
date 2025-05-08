@@ -26,3 +26,23 @@ data class SignUpResult(
     val userId: Long,
     val nickname: String
 )
+
+// 로그인
+@Serializable
+data class SignInRequest(
+    @SerialName("loginId")
+    val id: String,
+    @SerialName("password")
+    val password: String,
+)
+
+@Serializable
+data class SignInResponse(
+    @SerialName("data")
+    val result: SignInResult
+) : BaseResponse()
+
+@Serializable
+data class SignInResult(
+    val userId: Long
+)

@@ -70,9 +70,8 @@ class MainNavigator(
         navController.popBackStack()
     }
 
-    fun navigateToSignIn(signInInfo: SignIn? = null) {
+    fun navigateToSignIn() {
         navController.navigateToSignIn(
-            signInInfo,
             navOptions {
                 popUpTo(navController.graph.id) {
                     inclusive = true
