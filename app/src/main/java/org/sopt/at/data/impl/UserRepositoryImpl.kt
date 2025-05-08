@@ -1,11 +1,13 @@
 package org.sopt.at.data.impl
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import org.sopt.at.data.local.UserLocalDataSource
 import org.sopt.at.data.remote.UserRemoteDataSource
 import org.sopt.at.domain.model.User
 import org.sopt.at.domain.repository.UserRepository
 import org.sopt.at.remote.base.BaseResponse
+import org.sopt.at.remote.model.MyNicknameResponse
 import org.sopt.at.remote.model.SignInResponse
 import javax.inject.Inject
 
@@ -27,6 +29,10 @@ class UserRepositoryImpl @Inject constructor(
             userLocalDataSource.saveUserId(response.result.userId)
         }
         return response
+    }
+
+    override suspend fun getMyNickname(): MyNicknameResponse {
+        return userRemoteDataSource.getMyNickname(getUserId().first() ?: -1)
     }
 
     override suspend fun saveUserId(userId: Long) {

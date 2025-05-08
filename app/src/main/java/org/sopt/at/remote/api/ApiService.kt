@@ -1,10 +1,13 @@
 package org.sopt.at.remote.api
 
 import org.sopt.at.remote.model.SignInRequest
+import org.sopt.at.remote.model.MyNicknameResponse
 import org.sopt.at.remote.model.SignInResponse
 import org.sopt.at.remote.model.SignUpRequest
 import org.sopt.at.remote.model.SignUpResponse
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -19,4 +22,10 @@ interface ApiService {
     suspend fun postSignIn(
         @Body signInRequest: SignInRequest
     ): SignInResponse
+
+    // 내 닉네임 조회
+    @GET("/api/v1/users/me")
+    suspend fun getMyNickname(
+        @Header("userId") userId: Long
+    ): MyNicknameResponse
 }

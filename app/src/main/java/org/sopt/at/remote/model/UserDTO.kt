@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.sopt.at.remote.base.BaseResponse
 
-// 회원가입
+/**  회원가입 */
 @Serializable
 data class SignUpRequest(
     @SerialName("loginId")
@@ -27,7 +27,7 @@ data class SignUpResult(
     val nickname: String
 )
 
-// 로그인
+/** 로그인 */
 @Serializable
 data class SignInRequest(
     @SerialName("loginId")
@@ -45,4 +45,16 @@ data class SignInResponse(
 @Serializable
 data class SignInResult(
     val userId: Long
+)
+
+/** 닉네임 */
+@Serializable
+data class MyNicknameResponse(
+    @SerialName("data")
+    val result: NicknameResult
+) : BaseResponse()
+
+@Serializable
+data class NicknameResult(
+    val nickname: String
 )

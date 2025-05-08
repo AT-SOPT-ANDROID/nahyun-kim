@@ -9,6 +9,8 @@ import org.sopt.at.remote.ErrorHandler.handleError
 import org.sopt.at.remote.RemoteMapper.toDTO
 import org.sopt.at.remote.api.ApiService
 import org.sopt.at.remote.base.BaseResponse
+import org.sopt.at.remote.model.MyNicknameResponse
+import org.sopt.at.remote.model.NicknameResult
 import org.sopt.at.remote.model.SignInRequest
 import org.sopt.at.remote.model.SignInResponse
 import org.sopt.at.remote.model.SignInResult
@@ -49,6 +51,20 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 response = it
             }.onFailure { exception ->
                 Log.d("UserRemoteDataSourceImpl", "SignIn fail: ${exception.handleError()}}")
+            }
+        }
+        return response
+    }
+
+    override suspend fun getMyNickname(userId: Long): MyNicknameResponse {
+        var response = MyNicknameResponse(result = NicknameResult(""))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                apiService.getMyNickname(userId)
+            }.onSuccess {
+                response = it
+            }.onFailure { exception ->
+                Log.d("UserRemoteDataSourceImpl", "getMyNickname fail: ${exception.handleError()}}")
             }
         }
         return response

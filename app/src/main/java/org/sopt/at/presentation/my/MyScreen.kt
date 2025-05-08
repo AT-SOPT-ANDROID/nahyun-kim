@@ -48,7 +48,7 @@ fun MyRoute(
 
     MyScreen(
         paddingValues = paddingValues,
-        userId = state.userId,
+        userId = state.nickname,
         onBackClick = navigateBack,
         onLogoutClick = {
             viewModel.clearUserInfo() // 유저 정보 삭제
