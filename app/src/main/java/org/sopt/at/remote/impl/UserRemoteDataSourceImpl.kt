@@ -1,6 +1,5 @@
 package org.sopt.at.remote.impl
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.sopt.at.data.remote.UserRemoteDataSource
@@ -48,7 +47,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure { exception ->
-                Log.d("UserRemoteDataSourceImpl", "SignIn fail: ${exception.handleError()}}")
+                //TODO: 에러 처리
             }
         }
         return response
@@ -62,7 +61,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
             }.onSuccess {
                 response = it
             }.onFailure { exception ->
-                Log.d("UserRemoteDataSourceImpl", "getMyNickname fail: ${exception.handleError()}}")
+                //TODO: 에러 처리
             }
         }
         return response
