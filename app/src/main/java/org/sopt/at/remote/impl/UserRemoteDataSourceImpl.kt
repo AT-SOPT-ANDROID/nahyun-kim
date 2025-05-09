@@ -28,10 +28,8 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 )
             }.onSuccess {
                 response = it
-                Log.d("UserRemoteDataSourceImpl", "SignUp success: $it")
             }.onFailure { exception ->
                 response = exception.handleError()
-                Log.d("UserRemoteDataSourceImpl", "SignUp fail: ${response.message}}")
             }
         }
         return response
@@ -60,7 +58,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         var response = MyNicknameResponse(result = NicknameResult(""))
         withContext(Dispatchers.IO) {
             runCatching {
-                apiService.getMyNickname(userId)
+                apiService.getMyNickname()
             }.onSuccess {
                 response = it
             }.onFailure { exception ->
