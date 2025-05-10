@@ -34,10 +34,10 @@ class MyViewModel @Inject constructor(
         get() = _uiState.asStateFlow()
 
     init {
-        loadUserInfo()
+        loadUserProfile()
     }
 
-    private fun loadUserInfo() {
+    private fun loadUserProfile() {
         viewModelScope.launch {
             val response = getMyNicknameUseCase.invoke()
             if (response.success) {

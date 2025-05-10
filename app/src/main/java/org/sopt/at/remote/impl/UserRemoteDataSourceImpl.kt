@@ -54,7 +54,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         return response
     }
 
-    override suspend fun getMyNickname(userId: Long): MyNicknameResponse {
+    override suspend fun getMyNickname(): MyNicknameResponse {
         var response = MyNicknameResponse(result = NicknameResult(""))
         withContext(Dispatchers.IO) {
             runCatching {

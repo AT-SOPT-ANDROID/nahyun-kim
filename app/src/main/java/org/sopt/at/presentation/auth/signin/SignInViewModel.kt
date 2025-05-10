@@ -26,10 +26,10 @@ class SignInViewModel @Inject constructor(
 
     fun updateId(id: String) {
         val newState = _state.value.copy(
-            userId = id,
+            id = id,
         )
         _state.value = newState.copy(
-            isButtonEnabled = checkButtonEnabled(newState.userId, newState.password)
+            isButtonEnabled = checkButtonEnabled(newState.id, newState.password)
         )
     }
 
@@ -38,14 +38,14 @@ class SignInViewModel @Inject constructor(
             password = password,
         )
         _state.value = newState.copy(
-            isButtonEnabled = checkButtonEnabled(newState.userId, newState.password)
+            isButtonEnabled = checkButtonEnabled(newState.id, newState.password)
         )
     }
 
     fun tryLogin() {
         viewModelScope.launch {
             val response = requestSignInUseCase.invoke(
-                id = _state.value.userId,
+                id = _state.value.id,
                 password = _state.value.password
             )
             if (response.success) {

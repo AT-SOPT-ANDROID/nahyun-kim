@@ -32,7 +32,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMyNickname(): MyNicknameResponse {
-        return userRemoteDataSource.getMyNickname(getUserId().first() ?: -1)
+        return userRemoteDataSource.getMyNickname()
     }
 
     override suspend fun editNickname(nickname: String): BaseResponse {

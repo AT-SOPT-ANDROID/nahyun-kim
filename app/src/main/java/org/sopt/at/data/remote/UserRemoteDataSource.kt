@@ -16,9 +16,7 @@ interface UserRemoteDataSource {
         password: String
     ): SignInResponse
 
-    suspend fun getMyNickname(
-        userId: Long
-    ): MyNicknameResponse
+    suspend fun getMyNickname(): MyNicknameResponse
 
     suspend fun patchMyNickname(
         nickname: String
