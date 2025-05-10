@@ -22,6 +22,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -34,6 +37,7 @@ import org.sopt.at.R
 import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.component.button.ButtonSizeType
 import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
+import org.sopt.at.core.designsystem.component.dialog.NicknameEditDialog
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.TvingTheme
 
@@ -45,11 +49,32 @@ fun MyRoute(
     viewModel: MyViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val profileEditState by viewModel.profileEditState.collectAsStateWithLifecycle()
+    var dialogState by remember {
+        mutableStateOf(false)
+    }
+
+    // 다이얼로그 표시
+    if (dialogState) {
+        NicknameEditDialog(
+            placeHolder = state.nickname,
+            nickname = profileEditState.nickname,
+            onNicknameChange = viewModel::updateNickname,
+            onCancelClick = { dialogState = false },
+            onNicknameEditClick = {
+                //TODO: 닉네임 변경 API 호출
+                dialogState = false
+            }
+        )
+    }
 
     MyScreen(
         paddingValues = paddingValues,
         userId = state.nickname,
         onBackClick = navigateBack,
+        onProfileEditClick = {
+            dialogState = true
+        },
         onLogoutClick = {
             viewModel.clearUserInfo() // 유저 정보 삭제
             navigateToSignIn()
@@ -62,6 +87,7 @@ fun MyScreen(
     paddingValues: PaddingValues,
     userId: String,
     onBackClick: () -> Unit,
+    onProfileEditClick: () -> Unit,
     onLogoutClick: () -> Unit
 ) {
     Column(
@@ -119,7 +145,7 @@ fun MyScreen(
                     color = TvingTheme.colors.basicWhite
                 )
 
-                IconButton(onClick = {}) {
+                IconButton(onClick = { onProfileEditClick() }) {
                     Icon(
                         imageVector = Icons.Default.Edit,
                         tint = TvingTheme.colors.iconTint,
@@ -153,7 +179,8 @@ private fun MyPreview() {
             paddingValues = PaddingValues(),
             userId = "nahyun",
             onBackClick = {},
-            onLogoutClick = {}
+            onLogoutClick = {},
+            onProfileEditClick = {}
         )
     }
 }

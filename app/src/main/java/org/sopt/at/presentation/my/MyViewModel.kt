@@ -23,6 +23,10 @@ class MyViewModel @Inject constructor(
     val state: StateFlow<MyState>
         get() = _state.asStateFlow()
 
+    private val _profileEditState = MutableStateFlow(MyState())
+    val profileEditState: StateFlow<MyState>
+        get() = _profileEditState.asStateFlow()
+
     private val _uiState = MutableStateFlow<UiState<Unit>>(UiState.Loading)
     val uiState: StateFlow<UiState<Unit>>
         get() = _uiState.asStateFlow()
@@ -35,12 +39,22 @@ class MyViewModel @Inject constructor(
         viewModelScope.launch {
             val response = getMyNicknameUseCase.invoke()
             if (response.success) {
+                val nickname = response.result.nickname
                 _uiState.value = UiState.Success(Unit)
                 _state.value = _state.value.copy(
-                    nickname = response.result.nickname
+                    nickname = nickname
+                )
+                _profileEditState.value = _profileEditState.value.copy(
+                    nickname = nickname
                 )
             }
         }
+    }
+
+    fun updateNickname(nickname: String) {
+        _profileEditState.value = _profileEditState.value.copy(
+            nickname = nickname,
+        )
     }
 
     fun clearUserInfo() {
