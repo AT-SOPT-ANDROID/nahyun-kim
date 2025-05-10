@@ -1,5 +1,6 @@
 package org.sopt.at.presentation.my
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,12 +22,14 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +43,7 @@ import org.sopt.at.core.designsystem.component.button.CommonOutlinedButton
 import org.sopt.at.core.designsystem.component.dialog.NicknameEditDialog
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.TvingTheme
+import org.sopt.at.core.state.UiState
 
 @Composable
 fun MyRoute(
@@ -50,6 +54,10 @@ fun MyRoute(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val profileEditState by viewModel.profileEditState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val context = LocalContext.current
+
     var dialogState by remember {
         mutableStateOf(false)
     }
@@ -60,12 +68,25 @@ fun MyRoute(
             placeHolder = state.nickname,
             nickname = profileEditState.nickname,
             onNicknameChange = viewModel::updateNickname,
-            onCancelClick = { dialogState = false },
-            onNicknameEditClick = {
-                //TODO: 닉네임 변경 API 호출
+            onCancelClick = {
+                viewModel.updateNickname(state.nickname) // 입력 닉네임 초기화
+                dialogState = false
+            },
+            onNicknameEditClick = viewModel::onNicknameEdit
+        )
+    }
+
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is UiState.Success -> {
+                Toast.makeText(context, "닉네임 수정 완료", Toast.LENGTH_SHORT).show()
                 dialogState = false
             }
-        )
+            is UiState.Error -> {
+                Toast.makeText(context, (uiState as UiState.Error).message, Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
     }
 
     MyScreen(

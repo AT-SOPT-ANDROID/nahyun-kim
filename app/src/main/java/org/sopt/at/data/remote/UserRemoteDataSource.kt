@@ -19,4 +19,8 @@ interface UserRemoteDataSource {
     suspend fun getMyNickname(
         userId: Long
     ): MyNicknameResponse
+
+    suspend fun patchMyNickname(
+        nickname: String
+    ): BaseResponse
 }

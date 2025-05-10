@@ -58,3 +58,8 @@ data class MyNicknameResponse(
 data class NicknameResult(
     val nickname: String
 )
+
+@Serializable
+data class NicknameEditRequest(
+    val nickname: String
+)

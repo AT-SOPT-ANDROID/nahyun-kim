@@ -9,6 +9,7 @@ import org.sopt.at.remote.RemoteMapper.toDTO
 import org.sopt.at.remote.api.ApiService
 import org.sopt.at.remote.base.BaseResponse
 import org.sopt.at.remote.model.MyNicknameResponse
+import org.sopt.at.remote.model.NicknameEditRequest
 import org.sopt.at.remote.model.NicknameResult
 import org.sopt.at.remote.model.SignInRequest
 import org.sopt.at.remote.model.SignInResponse
@@ -62,6 +63,24 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 response = it
             }.onFailure { exception ->
                 //TODO: 에러 처리
+            }
+        }
+        return response
+    }
+
+    override suspend fun patchMyNickname(nickname: String): BaseResponse {
+        var response = BaseResponse()
+        withContext(Dispatchers.IO) {
+            runCatching {
+                apiService.patchNickname(
+                    NicknameEditRequest(
+                        nickname = nickname
+                    )
+                )
+            }.onSuccess {
+                response = it
+            }.onFailure { exception ->
+                response = exception.handleError()
             }
         }
         return response

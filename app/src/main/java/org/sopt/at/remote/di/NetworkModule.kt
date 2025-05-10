@@ -50,10 +50,11 @@ object NetworkModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient
     ): Retrofit {
+        val json = Json { ignoreUnknownKeys = true }
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(Json.asConverterFactory(CONTENT_TYPE.toMediaType()))
+            .addConverterFactory(json.asConverterFactory(CONTENT_TYPE.toMediaType()))
             .build()
     }
 

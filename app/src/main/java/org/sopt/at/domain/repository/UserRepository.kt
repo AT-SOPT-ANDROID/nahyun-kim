@@ -14,6 +14,8 @@ interface UserRepository {
 
     suspend fun getMyNickname(): MyNicknameResponse
 
+    suspend fun editNickname(nickname: String): BaseResponse
+
     suspend fun saveUserId(userId: Long)
 
     fun getUserId(): Flow<Long?>

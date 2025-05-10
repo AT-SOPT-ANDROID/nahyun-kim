@@ -35,6 +35,10 @@ class UserRepositoryImpl @Inject constructor(
         return userRemoteDataSource.getMyNickname(getUserId().first() ?: -1)
     }
 
+    override suspend fun editNickname(nickname: String): BaseResponse {
+        return userRemoteDataSource.patchMyNickname(nickname)
+    }
+
     override suspend fun saveUserId(userId: Long) {
         userLocalDataSource.saveUserId(userId)
     }
