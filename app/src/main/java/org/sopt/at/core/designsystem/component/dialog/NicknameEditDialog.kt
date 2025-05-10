@@ -2,6 +2,7 @@ package org.sopt.at.core.designsystem.component.dialog
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -41,7 +42,10 @@ fun NicknameEditDialog(
                 CommonTextField(
                     placeholder = placeHolder,
                     value = nickname,
-                    onValueChange = onNicknameChange
+                    onValueChange = onNicknameChange,
+                    keyboardActions = KeyboardActions {
+                        onNicknameEditClick()
+                    }
                 )
             }
         },
