@@ -63,3 +63,15 @@ data class NicknameResult(
 data class NicknameEditRequest(
     val nickname: String
 )
+
+/** 유저 닉네임 검색 */
+@Serializable
+data class NicknamesResponse(
+    @SerialName("data")
+    val result: NicknamesResult
+): BaseResponse()
+
+@Serializable
+data class NicknamesResult(
+    val nicknameList: List<String>
+)

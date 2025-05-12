@@ -3,6 +3,7 @@ package org.sopt.at.data.remote
 import org.sopt.at.domain.model.User
 import org.sopt.at.remote.base.BaseResponse
 import org.sopt.at.remote.model.MyNicknameResponse
+import org.sopt.at.remote.model.NicknamesResponse
 import org.sopt.at.remote.model.SignInResponse
 
 interface UserRemoteDataSource {
@@ -21,4 +22,8 @@ interface UserRemoteDataSource {
     suspend fun patchMyNickname(
         nickname: String
     ): BaseResponse
+
+    suspend fun getNicknames(
+        searchNickname: String
+    ): NicknamesResponse
 }

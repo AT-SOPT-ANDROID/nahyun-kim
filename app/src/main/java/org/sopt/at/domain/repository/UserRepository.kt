@@ -14,6 +14,8 @@ interface UserRepository {
 
     suspend fun getMyNickname(): MyNicknameResponse
 
+    suspend fun searchNickname(searchWord: String): List<String>
+
     suspend fun editNickname(nickname: String): BaseResponse
 
     suspend fun saveUserId(userId: Long)

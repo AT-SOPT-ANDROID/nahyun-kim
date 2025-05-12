@@ -1,7 +1,6 @@
 package org.sopt.at.data.impl
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import org.sopt.at.data.local.UserLocalDataSource
 import org.sopt.at.data.remote.UserRemoteDataSource
 import org.sopt.at.domain.model.User
@@ -33,6 +32,10 @@ class UserRepositoryImpl @Inject constructor(
 
     override suspend fun getMyNickname(): MyNicknameResponse {
         return userRemoteDataSource.getMyNickname()
+    }
+
+    override suspend fun searchNickname(searchWord: String): List<String> {
+        return userRemoteDataSource.getNicknames(searchWord).result.nicknameList
     }
 
     override suspend fun editNickname(nickname: String): BaseResponse {

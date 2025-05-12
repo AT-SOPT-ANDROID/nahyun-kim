@@ -4,6 +4,7 @@ import org.sopt.at.remote.api.interceptor.AuthType
 import org.sopt.at.remote.base.BaseResponse
 import org.sopt.at.remote.model.MyNicknameResponse
 import org.sopt.at.remote.model.NicknameEditRequest
+import org.sopt.at.remote.model.NicknamesResponse
 import org.sopt.at.remote.model.SignInRequest
 import org.sopt.at.remote.model.SignInResponse
 import org.sopt.at.remote.model.SignUpRequest
@@ -12,6 +13,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Query
 import retrofit2.http.Tag
 
 interface ApiService {
@@ -38,4 +40,10 @@ interface ApiService {
     suspend fun patchNickname(
         @Body request: NicknameEditRequest
     ): BaseResponse
+
+    // 닉네임 조회 (검색)
+    @GET("/api/v1/users")
+    suspend fun getNicknames(
+        @Query("keyword") searchNickname: String
+    ): NicknamesResponse
 }

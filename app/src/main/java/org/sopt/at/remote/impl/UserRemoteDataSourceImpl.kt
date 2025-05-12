@@ -11,6 +11,8 @@ import org.sopt.at.remote.base.BaseResponse
 import org.sopt.at.remote.model.MyNicknameResponse
 import org.sopt.at.remote.model.NicknameEditRequest
 import org.sopt.at.remote.model.NicknameResult
+import org.sopt.at.remote.model.NicknamesResponse
+import org.sopt.at.remote.model.NicknamesResult
 import org.sopt.at.remote.model.SignInRequest
 import org.sopt.at.remote.model.SignInResponse
 import org.sopt.at.remote.model.SignInResult
@@ -81,6 +83,21 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 response = it
             }.onFailure { exception ->
                 response = exception.handleError()
+            }
+        }
+        return response
+    }
+
+    override suspend fun getNicknames(searchNickname: String): NicknamesResponse {
+        var response = NicknamesResponse(result = NicknamesResult(listOf()))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                apiService.getNicknames(searchNickname)
+            }.onSuccess {
+                val hi = it
+                response = it
+            }.onFailure { exception ->
+                //TODO: 에러 처리
             }
         }
         return response
