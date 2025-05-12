@@ -50,33 +50,30 @@ fun SignUpPwdScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(R.string.signup_pwd_title),
-                style = TvingTheme.typography.title,
-                color = TvingTheme.colors.basicWhite,
-                modifier = Modifier
-            )
-            Spacer(Modifier.height(24.dp))
-            CommonTextField(
-                modifier = Modifier.fillMaxWidth(),
-                type = TextFieldType.PASSWORD,
-                height = 60.dp,
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-                value = pwdText,
-                onValueChange = onPwdChange,
-                placeholder = stringResource(R.string.password_hint),
-            )
-            Spacer(Modifier.height(12.dp))
-            Text(
-                text = stringResource(R.string.signup_pwd_guide),
-                color = TvingTheme.colors.guideText,
-                style = TvingTheme.typography.caption,
-                modifier = Modifier.align(Alignment.Start)
-            )
-        }
+        Text(
+            text = stringResource(R.string.signup_pwd_title),
+            style = TvingTheme.typography.title,
+            color = TvingTheme.colors.basicWhite,
+            modifier = Modifier
+        )
+        Spacer(Modifier.height(24.dp))
+        CommonTextField(
+            modifier = Modifier.fillMaxWidth(),
+            type = TextFieldType.PASSWORD,
+            height = 60.dp,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            value = pwdText,
+            onValueChange = onPwdChange,
+            placeholder = stringResource(R.string.password_hint),
+        )
+        Spacer(Modifier.height(12.dp))
+        Text(
+            text = stringResource(R.string.signup_pwd_guide),
+            color = TvingTheme.colors.guideText,
+            style = TvingTheme.typography.caption,
+            modifier = Modifier.align(Alignment.Start)
+        )
+        Spacer(Modifier.weight(1f))
         CommonOutlinedButton(
             modifier = Modifier,
             sizeType = ButtonSizeType.LARGE,
