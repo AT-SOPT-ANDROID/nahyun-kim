@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.state.UiState
-import org.sopt.at.domain.usecase.ClearUserInfoUseCase
+import org.sopt.at.domain.usecase.LogoutUseCase
 import org.sopt.at.domain.usecase.EditNicknameUseCase
 import org.sopt.at.domain.usecase.GetMyNicknameUseCase
 import org.sopt.at.presentation.my.state.MyState
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MyViewModel @Inject constructor(
     private val getMyNicknameUseCase: GetMyNicknameUseCase,
-    private val clearUserInfoUseCase: ClearUserInfoUseCase,
+    private val logoutUseCase: LogoutUseCase,
     private val editNicknameUseCase: EditNicknameUseCase
 ): ViewModel() {
 
@@ -77,7 +77,7 @@ class MyViewModel @Inject constructor(
 
     fun clearUserInfo() {
         viewModelScope.launch {
-            clearUserInfoUseCase.invoke()
+            logoutUseCase.invoke()
         }
     }
 }

@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.state.UiState
-import org.sopt.at.domain.usecase.RequestSignInUseCase
+import org.sopt.at.domain.usecase.SignInUseCase
 import org.sopt.at.presentation.auth.signin.state.SignInState
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
-    private val requestSignInUseCase: RequestSignInUseCase
+    private val signInUseCase: SignInUseCase
 ): ViewModel() {
     private val _state = MutableStateFlow(SignInState())
     val state: StateFlow<SignInState>
@@ -44,7 +44,7 @@ class SignInViewModel @Inject constructor(
 
     fun tryLogin() {
         viewModelScope.launch {
-            val response = requestSignInUseCase.invoke(
+            val response = signInUseCase.invoke(
                 id = _state.value.id,
                 password = _state.value.password
             )

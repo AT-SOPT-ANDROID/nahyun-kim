@@ -9,12 +9,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.state.UiState
-import org.sopt.at.domain.usecase.RequestSignUpUseCase
+import org.sopt.at.domain.usecase.SignUpUseCase
 import org.sopt.at.presentation.auth.signup.state.SignUpState
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val requestSignUpUseCase: RequestSignUpUseCase
+    private val signUpUseCase: SignUpUseCase
 ): ViewModel() {
 
     private val _state = MutableStateFlow(SignUpState())
@@ -91,7 +91,7 @@ class SignUpViewModel @Inject constructor(
 
     fun trySignUp() {
         viewModelScope.launch {
-            val response = requestSignUpUseCase.invoke(
+            val response = signUpUseCase.invoke(
                 id = _state.value.id,
                 password = _state.value.password,
                 nickname = _state.value.nickname
