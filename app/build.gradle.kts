@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.landscapist.glide)
     implementation(libs.datastore.preferences)
     implementation(libs.core.splashscreen)
+    implementation(libs.timber)
 
     // Hilt
     implementation(libs.hilt.android)
