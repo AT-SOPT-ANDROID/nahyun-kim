@@ -10,7 +10,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.at.BuildConfig
-import org.sopt.at.remote.api.ApiService
+import org.sopt.at.remote.api.UserApiService
 import org.sopt.at.remote.api.interceptor.AuthInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -56,11 +56,5 @@ object NetworkModule {
             .client(okHttpClient)
             .addConverterFactory(json.asConverterFactory(CONTENT_TYPE.toMediaType()))
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
     }
 }

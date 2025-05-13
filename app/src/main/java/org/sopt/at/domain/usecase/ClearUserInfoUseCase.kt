@@ -1,12 +1,12 @@
 package org.sopt.at.domain.usecase
 
-import org.sopt.at.domain.repository.UserRepository
+import org.sopt.at.domain.repository.AuthRepository
 import javax.inject.Inject
 
 class ClearUserInfoUseCase @Inject constructor(
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository
 ) {
     suspend operator fun invoke() {
-        userRepository.clearUserInfo()
+        authRepository.clearUserInfo()
     }
 }
