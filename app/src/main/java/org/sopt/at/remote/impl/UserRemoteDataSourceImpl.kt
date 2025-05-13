@@ -16,6 +16,7 @@ import org.sopt.at.remote.model.NicknamesResult
 import org.sopt.at.remote.model.SignInRequest
 import org.sopt.at.remote.model.SignInResponse
 import org.sopt.at.remote.model.SignInResult
+import timber.log.Timber
 import javax.inject.Inject
 
 class UserRemoteDataSourceImpl @Inject constructor(
@@ -30,8 +31,10 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 )
             }.onSuccess {
                 response = it
+                Timber.d("postSignUp success: $it")
             }.onFailure { exception ->
                 response = exception.handleError()
+                Timber.d("postSignUp fail: ${response.message}")
             }
         }
         return response
@@ -49,8 +52,9 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 )
             }.onSuccess {
                 response = it
+                Timber.d("postSignIn success: $it")
             }.onFailure { exception ->
-                //TODO: 에러 처리
+                Timber.d("postSignIn fail: $exception")
             }
         }
         return response
@@ -63,8 +67,10 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 apiService.getMyNickname()
             }.onSuccess {
                 response = it
+                Timber.d("getMyNickname success: $it")
             }.onFailure { exception ->
                 //TODO: 에러 처리
+                Timber.d("getMyNickname fail: $exception")
             }
         }
         return response
@@ -81,8 +87,10 @@ class UserRemoteDataSourceImpl @Inject constructor(
                 )
             }.onSuccess {
                 response = it
+                Timber.d("patchMyNickname success: $it")
             }.onFailure { exception ->
                 response = exception.handleError()
+                Timber.d("patchMyNickname fail: ${response.message}")
             }
         }
         return response
@@ -94,10 +102,11 @@ class UserRemoteDataSourceImpl @Inject constructor(
             runCatching {
                 apiService.getNicknames(searchNickname)
             }.onSuccess {
-                val hi = it
                 response = it
+                Timber.d("getNicknames success: $it")
             }.onFailure { exception ->
                 //TODO: 에러 처리
+                Timber.d("getNicknames fail: $exception")
             }
         }
         return response
