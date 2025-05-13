@@ -8,14 +8,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.at.core.navigation.Route
-import org.sopt.at.domain.usecase.GetUserIdUseCase
+import org.sopt.at.domain.usecase.GetAutoLoginEnableUseCase
 import org.sopt.at.presentation.auth.signin.navigation.SignIn
 import org.sopt.at.presentation.home.navigation.Home
 import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val getUserIdUseCase: GetUserIdUseCase
+    private val getAutoLoginEnableUseCase: GetAutoLoginEnableUseCase
 ): ViewModel() {
     private val _isReady = MutableStateFlow(false)
     val isReady: StateFlow<Boolean>
@@ -29,10 +29,8 @@ class SplashViewModel @Inject constructor(
 
     private fun checkAuthLogin() {
         viewModelScope.launch {
-            getUserIdUseCase().collect { name ->
-                isAutoLoginEnable = (name != null)
-                _isReady.value = true
-            }
+            isAutoLoginEnable = getAutoLoginEnableUseCase.invoke()
+            _isReady.value = true
         }
     }
 

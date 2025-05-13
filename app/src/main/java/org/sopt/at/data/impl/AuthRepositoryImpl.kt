@@ -1,6 +1,6 @@
 package org.sopt.at.data.impl
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import org.sopt.at.data.local.UserLocalDataSource
 import org.sopt.at.data.remote.AuthRemoteDataSource
 import org.sopt.at.domain.model.User
@@ -13,6 +13,9 @@ class AuthRepositoryImpl @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource
 ): AuthRepository {
+
+    override suspend fun isSignInUser(): Boolean
+        = userLocalDataSource.getUserId().first() != null
 
     override suspend fun requestSignUp(user: User): BaseResponse {
         return authRemoteDataSource.postSignUp(user)
@@ -31,10 +34,6 @@ class AuthRepositoryImpl @Inject constructor(
 
     private suspend fun saveUserId(userId: Long) {
         userLocalDataSource.saveUserId(userId)
-    }
-
-    override fun getUserId(): Flow<Long?> {
-        return userLocalDataSource.getUserId()
     }
 
     override suspend fun clearUserInfo() {
