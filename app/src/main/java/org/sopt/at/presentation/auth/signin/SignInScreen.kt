@@ -69,7 +69,7 @@ fun SignInRoute(
         onBackClick = navigateBack,
         onLoginClick = viewModel::tryLogin,
         onSignUpClick = navigateToSignUp,
-        userId = state.userId,
+        userId = state.id,
         onUserIdChanged = viewModel::updateId,
         password = state.password,
         onPasswordChanged = viewModel::updatePassword,

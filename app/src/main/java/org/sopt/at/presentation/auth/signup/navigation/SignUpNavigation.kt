@@ -19,7 +19,7 @@ fun NavController.navigateToSignUp(
 fun NavGraphBuilder.signUpNavGraph(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
-    navigateToSignIn: (SignIn) -> Unit,
+    navigateToSignIn: () -> Unit,
 ) {
     composable<SignUp> {
         SignUpRoute(

@@ -1,26 +1,24 @@
 package org.sopt.at.data.impl
 
-import kotlinx.coroutines.flow.Flow
-import org.sopt.at.data.local.UserLocalDataSource
-import org.sopt.at.data.model.toEntity
-import org.sopt.at.domain.model.UserInfo
+import org.sopt.at.data.remote.UserRemoteDataSource
 import org.sopt.at.domain.repository.UserRepository
+import org.sopt.at.remote.base.BaseResponse
+import org.sopt.at.remote.model.MyNicknameResponse
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val userLocalDataSource: UserLocalDataSource
+    private val userRemoteDataSource: UserRemoteDataSource,
 ): UserRepository {
 
-    override suspend fun saveUserInfo(userInfo: UserInfo) {
-        userLocalDataSource.saveUserInfo(userInfo.toEntity())
+    override suspend fun getMyNickname(): MyNicknameResponse {
+        return userRemoteDataSource.getMyNickname()
     }
 
-    override fun getUserName(): Flow<String?> {
-        return userLocalDataSource.getUserName()
+    override suspend fun editNickname(nickname: String): BaseResponse {
+        return userRemoteDataSource.patchMyNickname(nickname)
     }
 
-    override suspend fun clearUserInfo() {
-        userLocalDataSource.clear()
+    override suspend fun searchNickname(searchWord: String): List<String> {
+        return userRemoteDataSource.getNicknames(searchWord).result.nicknameList
     }
-
 }

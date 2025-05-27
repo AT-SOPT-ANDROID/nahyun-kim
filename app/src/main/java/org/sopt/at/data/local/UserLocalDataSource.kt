@@ -1,13 +1,12 @@
 package org.sopt.at.data.local
 
 import kotlinx.coroutines.flow.Flow
-import org.sopt.at.data.model.UserEntity
 
 interface UserLocalDataSource {
 
-    suspend fun saveUserInfo(user: UserEntity)
+    suspend fun saveUserId(userId: Long)
 
-    fun getUserName(): Flow<String?>
+    fun getUserId(): Flow<Long?>
 
     suspend fun clear()
 }

@@ -19,13 +19,15 @@ import org.sopt.at.core.designsystem.component.appbar.CommonTopAppBar
 import org.sopt.at.core.designsystem.theme.ATSOPTANDROIDTheme
 import org.sopt.at.core.designsystem.theme.TvingTheme
 import org.sopt.at.core.state.UiState
-import org.sopt.at.presentation.auth.signin.navigation.SignIn
+import org.sopt.at.presentation.auth.signup.screen.SignUpIdScreen
+import org.sopt.at.presentation.auth.signup.screen.SignUpNicknameScreen
+import org.sopt.at.presentation.auth.signup.screen.SignUpPwdScreen
 
 @Composable
 fun SignUpRoute(
     paddingValues: PaddingValues,
     navigateBack: () -> Unit,
-    navigateToLogin: (SignIn) -> Unit,
+    navigateToLogin: () -> Unit,
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -42,10 +44,7 @@ fun SignUpRoute(
         when (uiState) {
             is UiState.Success -> {
                 Toast.makeText(context, "회원가입 완료!", Toast.LENGTH_SHORT).show()
-                navigateToLogin(SignIn(
-                    state.userId,
-                    state.password
-                ))
+                navigateToLogin()
             }
             is UiState.Error -> {
                 Toast.makeText(context, (uiState as UiState.Error).message, Toast.LENGTH_SHORT).show()
@@ -61,12 +60,14 @@ fun SignUpRoute(
     SignUpMainScreen(
         paddingValues = paddingValues,
         onBackClick = onBackClick,
-        onNextClick =  viewModel::onNextClick,
+        onNextClick = viewModel::onNextClick,
         currentStep = state.currentStep,
-        userId = state.userId,
+        userId = state.id,
         onUserIdChanged = viewModel::updateId,
         password = state.password,
-        onPasswordChanged = viewModel::updatePassword
+        onPasswordChanged = viewModel::updatePassword,
+        nickname = state.nickname,
+        onNicknameChanged = viewModel::updateNickname
     )
 }
 
@@ -80,6 +81,8 @@ fun SignUpMainScreen(
     onUserIdChanged: (String) -> Unit,
     password: String,
     onPasswordChanged: (String) -> Unit,
+    nickname: String,
+    onNicknameChanged: (String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -107,6 +110,14 @@ fun SignUpMainScreen(
                     onNextClick = onNextClick
                 )
             }
+
+            SignUpStep.NICKNAME -> {
+                SignUpNicknameScreen(
+                    nicknameText = nickname,
+                    onNicknameChange = onNicknameChanged,
+                    onNextClick = onNextClick,
+                )
+            }
         }
     }
 }
@@ -119,11 +130,13 @@ private fun SignUpMainPreview() {
             paddingValues = PaddingValues(),
             onBackClick = { },
             onNextClick = { },
-            currentStep = SignUpStep.ID,
+            currentStep = SignUpStep.NICKNAME,
             userId = "",
             onUserIdChanged = { },
             password = "",
             onPasswordChanged = { },
+            nickname = " ",
+            onNicknameChanged = { }
         )
     }
 }

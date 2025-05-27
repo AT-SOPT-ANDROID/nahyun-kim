@@ -1,13 +1,13 @@
 package org.sopt.at.domain.repository
 
-import kotlinx.coroutines.flow.Flow
-import org.sopt.at.domain.model.UserInfo
+import org.sopt.at.remote.base.BaseResponse
+import org.sopt.at.remote.model.MyNicknameResponse
 
 interface UserRepository {
 
-    suspend fun saveUserInfo(userInfo: UserInfo)
+    suspend fun getMyNickname(): MyNicknameResponse
 
-    fun getUserName(): Flow<String?>
+    suspend fun editNickname(nickname: String): BaseResponse
 
-    suspend fun clearUserInfo()
+    suspend fun searchNickname(searchWord: String): List<String>
 }

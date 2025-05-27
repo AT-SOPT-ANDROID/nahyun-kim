@@ -1,0 +1,71 @@
+package org.sopt.at.remote.impl
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import org.sopt.at.data.remote.UserRemoteDataSource
+import org.sopt.at.remote.ErrorHandler.handleError
+import org.sopt.at.remote.api.UserApiService
+import org.sopt.at.remote.base.BaseResponse
+import org.sopt.at.remote.model.MyNicknameResponse
+import org.sopt.at.remote.model.NicknameEditRequest
+import org.sopt.at.remote.model.NicknameResult
+import org.sopt.at.remote.model.NicknamesResponse
+import org.sopt.at.remote.model.NicknamesResult
+import timber.log.Timber
+import javax.inject.Inject
+
+class UserRemoteDataSourceImpl @Inject constructor(
+    private val userApiService: UserApiService
+): UserRemoteDataSource {
+    override suspend fun getMyNickname(): MyNicknameResponse {
+        var response = MyNicknameResponse(result = NicknameResult(""))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                userApiService.getMyNickname()
+            }.onSuccess {
+                response = it
+                Timber.d("getMyNickname success: $it")
+            }.onFailure { exception ->
+                //TODO: 에러 처리
+                Timber.d("getMyNickname fail: $exception")
+            }
+        }
+        return response
+    }
+
+    override suspend fun patchMyNickname(nickname: String): BaseResponse {
+        var response = BaseResponse()
+        withContext(Dispatchers.IO) {
+            runCatching {
+                userApiService.patchNickname(
+                    NicknameEditRequest(
+                        nickname = nickname
+                    )
+                )
+            }.onSuccess {
+                response = it
+                Timber.d("patchMyNickname success: $it")
+            }.onFailure { exception ->
+                response = exception.handleError()
+                Timber.d("patchMyNickname fail: ${response.message}")
+            }
+        }
+        return response
+    }
+
+    override suspend fun getNicknames(searchNickname: String): NicknamesResponse {
+        var response = NicknamesResponse(result = NicknamesResult(listOf()))
+        withContext(Dispatchers.IO) {
+            runCatching {
+                userApiService.getNicknames(searchNickname)
+            }.onSuccess {
+                response = it
+                Timber.d("getNicknames success: $it")
+            }.onFailure { exception ->
+                //TODO: 에러 처리
+                Timber.d("getNicknames fail: $exception")
+            }
+        }
+        return response
+    }
+}

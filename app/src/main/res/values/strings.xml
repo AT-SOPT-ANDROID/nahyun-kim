@@ -7,6 +7,8 @@
     <string name="password_hint" translatable="false">비밀번호</string>
     <string name="next" translatable="false">다음</string>
     <string name="more" translatable="false">더보기</string>
+    <string name="cancel" translatable="false">취소</string>
+    <string name="confirm" translatable="false">확인</string>
 
     <!-- 로그인 -->
     <string name="login_using_tving_id" translatable="false">TVING ID 로그인</string>
@@ -22,6 +24,9 @@
     <string name="signup_id_guide" translatable="false">영문 소문자 또는 영문 소문자, 숫자 조합 6~12자리</string>
     <string name="signup_pwd_title" translatable="false">비밀번호를 입력해주세요.</string>
     <string name="signup_pwd_guide" translatable="false">영문, 숫자, 특수문자(~!@#$%^&amp;*) 조합 8~15자리</string>
+    <string name="signup_nickname_title" translatable="false">닉네임을 입력해주세요.</string>
+    <string name="signup_nickname_hint" translatable="false">닉네임</string>
+    <string name="signup_nickname_guide" translatable="false">한글, 영어, 숫자 1~20자</string>
 
     <!-- 메인 -->
     <string name="nav_home">HOME</string>
@@ -53,4 +58,5 @@
     <string name="title_activity_my" translatable="false">MyActivity</string>
     <string name="my_profile_switch" translatable="false">프로필 전환</string>
     <string name="my_logout" translatable="false">로그아웃</string>
+    <string name="my_nickname_edit_title" translatable="false">닉네임 수정</string>
 </resources>
